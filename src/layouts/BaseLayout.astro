@@ -1,0 +1,41 @@
+---
+/**
+ * Base page layout — wires the global token/style layer and the shared
+ * Header + Footer around page content. Every page extends this.
+ */
+import '../styles/global.css';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+
+interface Props {
+  title: string;
+  description?: string;
+  /** current nav route id: home | about | technology | news | contact */
+  route?: string;
+}
+
+const {
+  title,
+  description = 'Alsonex Pharmaceuticals — a Brisbane clinical-stage biopharmaceutical company developing new treatments for neurodegenerative disease.',
+  route,
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang="en-AU">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="generator" content={Astro.generator} />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={new URL(Astro.url.pathname, Astro.site)} />
+  </head>
+  <body>
+    <Header route={route} />
+    <main>
+      <slot />
+    </main>
+    <Footer />
+  </body>
+</html>

@@ -1,0 +1,91 @@
+name: Build & Deploy to cPanel (staging)
+
+# Builds the Astro static site and uploads dist/ to the cPanel host over FTP.
+#
+# STAGING-FIRST: this workflow targets a staging subfolder by default
+# (FTP_REMOTE_DIR_STAGING). Promoting to live is a deliberate manual step —
+# see System/CLAUDE.md "Staging → live promote".
+#
+# Triggers:
+#   - push to main  -> deploys to STAGING
+#   - manual run    -> choose 'staging' or 'live' via the target input
+#
+# REQUIRED REPO SECRETS (Settings → Secrets and variables → Actions):
+#   FTP_HOST                  e.g. ftp.alsonex.com.au
+#   FTP_USERNAME              cPanel / FTP account username
+#   FTP_PASSWORD              cPanel / FTP account password
+# REQUIRED REPO VARIABLES (or hardcode below):
+#   FTP_REMOTE_DIR_STAGING    e.g. /public_html/staging/
+#   FTP_REMOTE_DIR_LIVE       e.g. /public_html/
+#
+# (If the host prefers SSH/rsync over FTP, swap the deploy step — see
+#  the commented SSH alternative at the bottom of this file.)
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+    inputs:
+      target:
+        description: 'Deploy target'
+        required: true
+        default: 'staging'
+        type: choice
+        options:
+          - staging
+          - live
+
+jobs:
+  build-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build (Astro static)
+        run: npm run build
+
+      - name: Resolve deploy target
+        id: target
+        run: |
+          if [ "${{ github.event.inputs.target }}" = "live" ]; then
+            echo "dir=${{ vars.FTP_REMOTE_DIR_LIVE || '/public_html/' }}" >> "$GITHUB_OUTPUT"
+            echo "env=LIVE" >> "$GITHUB_OUTPUT"
+          else
+            echo "dir=${{ vars.FTP_REMOTE_DIR_STAGING || '/public_html/staging/' }}" >> "$GITHUB_OUTPUT"
+            echo "env=STAGING" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Deploy via FTP (${{ steps.target.outputs.env }})
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.FTP_HOST }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          local-dir: ./dist/
+          server-dir: ${{ steps.target.outputs.dir }}
+          # contact-handler.php ships inside dist/ (from public/) so it uploads too.
+          dangerous-clean-slate: false
+
+# ---------------------------------------------------------------------------
+# SSH/rsync alternative (use instead of the FTP step if the host supports SSH):
+#
+#   - name: Deploy via rsync over SSH
+#     uses: burnett01/rsync-deployments@7.0.1
+#     with:
+#       switches: -avzr --delete
+#       path: dist/
+#       remote_path: ${{ steps.target.outputs.dir }}
+#       remote_host: ${{ secrets.SSH_HOST }}
+#       remote_user: ${{ secrets.SSH_USER }}
+#       remote_key:  ${{ secrets.SSH_PRIVATE_KEY }}
+# ---------------------------------------------------------------------------

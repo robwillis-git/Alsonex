@@ -1,0 +1,24 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PipelineBadge from '../components/PipelineBadge.tsx';
+---
+
+<BaseLayout title="Alsonex Pharmaceuticals" route="home">
+  <section class="alx-hero">
+    <div class="alx-watermark" aria-hidden="true">Alsonex</div>
+    <div class="alx-container alx-hero__inner alx-center">
+      <h1 class="alx-h1">Alsonex Pharmaceuticals</h1>
+      <p class="alx-lead">
+        Scaffold proof-of-life. This page renders using the verbatim Alsonex design tokens — Lato
+        type, brand blue <strong style="color:var(--brand-blue)">#629EC3</strong> and teal
+        <strong style="color:var(--brand-teal)">#178B6E</strong>. If you can read this in Lato with
+        the brand colours, the pipeline works.
+      </p>
+      <p><PipelineBadge phase="Phase I/Ib" client:load /></p>
+      <p style="margin-top:24px">
+        <a class="alx-btn" href="/contact">Contact</a>
+        <a class="alx-btn alx-btn--ghost" href="/news" style="margin-left:10px">News</a>
+      </p>
+    </div>
+  </section>
+</BaseLayout>

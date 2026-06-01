@@ -1,0 +1,50 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout title="Contact — Alsonex Pharmaceuticals" route="contact">
+  <section class="alx-container" style="padding:60px 0">
+    <h1 class="alx-h1">Contact</h1>
+    <p class="alx-lead" style="margin-bottom:28px">
+      Enquiries are emailed to <a class="alx-link" href="mailto:info@alsonex.com.au"
+        >info@alsonex.com.au</a
+      >.
+    </p>
+
+    <!--
+      The form posts to /contact-handler.php — a PHP script that ships in
+      public/ and deploys alongside the built static site into public_html.
+      Spam protection: honeypot field (alx_company) + a captcha placeholder
+      (data-sitekey to be filled when reCAPTCHA/hCaptcha is provisioned).
+      See System/CLAUDE.md and public/contact-handler.php for config.
+    -->
+    <form class="alx-form" action="/contact-handler.php" method="POST">
+      <label class="alx-field">
+        <span>Name</span>
+        <input type="text" name="name" required />
+      </label>
+      <label class="alx-field">
+        <span>Email</span>
+        <input type="email" name="email" required />
+      </label>
+      <label class="alx-field">
+        <span>Message</span>
+        <textarea name="message" rows="6" required></textarea>
+      </label>
+
+      <!-- Honeypot: hidden from humans; bots tend to fill it. -->
+      <div class="alx-hp" aria-hidden="true">
+        <label
+          >Company<input type="text" name="alx_company" tabindex="-1" autocomplete="off" /></label
+        >
+      </div>
+
+      <!-- CAPTCHA placeholder — add the provider script + real sitekey before launch.
+           e.g. reCAPTCHA: <div class="g-recaptcha" data-sitekey="YOUR_SITE_KEY"></div>
+                hCaptcha:   <div class="h-captcha" data-sitekey="YOUR_SITE_KEY"></div> -->
+      <div class="alx-captcha-placeholder" data-sitekey="REPLACE_WITH_CAPTCHA_SITE_KEY"></div>
+
+      <button class="alx-btn" type="submit">Send Enquiry</button>
+    </form>
+  </section>
+</BaseLayout>

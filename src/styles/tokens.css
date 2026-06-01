@@ -1,0 +1,205 @@
+/* ============================================================
+   ALSONEX PHARMACEUTICALS — Colour & Type Foundations
+   Source of truth for the Alsonex design system.
+   Derived from the live marketing site (alsonex.com.au /
+   webcentral.websitedoneforyou.au/site/912d515e).
+   ============================================================ */
+
+/* ---- Webfont: Lato (exact match to live site) -------------- */
+@import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,300;0,400;0,700;0,900;1,400&display=swap');
+
+:root {
+  /* ---------- BRAND COLOURS ----------
+     NOTE: blue + teal are inherited Duda-template defaults, kept as the
+     current system pending a brand modernisation. Treat as provisional. */
+  --brand-blue: #629ec3; /* primary — H1s, links, key accents (rgb 98,158,195) */
+  --brand-blue-deep: #407ab0; /* deeper blue, hover / emphasis */
+  --brand-teal: #178b6e; /* secondary — H2s, names, nav triggers (rgb 23,139,110) */
+  --brand-teal-deep: #11705a; /* deeper teal for hover */
+  --electric-blue: #0e63d6; /* "nerve signal" imagery accent (from hero) */
+
+  /* ---------- INK / TEXT ---------- */
+  --ink: #333333; /* default body copy */
+  --ink-soft: #555555; /* secondary copy */
+  --ink-muted: #8c8c8c; /* captions, meta, default link grey */
+  --footer-ink: #464e4c; /* footer text / "Website by" line */
+  --logo-grey: #5a5a5a; /* Alsonex wordmark grey */
+
+  /* ---------- SURFACES ---------- */
+  --bg: #f7f7f7; /* page background */
+  --bg-white: #ffffff; /* cards, sections, header */
+  --bg-blue-tint: #e3eef4; /* pale blue wash */
+  --bg-nav-tint: #d3e1ea; /* mobile nav background (rgb 211,225,234) */
+  --bg-teal-tint: #e6f2ee; /* pale teal wash */
+
+  /* ---------- LINES & DIVIDERS ---------- */
+  --line: #e2e2e2; /* hairline borders */
+  --line-strong: #c9c9c9; /* dividers (grey hr) */
+
+  /* ---------- TYPE FAMILIES ---------- */
+  --font-sans: 'Lato', 'Helvetica Neue', Arial, sans-serif;
+  --font-body: var(--font-sans);
+  --font-head: var(--font-sans);
+
+  /* ---------- WEIGHTS ---------- */
+  --w-light: 300;
+  --w-regular: 400;
+  --w-bold: 700;
+  --w-black: 900;
+
+  /* ---------- TYPE SCALE (desktop) ---------- */
+  --fs-watermark: 96px; /* oversized "Alsonex" hero text */
+  --fs-h1: 36px; /* section heading — brand blue, weight 400 */
+  --fs-h2: 26px; /* sub heading / person name — brand teal, weight 400 */
+  --fs-h3: 24px;
+  --fs-h4: 20px;
+  --fs-lead: 18px; /* intro paragraph */
+  --fs-body: 16px; /* running copy */
+  --fs-small: 14px; /* base UI size on the live site */
+  --fs-caption: 12px; /* footer, captions */
+
+  --lh-tight: 1.15;
+  --lh-snug: 1.36;
+  --lh-body: 1.5;
+  --lh-loose: 1.7;
+
+  /* ---------- RADII ---------- */
+  --radius-none: 0px; /* images are hard-cornered on the live site */
+  --radius-sm: 4px;
+  --radius-pill: 999px;
+
+  /* ---------- ELEVATION ---------- */
+  --shadow-sm: 0 1px 3px rgba(20, 40, 55, 0.08);
+  --shadow-md: 0 6px 22px rgba(20, 40, 55, 0.1);
+
+  /* ---------- MOTION ---------- */
+  --ease-brand: cubic-bezier(0.55, 0, 0.1, 1);
+  --dur: 300ms;
+}
+
+/* ============================================================
+   SEMANTIC ELEMENT DEFAULTS
+   Apply to any HTML built against this system.
+   ============================================================ */
+
+.alx-body {
+  font-family: var(--font-body);
+  font-size: var(--fs-body);
+  font-weight: var(--w-regular);
+  line-height: var(--lh-body);
+  color: var(--ink);
+  background: var(--bg);
+  -webkit-font-smoothing: antialiased;
+}
+
+.alx-watermark {
+  font-family: var(--font-head);
+  font-size: var(--fs-watermark);
+  font-weight: var(--w-bold);
+  letter-spacing: 0.01em;
+  line-height: 1;
+  color: var(--bg-nav-tint);
+  text-transform: none;
+}
+
+h1.alx,
+.alx-h1 {
+  font-family: var(--font-head);
+  font-size: var(--fs-h1);
+  font-weight: var(--w-regular);
+  line-height: var(--lh-tight);
+  color: var(--brand-blue);
+  margin: 0 0 20px;
+}
+
+h2.alx,
+.alx-h2 {
+  font-family: var(--font-head);
+  font-size: var(--fs-h2);
+  font-weight: var(--w-regular);
+  line-height: var(--lh-snug);
+  color: var(--brand-teal);
+  margin: 0 0 15px;
+}
+
+h3.alx,
+.alx-h3 {
+  font-family: var(--font-head);
+  font-size: var(--fs-h3);
+  font-weight: var(--w-regular);
+  line-height: var(--lh-snug);
+  color: var(--ink);
+  margin: 0 0 12px;
+}
+
+.alx-lead {
+  font-size: var(--fs-lead);
+  font-weight: var(--w-light);
+  line-height: var(--lh-loose);
+  color: var(--ink-soft);
+}
+
+p.alx,
+.alx-p {
+  font-size: var(--fs-body);
+  line-height: var(--lh-body);
+  color: var(--ink);
+  margin: 0 0 1em;
+}
+
+.alx-caption {
+  font-size: var(--fs-caption);
+  color: var(--ink-muted);
+  font-style: italic;
+}
+
+a.alx,
+.alx-link {
+  color: var(--brand-blue);
+  text-decoration: none;
+  transition: opacity var(--dur) var(--ease-brand);
+}
+a.alx:hover,
+.alx-link:hover {
+  opacity: 0.7;
+}
+
+/* ---- Primary button ---------------------------------------- */
+.alx-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-head);
+  font-size: var(--fs-small);
+  font-weight: var(--w-bold);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: #fff;
+  background: var(--brand-blue);
+  border: none;
+  padding: 13px 26px;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition:
+    background var(--dur) var(--ease-brand),
+    opacity var(--dur) var(--ease-brand);
+}
+.alx-btn:hover {
+  background: var(--brand-blue-deep);
+}
+
+.alx-btn--teal {
+  background: var(--brand-teal);
+}
+.alx-btn--teal:hover {
+  background: var(--brand-teal-deep);
+}
+
+.alx-btn--ghost {
+  background: transparent;
+  color: var(--brand-blue);
+  border: 1px solid var(--brand-blue);
+}
+.alx-btn--ghost:hover {
+  background: var(--bg-blue-tint);
+}
