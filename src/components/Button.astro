@@ -1,0 +1,52 @@
+---
+/**
+ * Button — primary (blue), teal, and ghost variants.
+ * Small uppercase label; optional ↗ icon; hover deepens the fill.
+ * Mirrors the reference build: project/ui_kits/website/Components.jsx (Button).
+ *
+ * Renders an <a> when `href` is given, otherwise a <button>. This keeps the
+ * component usable both as a link (most marketing CTAs) and as a form submit.
+ */
+interface Props {
+  /** visual variant */
+  variant?: 'primary' | 'teal' | 'ghost';
+  /** show the trailing ↗ external-link glyph */
+  icon?: boolean;
+  /** if set, renders an anchor to this URL instead of a <button> */
+  href?: string;
+  /** button type when rendered as a <button> */
+  type?: 'button' | 'submit' | 'reset';
+}
+
+const { variant = 'primary', icon = false, href, type = 'button' } = Astro.props;
+
+const cls = [
+  'alx-btn',
+  variant === 'teal' ? 'alx-btn--teal' : '',
+  variant === 'ghost' ? 'alx-btn--ghost' : '',
+]
+  .filter(Boolean)
+  .join(' ');
+---
+
+{
+  href ? (
+    <a class={cls} href={href}>
+      <slot />
+      {icon && (
+        <span class="alx-btn__icon" aria-hidden="true">
+          ↗
+        </span>
+      )}
+    </a>
+  ) : (
+    <button class={cls} type={type}>
+      <slot />
+      {icon && (
+        <span class="alx-btn__icon" aria-hidden="true">
+          ↗
+        </span>
+      )}
+    </button>
+  )
+}

@@ -1,0 +1,39 @@
+---
+/**
+ * ImageTextRow — alternating image + text block, reversible.
+ * Mirrors the reference build: project/ui_kits/website/Components.jsx (ImageTextRow).
+ *
+ * Body copy goes in the default slot. An optional `action` slot holds a CTA
+ * (e.g. a <Button />) rendered beneath the copy.
+ */
+interface Props {
+  /** optional teal H2 heading */
+  heading?: string;
+  /** image source (e.g. /assets/neuron-hero.jpg) */
+  image: string;
+  /** image alt text */
+  alt?: string;
+  /** place the image first (text right) */
+  reverse?: boolean;
+}
+
+const { heading, image, alt = '', reverse = false } = Astro.props;
+const hasAction = Astro.slots.has('action');
+---
+
+<section class={`alx-row alx-imgtext${reverse ? ' is-reverse' : ''}`}>
+  <div class="alx-imgtext__text alx-prose">
+    {heading && <h2 class="alx-h2">{heading}</h2>}
+    <slot />
+    {
+      hasAction && (
+        <div class="alx-imgtext__action">
+          <slot name="action" />
+        </div>
+      )
+    }
+  </div>
+  <div class="alx-imgtext__media">
+    <img src={image} alt={alt} />
+  </div>
+</section>

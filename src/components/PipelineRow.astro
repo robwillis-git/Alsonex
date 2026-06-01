@@ -1,0 +1,38 @@
+---
+/**
+ * PipelineRow — development pipeline bar with five fixed stages
+ * (Discovery → Preclinical → Phase I → Phase Ib → Phase II).
+ * Stages up to and including `phase` render as "done"; the `phase` index is the
+ * "current" stage. Mirrors the reference build:
+ * project/ui_kits/website/Components.jsx (PipelineRow).
+ */
+interface Props {
+  /** programme / compound name (e.g. ALS-205) */
+  program: string;
+  /** indication / disease area */
+  indication: string;
+  /** zero-based index of the current stage (0 = Discovery … 4 = Phase II) */
+  phase: number;
+}
+
+const { program, indication, phase } = Astro.props;
+const stages = ['Discovery', 'Preclinical', 'Phase I', 'Phase Ib', 'Phase II'];
+---
+
+<div class="alx-pl">
+  <div class="alx-pl__meta">
+    <div class="alx-pl__prog">{program}</div>
+    <div class="alx-pl__ind">{indication}</div>
+  </div>
+  <div class="alx-pl__track">
+    {
+      stages.map((s, i) => (
+        <div
+          class={`alx-pl__stage${i <= phase ? ' is-done' : ''}${i === phase ? ' is-current' : ''}`}
+        >
+          <span>{s}</span>
+        </div>
+      ))
+    }
+  </div>
+</div>

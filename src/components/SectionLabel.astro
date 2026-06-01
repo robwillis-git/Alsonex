@@ -1,0 +1,21 @@
+---
+/**
+ * SectionLabel — centred H1 framed by thin grey divider rules.
+ * Mirrors the reference build: project/ui_kits/website/Components.jsx (SectionLabel).
+ * The heading text is passed as a default slot. With no slot content, two
+ * rules render with no heading between them (a plain section divider).
+ */
+const hasHeading = Astro.slots.has('default');
+---
+
+<div class="alx-sectionlabel">
+  <hr class="alx-rule" />
+  {
+    hasHeading && (
+      <h1 class="alx-h1 alx-center">
+        <slot />
+      </h1>
+    )
+  }
+  <hr class="alx-rule" />
+</div>

@@ -1,0 +1,173 @@
+---
+/**
+ * /kit — component showcase / style guide.
+ *
+ * Renders every component in the Alsonex kit in its variants, using
+ * placeholder/lorem-style content for review. This is NOT a real page — it
+ * exists so the kit can be design-QA'd (Quinn) before page assembly (Phase 3).
+ * Header + Footer are supplied by BaseLayout, so they're demonstrated implicitly
+ * (sticky white header with the "Home"/none current state, and the footer).
+ */
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Hero from '../components/Hero.astro';
+import SectionLabel from '../components/SectionLabel.astro';
+import Button from '../components/Button.astro';
+import ImageTextRow from '../components/ImageTextRow.astro';
+import PersonRow from '../components/PersonRow.astro';
+import PipelineRow from '../components/PipelineRow.astro';
+---
+
+<BaseLayout
+  title="Component Kit — Alsonex"
+  description="Internal component showcase for the Alsonex website build."
+>
+  <Hero watermark="Kit" title="Component Kit" wideTitle>
+    <p class="alx-lead alx-center">
+      A review surface for the reusable Alsonex component library. Every component is shown below in
+      its variants with placeholder copy. This is an internal style guide, not a live page.
+    </p>
+  </Hero>
+
+  <div class="alx-container">
+    <!-- Hero (short variant) -->
+    <SectionLabel>Hero — Short Variant</SectionLabel>
+  </div>
+  <Hero watermark="Lorem" title="Inner Page Hero" short>
+    <p class="alx-lead alx-center">
+      The short hero is used on inner pages. It carries a faint oversized watermark, a blue H1, and
+      optional lead copy in greyscale.
+    </p>
+  </Hero>
+
+  <div class="alx-container">
+    <!-- Buttons -->
+    <SectionLabel>Buttons</SectionLabel>
+    <p class="alx-p alx-center alx-prose-narrow">
+      Three variants. Small uppercase label, square-ish corners, optional ↗ icon, hover deepens the
+      fill (ghost fades to a pale wash).
+    </p>
+    <div style="display:flex;gap:16px;flex-wrap:wrap;justify-content:center;padding:18px 0 50px">
+      <Button href="#">Primary</Button>
+      <Button href="#" variant="teal">Teal</Button>
+      <Button href="#" variant="ghost">Ghost</Button>
+      <Button href="#" icon>Read More</Button>
+      <Button href="#" variant="teal" icon>Learn More</Button>
+      <Button type="button">As Button</Button>
+    </div>
+
+    <!-- SectionLabel (divider only) -->
+    <SectionLabel>SectionLabel — Divider Only</SectionLabel>
+    <p class="alx-p alx-center alx-prose-narrow">
+      With no heading, SectionLabel renders as a pair of thin grey rules — a plain section break.
+      The rule below is exactly that.
+    </p>
+    <SectionLabel />
+
+    <!-- ImageTextRow -->
+    <SectionLabel>ImageTextRow</SectionLabel>
+  </div>
+
+  <div class="alx-container">
+    <ImageTextRow
+      heading="Image Right (reverse)"
+      image="/assets/neuron-hero.jpg"
+      alt="Placeholder scientific imagery"
+      reverse
+    >
+      <p class="alx-p">
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur vitae nunc sed velit
+        dignissim sodales ut eu sem. Praesent elementum facilisis leo vel fringilla est ullamcorper.
+      </p>
+      <ul class="alx-list">
+        <li>Square markers in brand blue introduce each list item.</li>
+        <li>Generous whitespace and hard-cornered imagery throughout.</li>
+        <li>The block is fully reversible via the <code>reverse</code> prop.</li>
+      </ul>
+      <Button href="#" icon slot="action">Read More</Button>
+    </ImageTextRow>
+
+    <ImageTextRow
+      heading="Image Left (default)"
+      image="/assets/neuron-hero.jpg"
+      alt="Placeholder scientific imagery"
+    >
+      <p class="alx-p">
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut
+        labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation.
+      </p>
+      <p class="alx-p">
+        Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
+        pariatur.
+      </p>
+    </ImageTextRow>
+
+    <!-- PersonRow -->
+    <SectionLabel>PersonRow</SectionLabel>
+    <PersonRow name="Ada Lovelace, " title="Placeholder Role" photo="/assets/team-groth.jpg">
+      <p class="alx-p">
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus luctus urna sed urna
+        ultricies ac tempor dui sagittis. In condimentum facilisis porta sed a lacinia.
+      </p>
+    </PersonRow>
+    <PersonRow
+      name="Grace Hopper, "
+      title="Placeholder Role (reverse)"
+      photo="/assets/team-robertson.jpg"
+      reverse
+    >
+      <p class="alx-p">
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam quis risus eget urna mollis
+        ornare vel eu leo. Maecenas faucibus mollis interdum.
+      </p>
+    </PersonRow>
+
+    <!-- PipelineRow -->
+    <SectionLabel>PipelineRow</SectionLabel>
+    <p class="alx-p alx-center alx-prose-narrow">
+      Five fixed stages (Discovery → Phase II). Stages up to the current one render as done (pale
+      blue); the current stage is solid blue.
+    </p>
+    <div class="alx-pipeline">
+      <PipelineRow program="LOR-001" indication="Placeholder Indication A" phase={3} />
+      <PipelineRow program="LOR-002" indication="Placeholder Indication B" phase={1} />
+      <PipelineRow program="LOR-003" indication="Placeholder Indication C" phase={0} />
+      <PipelineRow program="Discovery" indication="Placeholder target validation" phase={4} />
+    </div>
+
+    <!-- Cards (supporting pattern used by ImageTextRow-adjacent sections) -->
+    <SectionLabel>Cards</SectionLabel>
+    <div class="alx-cards">
+      <div class="alx-card">
+        <h3 class="alx-h3">Card One</h3>
+        <p class="alx-p">
+          Flat, square-cornered card with a hairline border. No shadow, no rounding.
+        </p>
+      </div>
+      <div class="alx-card">
+        <h3 class="alx-h3">Card Two</h3>
+        <p class="alx-p">Lorem ipsum dolor sit amet, consectetur adipiscing elit sed do eiusmod.</p>
+      </div>
+      <div class="alx-card">
+        <h3 class="alx-h3">Card Three</h3>
+        <p class="alx-p">Tempor incididunt ut labore et dolore magna aliqua ut enim ad minim.</p>
+      </div>
+    </div>
+
+    <!-- Typography + links -->
+    <SectionLabel>Type &amp; Links</SectionLabel>
+    <div style="padding:8px 0 64px">
+      <h1 class="alx-h1">Heading 1 — brand blue, weight 400</h1>
+      <h2 class="alx-h2">Heading 2 — brand teal, weight 400</h2>
+      <h3 class="alx-h3">Heading 3 — ink, weight 400</h3>
+      <p class="alx-lead">
+        Lead paragraph — lighter weight, looser line height, soft ink. Lorem ipsum dolor sit amet,
+        consectetur adipiscing elit.
+      </p>
+      <p class="alx-p">
+        Body copy in default ink. This is an <a class="alx-link" href="#">inline link</a> that fades to
+        opacity .7 on hover. Australian/British spelling throughout (colour, organisation, programme).
+      </p>
+      <p class="alx-caption">Caption text — muted, italic, used for meta and footnotes.</p>
+    </div>
+  </div>
+</BaseLayout>

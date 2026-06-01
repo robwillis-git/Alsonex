@@ -1,0 +1,31 @@
+---
+/**
+ * PersonRow — leadership / advisor entry: teal H2 name + role, bio copy, and a
+ * hard-cornered photo. Reversible. Bio copy goes in the default slot.
+ * Mirrors the reference build: project/ui_kits/website/Components.jsx (PersonRow).
+ */
+interface Props {
+  /** person's name (rendered teal) */
+  name: string;
+  /** role / title, shown muted beneath the name */
+  title?: string;
+  /** photo source */
+  photo: string;
+  /** place the photo first (text right) */
+  reverse?: boolean;
+}
+
+const { name, title, photo, reverse = false } = Astro.props;
+---
+
+<section class={`alx-row alx-person${reverse ? ' is-reverse' : ''}`}>
+  <div class="alx-person__text">
+    <h2 class="alx-h2">
+      {name}{title && <span class="alx-person__role">{title}</span>}
+    </h2>
+    <div class="alx-prose"><slot /></div>
+  </div>
+  <div class="alx-person__media">
+    <img src={photo} alt={name} />
+  </div>
+</section>

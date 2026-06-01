@@ -1,0 +1,27 @@
+---
+/**
+ * Hero — section with a faint oversized watermark behind a blue H1 and lead
+ * copy. Mirrors the reference build: project/ui_kits/website/Pages.jsx (hero
+ * blocks). Title is a prop; lead copy + any extra body go in the default slot.
+ */
+interface Props {
+  /** the oversized faint watermark word behind the content */
+  watermark: string;
+  /** blue H1 heading */
+  title: string;
+  /** use the shorter padding variant (inner pages) */
+  short?: boolean;
+  /** widen the H1 to the hero title width (used on the long home headline) */
+  wideTitle?: boolean;
+}
+
+const { watermark, title, short = false, wideTitle = false } = Astro.props;
+---
+
+<section class={`alx-hero${short ? ' alx-hero--short' : ''}`}>
+  <div class="alx-watermark" aria-hidden="true">{watermark}</div>
+  <div class="alx-container alx-hero__inner">
+    <h1 class={`alx-h1 alx-center${wideTitle ? ' alx-hero__title' : ''}`}>{title}</h1>
+    <slot />
+  </div>
+</section>
