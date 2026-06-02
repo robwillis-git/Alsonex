@@ -8,6 +8,14 @@
 
 @import './tokens.css';
 
+/* One intentional a11y shade (NOT a design token — tokens.css is verbatim and
+   left untouched). Body/inline links need ≥4.5:1 on white for WCAG AA; the brand
+   blue #629EC3 is ~2.9:1. This is a darkened brand blue used for body links only
+   (large H1s/accents and nav keep #629EC3). #326D9B measures ~5.5:1 on white. */
+:root {
+  --link-body: #326d9b;
+}
+
 * {
   box-sizing: border-box;
 }
@@ -104,8 +112,9 @@ img {
   font-size: 14px;
 }
 .alx-footer__line a {
-  color: var(--brand-blue);
-  text-decoration: none;
+  color: var(--link-body);
+  text-decoration: underline;
+  text-underline-offset: 0.15em;
 }
 .alx-footer__fine {
   margin-top: 14px;
@@ -244,9 +253,15 @@ img {
 .alx-prose .alx-p:last-child {
   margin-bottom: 0;
 }
+/* Body/prose links use a darker blue (#326D9B, ~5.5:1 on white) and an
+   underline so they meet WCAG 2.1 AA (1.4.3 / 1.4.1) at body text size — the
+   brand blue #629EC3 (~2.9:1) is reserved for large H1s/accents and nav, which
+   are not body links. This is the one intentional new shade (a darkened brand
+   blue), scoped to inline body links only. */
 .alx-link {
-  color: var(--brand-blue);
-  text-decoration: none;
+  color: var(--link-body);
+  text-decoration: underline;
+  text-underline-offset: 0.15em;
   transition: opacity var(--dur) var(--ease-brand);
 }
 .alx-link:hover {

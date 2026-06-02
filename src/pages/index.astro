@@ -74,7 +74,11 @@ const leadership: Leader[] = [
 ];
 ---
 
-<BaseLayout title="Alsonex | Biotechnology | Brisbane, QLD" route="home">
+<BaseLayout
+  title="Alsonex Pharmaceuticals — Treatments for Neurodegenerative Disease"
+  description="Alsonex Pharmaceuticals is a Brisbane clinical-stage biopharmaceutical company developing ALS-205, a candidate treatment for Motor Neuron Disease and other neurodegenerative conditions."
+  route="home"
+>
   <Hero
     watermark="Alsonex"
     title="Alsonex Pty Ltd is Focused On the Development of New Treatments for Neurodegenerative Disease"
@@ -147,6 +151,7 @@ const leadership: Leader[] = [
       leadership.map((p, i) => (
         <PersonRow
           name={`${p.name}, `}
+          alt={`${p.name}, ${p.title}`}
           title={p.title}
           photo={p.photo}
           reverse={i % 2 === 1}

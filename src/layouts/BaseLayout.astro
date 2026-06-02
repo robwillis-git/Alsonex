@@ -12,13 +12,28 @@ interface Props {
   description?: string;
   /** current nav route id: home | about | technology | news | contact */
   route?: string;
+  /**
+   * Open Graph / Twitter share image, as a site-root path (e.g.
+   * `/assets/hero-banner.jpg`). Defaults to the brand hero banner. Resolved to
+   * an absolute URL against `site` for social crawlers.
+   */
+  ogImage?: string;
+  /** og:type — `website` for standard pages, `article` for news posts */
+  ogType?: string;
 }
 
 const {
   title,
   description = 'Alsonex Pharmaceuticals — a Brisbane clinical-stage biopharmaceutical company developing new treatments for neurodegenerative disease.',
   route,
+  ogImage = '/assets/hero-banner.jpg',
+  ogType = 'website',
 } = Astro.props;
+
+// Absolute URLs for canonical + social tags, derived from the `site` config.
+const canonicalURL = new URL(Astro.url.pathname, Astro.site).href;
+const ogImageURL = new URL(ogImage, Astro.site).href;
+const siteName = 'Alsonex Pharmaceuticals';
 ---
 
 <!doctype html>
@@ -29,7 +44,26 @@ const {
     <meta name="generator" content={Astro.generator} />
     <title>{title}</title>
     <meta name="description" content={description} />
-    <link rel="canonical" href={new URL(Astro.url.pathname, Astro.site)} />
+    <link rel="canonical" href={canonicalURL} />
+
+    <!-- Favicon (brand mark) -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+
+    <!-- Open Graph -->
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content={ogType} />
+    <meta property="og:url" content={canonicalURL} />
+    <meta property="og:image" content={ogImageURL} />
+    <meta property="og:site_name" content={siteName} />
+    <meta property="og:locale" content="en_AU" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImageURL} />
   </head>
   <body>
     <Header route={route} />

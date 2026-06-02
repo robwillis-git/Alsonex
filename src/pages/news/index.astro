@@ -9,7 +9,11 @@ const posts = (await getCollection('news', ({ data }) => !data.draft)).sort(
 );
 ---
 
-<BaseLayout title="News — Alsonex Pharmaceuticals" route="news">
+<BaseLayout
+  title="News — Alsonex Pharmaceuticals"
+  description="Updates on Alsonex Pharmaceuticals' research into new treatments for neurodegenerative disease, including Motor Neuron Disease."
+  route="news"
+>
   <Hero
     watermark="Alsonex"
     title="News"

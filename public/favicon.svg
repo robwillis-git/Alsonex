@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Alsonex">
+  <rect width="64" height="64" fill="#ffffff"/>
+  <text x="32" y="32" fill="#629ec3"
+        font-family="Lato, 'Helvetica Neue', Arial, sans-serif"
+        font-weight="400" font-size="48"
+        text-anchor="middle" dominant-baseline="central">A</text>
+</svg>
