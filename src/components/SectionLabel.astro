@@ -1,9 +1,13 @@
 ---
 /**
- * SectionLabel — centred H1 framed by thin grey divider rules.
+ * SectionLabel — centred section heading framed by thin grey divider rules.
  * Mirrors the reference build: project/ui_kits/website/Components.jsx (SectionLabel).
  * The heading text is passed as a default slot. With no slot content, two
  * rules render with no heading between them (a plain section divider).
+ *
+ * Renders an <h2> (section sub-heading) — the page's single <h1> comes from the
+ * Hero / page title in Phase 3. Visual styling is unchanged: it keeps the
+ * `alx-h1` brand classes/tokens, only the semantic tag/hierarchy changes.
  */
 const hasHeading = Astro.slots.has('default');
 ---
@@ -12,9 +16,9 @@ const hasHeading = Astro.slots.has('default');
   <hr class="alx-rule" />
   {
     hasHeading && (
-      <h1 class="alx-h1 alx-center">
+      <h2 class="alx-h1 alx-center">
         <slot />
-      </h1>
+      </h2>
     )
   }
   <hr class="alx-rule" />
