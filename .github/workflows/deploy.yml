@@ -1,25 +1,26 @@
 name: Build & Deploy to cPanel (staging)
 
-# Builds the Astro static site and uploads dist/ to the cPanel host over FTP.
+# Builds the Astro static site and uploads dist/ to the cPanel host over SFTP
+# (SSH). SFTP avoids FTP's separate passive data-channel, which the host
+# firewall was blocking ("Timeout when trying to open data connection").
 #
-# STAGING-FIRST: this workflow targets a staging subfolder by default
-# (FTP_REMOTE_DIR_STAGING). Promoting to live is a deliberate manual step —
-# see System/CLAUDE.md "Staging → live promote".
+# STAGING-FIRST: this workflow targets the staging subfolder by default.
+# Promoting to live is a deliberate manual step — see System/CLAUDE.md.
 #
 # Triggers:
 #   - push to main  -> deploys to STAGING
 #   - manual run    -> choose 'staging' or 'live' via the target input
 #
-# REQUIRED REPO SECRETS (Settings → Secrets and variables → Actions):
-#   FTP_HOST                  e.g. ftp.alsonex.com.au
-#   FTP_USERNAME              cPanel / FTP account username
-#   FTP_PASSWORD              cPanel / FTP account password
-# REQUIRED REPO VARIABLES (or hardcode below):
-#   FTP_REMOTE_DIR_STAGING    e.g. /public_html/staging/
-#   FTP_REMOTE_DIR_LIVE       e.g. /public_html/
-#
-# (If the host prefers SSH/rsync over FTP, swap the deploy step — see
-#  the commented SSH alternative at the bottom of this file.)
+# REQUIRED REPO SECRETS (Settings → Secrets and variables → Actions → Secrets):
+#   SSH_HOST          cPanel server hostname or IP (NOT the ftp. host)
+#   SSH_USER          main cPanel username (e.g. alsonex) — SSH logs in as this,
+#                     not the deploy@ FTP sub-account
+#   SSH_PRIVATE_KEY   the private key whose public half is authorised in
+#                     cPanel → SSH Access → Manage SSH Keys
+# OPTIONAL REPO VARIABLES (Variables tab) — override the defaults below:
+#   SSH_PORT              SSH port (default 22; some cPanel hosts use 2222/2083)
+#   REMOTE_DIR_STAGING    default /home/alsonex/public_html/staging
+#   REMOTE_DIR_LIVE       default /home/alsonex/public_html
 
 on:
   push:
@@ -58,39 +59,24 @@ jobs:
         id: target
         run: |
           if [ "${{ github.event.inputs.target }}" = "live" ]; then
-            echo "dir=${{ vars.FTP_REMOTE_DIR_LIVE || '/public_html/' }}" >> "$GITHUB_OUTPUT"
+            echo "dir=${{ vars.REMOTE_DIR_LIVE || '/home/alsonex/public_html' }}" >> "$GITHUB_OUTPUT"
             echo "env=LIVE" >> "$GITHUB_OUTPUT"
           else
-            echo "dir=${{ vars.FTP_REMOTE_DIR_STAGING || '/public_html/staging/' }}" >> "$GITHUB_OUTPUT"
+            echo "dir=${{ vars.REMOTE_DIR_STAGING || '/home/alsonex/public_html/staging' }}" >> "$GITHUB_OUTPUT"
             echo "env=STAGING" >> "$GITHUB_OUTPUT"
           fi
 
-      - name: Deploy via FTP (${{ steps.target.outputs.env }})
-        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+      - name: Deploy via SFTP (${{ steps.target.outputs.env }})
+        uses: wlixcc/SFTP-Deploy-Action@v1.2.6
         with:
-          server: ${{ secrets.FTP_HOST }}
-          username: ${{ secrets.FTP_USERNAME }}
-          password: ${{ secrets.FTP_PASSWORD }}
-          # cPanel hosts typically require explicit FTPS (FTP over TLS) on port 21
-          # and block plain FTP — which surfaces as "Timeout (control socket)".
-          protocol: ftps
-          port: 21
-          timeout: 60000
-          local-dir: ./dist/
-          server-dir: ${{ steps.target.outputs.dir }}
-          # contact-handler.php ships inside dist/ (from public/) so it uploads too.
-          dangerous-clean-slate: false
-
-# ---------------------------------------------------------------------------
-# SSH/rsync alternative (use instead of the FTP step if the host supports SSH):
-#
-#   - name: Deploy via rsync over SSH
-#     uses: burnett01/rsync-deployments@7.0.1
-#     with:
-#       switches: -avzr --delete
-#       path: dist/
-#       remote_path: ${{ steps.target.outputs.dir }}
-#       remote_host: ${{ secrets.SSH_HOST }}
-#       remote_user: ${{ secrets.SSH_USER }}
-#       remote_key:  ${{ secrets.SSH_PRIVATE_KEY }}
-# ---------------------------------------------------------------------------
+          server: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          ssh_private_key: ${{ secrets.SSH_PRIVATE_KEY }}
+          port: ${{ vars.SSH_PORT || 22 }}
+          # uploads the CONTENTS of dist/ into the remote dir.
+          # contact-handler.php ships inside dist/ (from public/) so it goes too.
+          local_path: './dist/*'
+          remote_path: ${{ steps.target.outputs.dir }}
+          sftp_only: true
+          # keep false so we never wipe the remote dir mid-deploy
+          delete_remote_files: false
