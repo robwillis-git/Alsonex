@@ -51,10 +51,13 @@ img {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  height: 74px;
+  height: 90px;
 }
 .alx-logo img {
-  height: 42px;
+  /* 902×297 (~3:1) wordmark — scaled up to match the live site; height drives
+     width via the natural aspect ratio so it never distorts. */
+  height: 56px;
+  width: auto;
   transition: opacity var(--dur) var(--ease-brand);
 }
 .alx-logo:hover img {
@@ -127,6 +130,33 @@ img {
   padding: 72px 0 40px;
   background: var(--bg-white);
 }
+/* Full-width blue neuron banner shown above the headline on every page. Hard
+   corners per brand; the watermark word is overlaid in white at the left. */
+.alx-hero__banner {
+  position: relative;
+  width: 100%;
+  margin-bottom: 44px;
+}
+.alx-hero__banner img {
+  width: 100%;
+  height: clamp(180px, 26vw, 300px);
+  object-fit: cover;
+  object-position: center;
+  border-radius: 0;
+}
+.alx-hero__bannerlabel {
+  position: absolute;
+  left: max(32px, calc((100% - 1100px) / 2 + 32px));
+  bottom: 28px;
+  margin: 0;
+  font-family: var(--font-head);
+  font-weight: var(--w-light);
+  font-size: clamp(30px, 5vw, 52px);
+  color: #fff;
+  line-height: 1;
+  pointer-events: none;
+  text-shadow: 0 1px 10px rgba(0, 0, 0, 0.25);
+}
 .alx-watermark {
   position: absolute;
   top: 50%;
@@ -144,6 +174,11 @@ img {
 .alx-hero--short {
   padding: 60px 0 30px;
 }
+/* When a banner image leads the hero it provides the top whitespace itself, so
+   drop the section's own top padding (the banner has its own bottom margin). */
+.alx-hero--banner {
+  padding-top: 0;
+}
 .alx-hero__inner {
   position: relative;
   z-index: 1;
@@ -158,6 +193,14 @@ img {
   max-width: 760px;
   margin-left: auto;
   margin-right: auto;
+}
+/* `.alx-p` declares `margin: 0 0 1em`, whose shorthand resets left/right to 0
+   and (being later in the cascade) overrides `.alx-prose-narrow`'s auto margins,
+   leaving narrow body paragraphs left-anchored instead of block-centred. The
+   compound selector below raises specificity so the auto centring wins while
+   preserving the 1em bottom rhythm. Keeps `.alx-lead` (a separate class) intact. */
+.alx-p.alx-prose-narrow {
+  margin-inline: auto;
 }
 
 /* ---- Typographic helpers ---- */
@@ -451,6 +494,33 @@ img {
   font-size: 22px;
   margin-bottom: 8px;
 }
+.alx-news__item--media {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+  align-items: center;
+}
+.alx-news__item--media .alx-news__media img {
+  width: 100%;
+  height: 100%;
+  max-height: 320px;
+  object-fit: cover;
+  border-radius: 0;
+}
+
+/* ---- Contact map (hard-cornered, full container width) ---- */
+.alx-map {
+  margin: 16px 0 8px;
+  border: 1px solid var(--line-strong);
+  border-radius: 0;
+  line-height: 0;
+}
+.alx-map iframe {
+  display: block;
+  width: 100%;
+  height: 380px;
+  border: 0;
+}
 
 /* ---- Contact details ---- */
 .alx-contact {
@@ -595,6 +665,69 @@ img {
   font-size: 15px;
 }
 
+/* ---- Full-width decorative band image (Technology, News) ---- */
+.alx-band {
+  width: 100%;
+  margin: 56px 0;
+}
+.alx-band img {
+  width: 100%;
+  height: clamp(160px, 22vw, 280px);
+  object-fit: cover;
+  object-position: center;
+  border-radius: 0;
+}
+
+/* ---- Side image (hard-cornered, floated beside long-form prose) ---- */
+.alx-sideimg {
+  border-radius: 0;
+  margin: 4px 0 16px;
+}
+.alx-sideimg--right {
+  float: right;
+  width: 280px;
+  max-width: 42%;
+  margin-left: 28px;
+}
+.alx-sideimg--left {
+  float: left;
+  width: 280px;
+  max-width: 42%;
+  margin-right: 28px;
+}
+
+/* ---- Affiliation logos row (About) — even row, hard corners, on white ---- */
+.alx-logos {
+  list-style: none;
+  margin: 0;
+  padding: 24px 0 64px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 56px;
+}
+.alx-logos__item {
+  flex: 0 0 auto;
+}
+.alx-logos__link {
+  display: block;
+  transition: opacity var(--dur) var(--ease-brand);
+}
+.alx-logos__link:hover {
+  opacity: 0.7;
+}
+.alx-logos__link img {
+  height: 84px;
+  width: auto;
+  border-radius: 0;
+  background: #fff;
+}
+.alx-logos__link:focus-visible {
+  outline: 2px solid var(--brand-blue);
+  outline-offset: 3px;
+}
+
 /* Two-up card layout (Technology orphan-drug US/Europe). */
 .alx-cards--2 {
   grid-template-columns: repeat(2, 1fr);
@@ -677,7 +810,7 @@ img {
   .alx-nav {
     display: none;
     position: absolute;
-    top: 74px;
+    top: 90px;
     left: 0;
     right: 0;
     flex-direction: column;
@@ -714,5 +847,22 @@ img {
   }
   .alx-pl {
     grid-template-columns: 1fr;
+  }
+  .alx-sideimg--right,
+  .alx-sideimg--left {
+    float: none;
+    width: 100%;
+    max-width: 100%;
+    margin: 8px 0 18px;
+  }
+  .alx-logos {
+    gap: 36px;
+  }
+  .alx-logos__link img {
+    height: 64px;
+  }
+  .alx-news__item--media {
+    grid-template-columns: 1fr;
+    gap: 20px;
   }
 }

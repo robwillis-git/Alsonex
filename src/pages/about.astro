@@ -6,9 +6,11 @@ import SectionLabel from '../components/SectionLabel.astro';
 
 <BaseLayout title="Motor Neurone Disease | Brisbane, QLD | Alsonex" route="about">
   <Hero
-    watermark="About"
+    watermark="Alsonex"
     title="Alsonex – Developing a New Treatment for Motor Neuron Disease"
     short
+    image="/assets/hero-banner.jpg"
+    imageAlt="Electric-blue neurons firing across a network of nerve cells"
   >
     <p class="alx-lead alx-center">
       The mission of Alsonex is to discover and develop new pharmaceutical products and technology
@@ -24,6 +26,13 @@ import SectionLabel from '../components/SectionLabel.astro';
 
     <section class="alx-prose alx-prose-wide alx-textblock">
       <h2 class="alx-h2">Inflammation</h2>
+      <img
+        class="alx-sideimg alx-sideimg--right"
+        src="/assets/inflammation-neurons.jpg"
+        alt="Blue-lit network of neurons signalling across their synaptic connections"
+        width="343"
+        height="332"
+      />
       <p class="alx-p">
         Inflammation is the immune response to injury to one of the organs of the body. It is most
         obvious and most immediately apparent when the injury is to the skin. Acute inflammation
@@ -64,6 +73,13 @@ import SectionLabel from '../components/SectionLabel.astro';
 
     <section class="alx-prose alx-prose-wide alx-textblock">
       <h2 class="alx-h2">Examples of Neurodegenerative Diseases</h2>
+      <img
+        class="alx-sideimg alx-sideimg--right"
+        src="/assets/complement-activation-diagram.jpg"
+        alt="Diagram of the three complement activation pathways — classical, MB-lectin and alternative — converging on complement activation, which drives recruitment of inflammatory cells, opsonisation of pathogens and killing of pathogens."
+        width="500"
+        height="274"
+      />
       <p class="alx-p">
         Examples of neurodegenerative diseases include Amyotrophic Lateral Sclerosis (ALS),
         Parkinson's, Alzheimer's, and Huntington's disease.
@@ -212,5 +228,40 @@ import SectionLabel from '../components/SectionLabel.astro';
         important role in the disease process.
       </p>
     </section>
+
+    <SectionLabel>Our Affiliations</SectionLabel>
+
+    <ul class="alx-logos">
+      <li class="alx-logos__item">
+        <a
+          class="alx-logos__link"
+          href="https://www.alsa.org/about-als/"
+          target="_blank"
+          rel="noopener"
+        >
+          <img src="/assets/logo-als-association.jpg" alt="The ALS Association" />
+        </a>
+      </li>
+      <li class="alx-logos__item">
+        <a
+          class="alx-logos__link"
+          href="https://www.mndaust.asn.au/"
+          target="_blank"
+          rel="noopener"
+        >
+          <img src="/assets/logo-mnd-australia.jpg" alt="MND Australia" />
+        </a>
+      </li>
+      <li class="alx-logos__item">
+        <a
+          class="alx-logos__link"
+          href="https://www.mndandme.com.au/"
+          target="_blank"
+          rel="noopener"
+        >
+          <img src="/assets/logo-mnd-and-me.jpg" alt="MND and Me Foundation" />
+        </a>
+      </li>
+    </ul>
   </div>
 </BaseLayout>

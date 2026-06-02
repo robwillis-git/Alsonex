@@ -13,13 +13,34 @@ interface Props {
   short?: boolean;
   /** widen the H1 to the hero title width (used on the long home headline) */
   wideTitle?: boolean;
+  /**
+   * Optional full-width hero banner image rendered above the headline (the blue
+   * neuron banner on the live site). Omit for heroes without a banner.
+   */
+  image?: string;
+  /** alt text for the hero banner image */
+  imageAlt?: string;
 }
 
-const { watermark, title, short = false, wideTitle = false } = Astro.props;
+const { watermark, title, short = false, wideTitle = false, image, imageAlt = '' } = Astro.props;
 ---
 
-<section class={`alx-hero${short ? ' alx-hero--short' : ''}`}>
-  <div class="alx-watermark" aria-hidden="true">{watermark}</div>
+<section class={`alx-hero${short ? ' alx-hero--short' : ''}${image ? ' alx-hero--banner' : ''}`}>
+  {
+    image && (
+      <div class="alx-hero__banner">
+        <img src={image} alt={imageAlt} />
+        <p class="alx-hero__bannerlabel">{watermark}</p>
+      </div>
+    )
+  }
+  {
+    !image && (
+      <div class="alx-watermark" aria-hidden="true">
+        {watermark}
+      </div>
+    )
+  }
   <div class="alx-container alx-hero__inner">
     <h1 class={`alx-h1 alx-center${wideTitle ? ' alx-hero__title' : ''}`}>{title}</h1>
     <slot />

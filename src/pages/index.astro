@@ -9,7 +9,14 @@ import Button from '../components/Button.astro';
 // Leadership grid (Rob's locked decision: bios live on Home). Rendered as a
 // stack of PersonRow components, alternating photo side. Steven Boggiano's
 // photo (team-boggiano.jpg) was supplied by Rob.
-const leadership = [
+interface Leader {
+  name: string;
+  title: string;
+  photo: string;
+  objectPosition?: string;
+  bio: string[];
+}
+const leadership: Leader[] = [
   {
     name: 'David Groth',
     title: 'Non-Executive Chairman',
@@ -23,6 +30,9 @@ const leadership = [
     name: 'Alan Robertson',
     title: 'Chief Executive Officer and Managing Director',
     photo: '/assets/team-robertson.jpg',
+    // Portrait with his head near the top edge — anchor the cover crop to the
+    // top so the centred default doesn't clip the top of his head.
+    objectPosition: 'top center',
     bio: [
       'Alan was the CEO and MD of Pharmaxis Ltd for 14 years. He was responsible for raising more than $350 million in the U.S., Europe and Australia. In that role, he oversaw the development to Marketing Authorisation a new inhaled dry powder treatment for cystic fibrosis (Bronchitol) and a bronchial challenge test for hyperactive airway disease (Aridol). He also built a drug discovery capability within Pharmaxis and participated in the creation of PXS4728 – now licensed to Boehringer Ingelheim for the treatment of NASH. Previously, he was the CEO of Promics Ltd (now part of Teva) and developed the first C5a receptor antagonist to patients with rheumatoid arthritis. While head of drug discovery at Kinacia, he invented KN-309, a PI3 kinase inhibitor (subsequently licensed to AstraZeneca). He is a former member of the scientific advisory board of Xenome Limited, a former Non-Executive Director of Patrys Limited and is a current Non-Executive Director of Infensa Bioscience Ltd and Chairman of AllVascular Ltd. While in the UK, as a Senior Scientist at Wellcome PLC (now GSK), he invented the anti-migraine drug Zomig.',
     ],
@@ -69,6 +79,8 @@ const leadership = [
     watermark="Alsonex"
     title="Alsonex Pty Ltd is Focused On the Development of New Treatments for Neurodegenerative Disease"
     wideTitle
+    image="/assets/hero-banner.jpg"
+    imageAlt="Electric-blue neurons firing across a network of nerve cells"
   >
     <p class="alx-lead alx-center">
       Alsonex is a biopharmaceutical company focused on the development of new treatments for
@@ -133,7 +145,13 @@ const leadership = [
     <SectionLabel>Our Leadership Team</SectionLabel>
     {
       leadership.map((p, i) => (
-        <PersonRow name={`${p.name}, `} title={p.title} photo={p.photo} reverse={i % 2 === 1}>
+        <PersonRow
+          name={`${p.name}, `}
+          title={p.title}
+          photo={p.photo}
+          reverse={i % 2 === 1}
+          objectPosition={p.objectPosition}
+        >
           {p.bio.map((para) => (
             <p class="alx-p">{para}</p>
           ))}

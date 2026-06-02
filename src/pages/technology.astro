@@ -6,7 +6,13 @@ import ImageTextRow from '../components/ImageTextRow.astro';
 ---
 
 <BaseLayout title="MND | Brisbane, QLD | Alsonex" route="technology">
-  <Hero watermark="ALS-205" title="Drug Development Pipeline for Alsonex" short>
+  <Hero
+    watermark="Alsonex"
+    title="Drug Development Pipeline for Alsonex"
+    short
+    image="/assets/hero-banner.jpg"
+    imageAlt="Electric-blue neurons firing across a network of nerve cells"
+  >
     <p class="alx-lead alx-center">
       ALS-205 is Alsonex's lead compound — a clinically validated candidate targeting Motor Neuron
       Disease, with potential across the broader central nervous system.
@@ -24,7 +30,16 @@ import ImageTextRow from '../components/ImageTextRow.astro';
         />
       </div>
     </figure>
+  </div>
 
+  <div class="alx-band">
+    <img
+      src="/assets/tech-band.jpg"
+      alt="Glossy translucent molecular spheres linked together against a soft blue background"
+    />
+  </div>
+
+  <div class="alx-container">
     <ImageTextRow
       heading="The Lead Drug Candidate – ALS-205"
       image="/assets/als-205-molecule.jpg"

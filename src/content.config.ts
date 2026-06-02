@@ -18,6 +18,9 @@ const news = defineCollection({
     tag: z.string().default('Announcement'),
     order: z.number().default(0),
     draft: z.boolean().default(false),
+    /** optional illustrative photo shown beside the post on the News list */
+    image: z.string().optional(),
+    imageAlt: z.string().optional(),
   }),
 });
 

@@ -10,7 +10,13 @@ const posts = (await getCollection('news', ({ data }) => !data.draft)).sort(
 ---
 
 <BaseLayout title="News — Alsonex Pharmaceuticals" route="news">
-  <Hero watermark="News" title="News" short>
+  <Hero
+    watermark="Alsonex"
+    title="News"
+    short
+    image="/assets/hero-banner.jpg"
+    imageAlt="Electric-blue neurons firing across a network of nerve cells"
+  >
     <p class="alx-lead alx-center">
       Updates on Alsonex's research into new treatments for neurodegenerative disease.
     </p>
@@ -18,22 +24,60 @@ const posts = (await getCollection('news', ({ data }) => !data.draft)).sort(
 
   <div class="alx-container alx-news">
     {
-      posts.map((post) => (
-        <article class="alx-news__item">
-          <div class="alx-news__meta">
-            <span class="alx-tag">{post.data.tag}</span>
-          </div>
-          <h2 class="alx-h2 alx-news__title">
-            <a href={`/news/${post.id}`} class="alx-news__link">
-              {post.data.title}
+      posts
+        .filter((post) => !post.data.image)
+        .map((post) => (
+          <article class="alx-news__item">
+            <div class="alx-news__meta">
+              <span class="alx-tag">{post.data.tag}</span>
+            </div>
+            <h2 class="alx-h2 alx-news__title">
+              <a href={`/news/${post.id}`} class="alx-news__link">
+                {post.data.title}
+              </a>
+            </h2>
+            <p class="alx-p">{post.data.summary}</p>
+            <a class="alx-link" href={`/news/${post.id}`}>
+              Read more &#8599;
             </a>
-          </h2>
-          <p class="alx-p">{post.data.summary}</p>
-          <a class="alx-link" href={`/news/${post.id}`}>
-            Read more &#8599;
-          </a>
-        </article>
-      ))
+          </article>
+        ))
+    }
+  </div>
+
+  {/* Full-width blue neuron band mid-page, mirroring the live layout. */}
+  <div class="alx-band">
+    <img
+      src="/assets/hero-banner.jpg"
+      alt="Electric-blue neurons firing across a network of nerve cells"
+    />
+  </div>
+
+  <div class="alx-container alx-news">
+    {
+      posts
+        .filter((post) => post.data.image)
+        .map((post) => (
+          <article class="alx-news__item alx-news__item--media">
+            <div class="alx-news__body">
+              <div class="alx-news__meta">
+                <span class="alx-tag">{post.data.tag}</span>
+              </div>
+              <h2 class="alx-h2 alx-news__title">
+                <a href={`/news/${post.id}`} class="alx-news__link">
+                  {post.data.title}
+                </a>
+              </h2>
+              <p class="alx-p">{post.data.summary}</p>
+              <a class="alx-link" href={`/news/${post.id}`}>
+                Read more &#8599;
+              </a>
+            </div>
+            <div class="alx-news__media">
+              <img src={post.data.image} alt={post.data.imageAlt ?? ''} />
+            </div>
+          </article>
+        ))
     }
   </div>
 </BaseLayout>

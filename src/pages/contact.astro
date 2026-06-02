@@ -5,7 +5,13 @@ import Button from '../components/Button.astro';
 ---
 
 <BaseLayout title="Alsonex | Brisbane, QLD" route="contact">
-  <Hero watermark="Contact" title="Developing a New Treatment for Motor Neuron Disease" short>
+  <Hero
+    watermark="Alsonex"
+    title="Developing a New Treatment for Motor Neuron Disease"
+    short
+    image="/assets/hero-banner.jpg"
+    imageAlt="Electric-blue neurons firing across a network of nerve cells"
+  >
     <!-- Intro rewritten to third person per the brand voice rule (Rob's locked
          decision). Source copy was second person ("you"); facts unchanged. -->
     <p class="alx-lead alx-center">
@@ -26,6 +32,20 @@ import Button from '../components/Button.astro';
   </Hero>
 
   <div class="alx-container">
+    <!-- Embedded Google Map of the Brisbane office (210 Alice Street). Standard
+         Maps place-embed — needs no API key. Hard-cornered per brand. -->
+    <div class="alx-map">
+      <iframe
+        title="Map showing Alsonex at 210 Alice Street, Brisbane QLD 4000"
+        src="https://www.google.com/maps?q=210+Alice+Street,+Brisbane+QLD+4000,+Australia&output=embed"
+        width="600"
+        height="450"
+        style="border:0;"
+        loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade"
+        allowfullscreen></iframe>
+    </div>
+
     <div class="alx-contact">
       <div class="alx-contact__details">
         <h2 class="alx-h2">Contact Information</h2>

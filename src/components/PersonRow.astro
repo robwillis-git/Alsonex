@@ -13,9 +13,15 @@ interface Props {
   photo: string;
   /** place the photo first (text right) */
   reverse?: boolean;
+  /**
+   * CSS object-position for the photo's `cover` crop (defaults to centre).
+   * Set e.g. `top center` for portraits whose head sits near the top so the
+   * crop doesn't clip it.
+   */
+  objectPosition?: string;
 }
 
-const { name, title, photo, reverse = false } = Astro.props;
+const { name, title, photo, reverse = false, objectPosition } = Astro.props;
 ---
 
 <section class={`alx-row alx-person${reverse ? ' is-reverse' : ''}`}>
@@ -26,6 +32,10 @@ const { name, title, photo, reverse = false } = Astro.props;
     <div class="alx-prose"><slot /></div>
   </div>
   <div class="alx-person__media">
-    <img src={photo} alt={name} />
+    <img
+      src={photo}
+      alt={name}
+      style={objectPosition ? `object-position: ${objectPosition}` : undefined}
+    />
   </div>
 </section>
