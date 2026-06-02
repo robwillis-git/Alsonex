@@ -1,8 +1,9 @@
 ---
 /**
- * Shared site header — sticky white nav.
+ * Shared site header — sticky white nav with a mobile drop-down.
  * Mirrors the reference build: project/ui_kits/website/Header.jsx.
- * Placeholder structure only; Frankie refines styling/markup in Phase 1.
+ * On mobile (<=820px) the primary nav collapses behind a toggle button and
+ * opens as a pale-blue (--bg-nav-tint) panel — not a blurred overlay.
  */
 interface Props {
   route?: string;
@@ -19,11 +20,20 @@ const items = [
 ---
 
 <header class="alx-header">
-  <div class="alx-container alx-header__inner">
+  <div class="alx-container alx-header__inner" style="position:relative">
     <a class="alx-logo" href="/" aria-label="Alsonex Pharmaceuticals — Home">
       <img src="/assets/alsones_logo.jpg" alt="Alsonex Pharmaceuticals" />
     </a>
-    <nav class="alx-nav" aria-label="Primary">
+    <button
+      class="alx-navtoggle"
+      type="button"
+      aria-label="Toggle navigation"
+      aria-expanded="false"
+      aria-controls="alx-primary-nav"
+    >
+      <span class="alx-navtoggle__bar" aria-hidden="true"></span>
+    </button>
+    <nav class="alx-nav" id="alx-primary-nav" aria-label="Primary">
       {
         items.map((it) => (
           <a href={it.href} class={`alx-nav__item${route === it.id ? ' is-current' : ''}`}>
@@ -34,3 +44,15 @@ const items = [
     </nav>
   </div>
 </header>
+
+<script is:inline>
+  (function () {
+    const toggle = document.querySelector('.alx-navtoggle');
+    const nav = document.getElementById('alx-primary-nav');
+    if (!toggle || !nav) return;
+    toggle.addEventListener('click', function () {
+      const open = nav.classList.toggle('is-open');
+      toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+    });
+  })();
+</script>

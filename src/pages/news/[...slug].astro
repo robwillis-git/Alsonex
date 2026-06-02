@@ -19,23 +19,14 @@ const { Content } = await render(post);
   description={post.data.summary}
   route="news"
 >
-  <article class="alx-container" style="padding:60px 0;max-width:760px">
-    <div style="margin-bottom:10px;font-size:12px;color:var(--ink-muted)">
+  <article class="alx-container alx-article">
+    <div class="alx-article__meta">
       <span class="alx-tag">{post.data.tag}</span>
-      <time datetime={post.data.date.toISOString()} style="margin-left:12px">
-        {
-          post.data.date.toLocaleDateString('en-AU', {
-            day: 'numeric',
-            month: 'long',
-            year: 'numeric',
-          })
-        }
-      </time>
     </div>
     <h1 class="alx-h1">{post.data.title}</h1>
     <div class="alx-prose">
       <Content />
     </div>
-    <p style="margin-top:32px"><a class="alx-link" href="/news">&larr; Back to News</a></p>
+    <p class="alx-article__back"><a class="alx-link" href="/news">&larr; Back to News</a></p>
   </article>
 </BaseLayout>

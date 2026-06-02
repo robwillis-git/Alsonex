@@ -1,12 +1,216 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import Hero from '../components/Hero.astro';
+import SectionLabel from '../components/SectionLabel.astro';
 ---
 
-<BaseLayout title="About — Alsonex Pharmaceuticals" route="about">
-  <section class="alx-container" style="padding:60px 0">
-    <h1 class="alx-h1">About</h1>
-    <p class="alx-p">
-      Placeholder page. Frankie builds this out in Phase 3 from the design system.
+<BaseLayout title="Motor Neurone Disease | Brisbane, QLD | Alsonex" route="about">
+  <Hero
+    watermark="About"
+    title="Alsonex – Developing a New Treatment for Motor Neuron Disease"
+    short
+  >
+    <p class="alx-lead alx-center">
+      The mission of Alsonex is to discover and develop new pharmaceutical products and technology
+      through to proof-of-concept studies in areas where the clinical need is acute and to partner
+      those products and technologies for further development and marketing. Alsonex has an
+      expanding interest in neurodegenerative disease built on modulation of the innate immune
+      system.
     </p>
-  </section>
+  </Hero>
+
+  <div class="alx-container">
+    <SectionLabel>The Science</SectionLabel>
+
+    <section class="alx-prose alx-prose-wide alx-textblock">
+      <h2 class="alx-h2">Inflammation</h2>
+      <p class="alx-p">
+        Inflammation is the immune response to injury to one of the organs of the body. It is most
+        obvious and most immediately apparent when the injury is to the skin. Acute inflammation
+        presents as pain, heat, swelling, and redness at the site of the injury and it may involve
+        loss of function of the involved tissues. This type is normal and is the protective response
+        following trauma or infection. Acute inflammation involves local dilation of blood vessels
+        and increased vessel permeability to improve blood flow to the injured area. At the site of
+        an infection or injury, a variety of cells release signalling molecules that recruit
+        leukocytes to the affected area. However, inflammation that becomes chronic can damage the
+        body's own organs as the inflammatory cells release reactive oxygen species and proteases in
+        an attempt to destroy the source of inflammation. Tissue damage is a characteristic of
+        chronic inflammation. A common occurrence for this is in the disease asthma, where chronic
+        inflammation of the lung leads to structural changes in the lung and, if left untreated,
+        irreversible damage to the lung, loss of lung function with disastrous consequences for the
+        patient. More often than not and particularly in the brain the body is unable to repair
+        tissue damage and the cascade of events creates further damage. ALS is such a disease where
+        neuronal inflammation is apparent. A key component driving this inflammation is a suite of
+        proteins known as the complement system. The complement system is complex, but now well
+        understood and, theoretically at least, a highly targeted inhibitor of the complement system
+        should dampen down inflammation, return the brain to a more normal homeostatic condition and
+        prevent further damage. ALS-205 is such an inhibitor of the complement system.
+      </p>
+    </section>
+
+    <section class="alx-prose alx-prose-wide alx-textblock">
+      <h2 class="alx-h2">Neurodegenerative Disease</h2>
+      <p class="alx-p">
+        Neurodegenerative diseases occur when nervous system cells (neurons) in the brain and spinal
+        cord begin to deteriorate. Changes in these cells cause them to function abnormally and
+        eventually result in the death of the cell. Neurons normally don't reproduce or replace
+        themselves, so when they become damaged or die they cannot be replaced. As neurons
+        deteriorate, an individual may first experience relatively mild symptoms — problems with
+        coordination or remembering names. But as larger numbers of neurons die, symptoms become
+        progressively worse. In some cases, patients lose the ability to walk independently, think
+        clearly, or generally function in the world. Ultimately, many of these diseases are fatal.
+      </p>
+    </section>
+
+    <section class="alx-prose alx-prose-wide alx-textblock">
+      <h2 class="alx-h2">Examples of Neurodegenerative Diseases</h2>
+      <p class="alx-p">
+        Examples of neurodegenerative diseases include Amyotrophic Lateral Sclerosis (ALS),
+        Parkinson's, Alzheimer's, and Huntington's disease.
+      </p>
+      <p class="alx-p">
+        There are three main pathways of complement activation: the classical pathway, which is
+        triggered by antibody or by direct binding of complement component C1q to the pathogen
+        surface; the MB-lectin pathway, which is triggered by mannan-binding lectin, a normal serum
+        constituent that binds some encapsulated bacteria; and the alternative pathway, which is
+        triggered directly on pathogen surfaces. All of these pathways generate a crucial enzymatic
+        activity that, in turn, generates the effector molecules of complement.
+      </p>
+      <p class="alx-p">
+        The three main consequences of complement activation are opsonisation of pathogens (making
+        them susceptible to destruction), the recruitment of inflammatory cells, and direct killing
+        of pathogen.
+      </p>
+      <p class="alx-p">
+        Complement is mostly activated by three distinct pathways as shown in the Figure. However, a
+        fourth extrinsic pathway exists that helps amplify the cascade using cellular proteases to
+        cleave C3 and C5.
+      </p>
+    </section>
+
+    <section class="alx-prose alx-prose-wide alx-textblock">
+      <h2 class="alx-h2">Complement</h2>
+      <p class="alx-p">
+        The complement system is made up of a number of distinct plasma proteins that react with one
+        another to adhere to pathogens and induce a series of inflammatory responses that help fight
+        infection. A number of complement proteins are proteases that are themselves activated by
+        proteolytic cleavage. In the complement system, the precursor proteins are widely
+        distributed throughout the body without causing any problems. However, at sites of
+        infection, they are activated locally and trigger a series of potent inflammatory events.
+        The complement system activates through a triggered-enzyme cascade. In such a cascade, an
+        active complement enzyme, generated by cleavage of its precursor protein, cleaves its
+        substrate, another complement protein, to its active enzymatic form. This, in turn, cleaves
+        and activates the next protein in the complement cascade. In this way, the activation of a
+        small number of complement proteins at the start of the pathway is hugely amplified by each
+        successive enzymatic reaction, resulting in the rapid generation of a disproportionately
+        large complement response. As might be expected, there are many regulatory mechanisms to
+        prevent uncontrolled complement activation.
+      </p>
+      <p class="alx-p">
+        The three distinct pathways through which complement can be activated depend on different
+        molecules for their initiation, but they converge to generate the same set of effector
+        molecules. There are three ways in which the complement system protects against infection:
+      </p>
+      <ul class="alx-list">
+        <li>
+          Generating large numbers of activated complement proteins that bind to pathogens, making
+          bacteria or other cells susceptible to the action of phagocytes bearing complement
+          receptors.
+        </li>
+        <li>
+          The small fragments of some complement proteins act as chemoattractants to recruit more
+          phagocytes to the site of complement activation, and also to activate these phagocytes.
+        </li>
+        <li>
+          The terminal complement components damage certain bacteria by creating pores in the
+          bacterial membrane.
+        </li>
+      </ul>
+    </section>
+
+    <SectionLabel>The Complement Cascade</SectionLabel>
+
+    <figure class="alx-figure">
+      <div class="alx-figure__box">
+        <img
+          src="/assets/complement-cascade.png"
+          alt="Diagram of the complement cascade showing the classical, lectin and alternative pathways converging on a pathway-specific C3 convertase, the cleavage of C3 and C5, the C3aR and C5aR receptors driving inflammation and chemotaxis, and the terminal pathway forming the membrane-attack complex (MAC, C5b-9) leading to lysis of bacteria."
+        />
+      </div>
+      <figcaption class="alx-figure__caption">
+        Figure: The main pathways for complement activation.
+      </figcaption>
+    </figure>
+
+    <section class="alx-prose alx-prose-wide alx-textblock">
+      <p class="alx-p">
+        The classical pathway is triggered by activation of the subunits of C1 after contact with
+        immunoglobulin-G (IgG)- and IgM-containing immune complexes and by C-reactive protein (CRP).
+      </p>
+      <p class="alx-p">
+        The lectin pathway involves the interaction of a serum protein, mannose-binding lectin
+        (MBL), with mannose residues on bacterial surfaces, resulting in the activation of
+        MBL-associated serine protease 1 in the serum. At this point, the classical and lectin
+        pathways converge, the outcome being limited cleavage of C4 and C2, generating C4bC2a, a C3
+        convertase.
+      </p>
+      <p class="alx-p">
+        The alternative pathway is typically triggered by lipopolysaccharide (LPS) derived from
+        Gram-negative bacteria. C3b is formed and interacts with factor B, followed by activation of
+        factor D, resulting in the generation of a C3 convertase. C3 convertase is where the three
+        main pathways converge and results in the limited cleavage of C3, generating the smaller
+        fragment C3a, and the larger fragment C3b. C3a is an anaphylatoxin that causes smooth-muscle
+        contraction, vasodilation and increased vascular permeability, which are all features of the
+        acute inflammatory response. C3b is an important opsonic factor. C3b also becomes
+        incorporated into the C3 convertase, forming a C5 convertase, which selectively cleaves C5
+        into C5a and C5b. C5a is a potent anaphylatoxin, and is the centrepiece of the complement
+        cascade. The other fragment from C5 cleavage, C5b, interacts sequentially with C6, C7, C8
+        and C9 to form C5b–C9, the membrane-attack complex (MAC).
+      </p>
+      <p class="alx-p">
+        The small complement fragments C3a and C5a act on specific receptors to produce local
+        inflammatory responses. When produced in large amounts or injected systemically, they induce
+        a generalised circulatory collapse, producing a shock-like syndrome similar to that seen in
+        a systemic allergic reaction involving IgE antibodies. Such a reaction is termed
+        anaphylactic shock and these small fragments of complement are therefore often referred to
+        as anaphylotoxins. C5a is the most stable and has the highest specific biological activity.
+        Both C5a and C3a can induce smooth-muscle contraction and increase vascular permeability and
+        act on the endothelial cells lining blood vessels to induce adhesion molecules.
+      </p>
+      <p class="alx-p">
+        In addition, C3a and C5a can activate the mast cells that populate submucosal tissues to
+        release mediators such as histamine and TNF-α that cause similar effects. The changes
+        induced by C5a and C3a recruit antibody, complement, and phagocytic cells to the site of an
+        infection and the increased fluid in the tissues hastens the movement of pathogen-bearing
+        antigen-presenting cells to the local lymph nodes, contributing to the prompt initiation of
+        the adaptive immune response.
+      </p>
+    </section>
+
+    <SectionLabel>Complement Plays a Central Role In Innate Immunity</SectionLabel>
+
+    <section class="alx-prose alx-prose-wide alx-textblock">
+      <p class="alx-p">
+        Complement plays a central role being involved in innate immunity, driving local and central
+        inflammation and in the destruction of neurons. Neuroinflammation, including microglial
+        activation, reactive gliosis, and early activation of the classical complement cascade, is a
+        hallmark of many neurodegenerative diseases. The recognition that complement activation and
+        activated microglia play an important role in eliminating synapses throughout the normal
+        developing brain raises the possibility that complement activation actively drives the loss
+        of synapses early in neurodegenerative disease, leading to loss of neurons and accelerating
+        disease progression.
+      </p>
+      <p class="alx-p">
+        The complement component C5a is also produced locally in the CNS and the C5a receptor is
+        present on neurones and glia. In the case of MND, there is a significant contribution of
+        immune and inflammatory components to the pathology of the disease. Activation fragments of
+        the complement system are increased in the plasma and cerebrospinal fluid of MND patients.
+        Elevated levels of these fragments are also localised to glia in the spinal cord and the
+        motor cortex of these patients. C5a is also elevated within leukocytes from ALS patients
+        suggesting heightened C5a receptor interaction. These findings indicate there is enhanced
+        peripheral immune complement terminal pathway activation in MND, which likely plays an
+        important role in the disease process.
+      </p>
+    </section>
+  </div>
 </BaseLayout>

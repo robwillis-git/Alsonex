@@ -1,12 +1,162 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import Hero from '../components/Hero.astro';
+import SectionLabel from '../components/SectionLabel.astro';
+import ImageTextRow from '../components/ImageTextRow.astro';
 ---
 
-<BaseLayout title="The Technology — Alsonex Pharmaceuticals" route="technology">
-  <section class="alx-container" style="padding:60px 0">
-    <h1 class="alx-h1">The Technology</h1>
-    <p class="alx-p">
-      Placeholder page. Frankie builds this out in Phase 3 from the design system.
+<BaseLayout title="MND | Brisbane, QLD | Alsonex" route="technology">
+  <Hero watermark="ALS-205" title="Drug Development Pipeline for Alsonex" short>
+    <p class="alx-lead alx-center">
+      ALS-205 is Alsonex's lead compound — a clinically validated candidate targeting Motor Neuron
+      Disease, with potential across the broader central nervous system.
     </p>
-  </section>
+  </Hero>
+
+  <div class="alx-container">
+    <!-- Pipeline reused as the original image in a bordered, hard-cornered box
+         (Rob's locked decision: do not use the PipelineRow component yet). -->
+    <figure class="alx-figure">
+      <div class="alx-figure__box">
+        <img
+          src="/assets/pipeline.png"
+          alt="Alsonex drug development pipeline. ALS-205 for motor neuron disease has progressed through Preclinical, IND-enabling toxicology, Regulatory approval and into Phase I clinical trials. ALS-205 for Parkinson's Disease and for Alzheimer's Disease are each at the Regulatory approval stage. ALS-205 Oral Formulation is in IND-enabling toxicology."
+        />
+      </div>
+    </figure>
+
+    <ImageTextRow
+      heading="The Lead Drug Candidate – ALS-205"
+      image="/assets/als-205-molecule.jpg"
+      alt="Three-dimensional ball-and-stick model of the ALS-205 molecule"
+    >
+      <p class="alx-p">
+        ALS-205 is a potent antagonist of the human C5a1 receptor with no activity at the C5a2
+        receptor. It binds to the human C5a1 receptor on white blood cells and is a functional
+        insurmountable antagonist. ALS-205 has shown similar effects on other cell types including
+        lymphocytes, monocytes and monocyte-derived macrophages. It is also highly receptor
+        selective, failing even at 100 μM concentrations to antagonise myeloperoxidase release from
+        leukocytes stimulated with fMet-Leu-Phe, leukotriene B4, platelet-activating factor, C3a, or
+        IL-8. ALS-205 is chemically stable to peptidase degradation in blood and gastric fluids and
+        is both small enough and sufficiently lipophilic to be orally active at ≤1 mg/kg/day in vivo
+        and readily accesses the brain.
+      </p>
+    </ImageTextRow>
+
+    <SectionLabel>ALS-205 Activity in Animal Model of Motor Neuron Disease (Rats)</SectionLabel>
+
+    <section class="alx-prose alx-prose-wide alx-textblock">
+      <p class="alx-p">
+        Although the majority of ALS cases are sporadic, approximately 10% are of genetic origin due
+        to missense mutations in the copper-zinc superoxide dismutase 1 (SOD1) enzyme. This has led
+        to the development of transgenic animal models (transgenic SOD1G93A rats) of ALS expressing
+        multiple copies of this mutant human SOD1 gene. The classical complement component C1q is
+        elevated in spinal cord tissue or isolated motor neurons in transgenic mouse models of ALS.
+      </p>
+      <p class="alx-p">
+        The complement factor C5a is a major effector of all complement activation pathways and
+        recruits and activates inflammatory cells. C5a is also produced locally in the CNS and the
+        C5a1 receptor is present on neurons and glia. In addition, in transgenic SOD1G93A rats,
+        significant deposition of complement factor C3/C3b and an up-regulation of the C5a1 receptor
+        and C5a2 receptor in the diseased spinal cord has been shown. Chronic oral administration of
+        ALS-205 to SOD1G93A transgenic rats significantly reduced end-stage (ES) motor-deficit
+        scores and enhanced survival times. This was also associated with reduced astroglial
+        proliferation in the regions of motor neuron degeneration. These studies demonstrated that
+        activation of complement and C5a1 receptors are involved in the progression of disease
+        pathology in transgenic SOD1G93A rats.
+      </p>
+      <p class="alx-p">
+        Similar findings have been repeated in transgenic mice models of ALS/MND, where survival is
+        improved and the classic deterioration of muscle function is slowed.
+      </p>
+      <p class="alx-caption">
+        From: Woodruff et al. The complement factor C5a contributes to pathology in a rat model of
+        amyotrophic lateral sclerosis. J. Immunol., 2008, 181(12), 8727.
+      </p>
+    </section>
+
+    <SectionLabel>Commercial Protection for ALS-205</SectionLabel>
+
+    <section class="alx-prose alx-prose-wide alx-textblock">
+      <p class="alx-p">
+        ALS-205 has been granted orphan drug designation by the FDA for the U.S. and by the EMA for
+        Europe. The Orphan Designation is a legal procedure that endows drugs with a special status
+        for medicinal substances with therapeutic potential for a rare disease, before its first
+        administration in humans or during its clinical development. The exact therapeutic
+        indication is then defined at the time of marketing authorisation. This procedure has been
+        established in Europe, the US, Australia, Japan and Singapore.
+      </p>
+    </section>
+
+    <SectionLabel>Orphan Drugs Labelling and Legal Status</SectionLabel>
+
+    <div class="alx-cards alx-cards--2">
+      <div class="alx-card">
+        <h3 class="alx-h3">United States</h3>
+        <p class="alx-p">
+          ALS-205 has been granted orphan drug status by the U.S. FDA, which means that Alsonex may
+          obtain the following advantages for the development of ALS-205 for ALS/MND:
+        </p>
+        <ul class="alx-list">
+          <li>A 50% tax credit on the cost of clinical trials undertaken in the USA.</li>
+          <li>A seven-year period of marketing exclusivity following the marketing approval.</li>
+          <li>
+            Some written recommendations provided by the FDA concerning clinical and preclinical
+            studies to be completed in order to register the new drug.
+          </li>
+          <li>A fast-track procedure for the FDA to evaluate registration files.</li>
+        </ul>
+      </div>
+      <div class="alx-card">
+        <h3 class="alx-h3">Europe</h3>
+        <p class="alx-p">The main characteristics of the orphan drug legislation in Europe are:</p>
+        <ul class="alx-list">
+          <li>10-year period of market exclusivity.</li>
+          <li>
+            Accelerated market approval via the centralised procedure which provides simultaneous
+            approval in all member states.
+          </li>
+          <li>Protocol assistance: a type of scientific advice specific for orphan medicines.</li>
+          <li>Regulatory fee reductions.</li>
+          <li>Technical assistance for elaboration of the marketing application file.</li>
+        </ul>
+      </div>
+    </div>
+
+    <SectionLabel>Additional Reading</SectionLabel>
+
+    <section class="alx-prose alx-prose-wide alx-textblock alx-refs">
+      <ul class="alx-list">
+        <li>
+          The Complement Factor C5a Contributes to Pathology in a Rat Model of Amyotrophic Lateral
+          Sclerosis: J Immunol. 2008; 181(12):8727-34.
+        </li>
+        <li>
+          Versatility of the complement system in neuroinflammation, neurodegeneration and brain
+          homeostasis: Front Cell Neurosci. 2014 Nov 7;8:380.
+        </li>
+        <li>
+          The elevation of the terminal complement activation product C5a and C5b-9 in ALS patient
+          blood: J Neuroimmunol. 2014; 276(1-2):213-8.
+        </li>
+        <li>The role of the innate immune system in ALS: Front Pharmacol. 2012; 3:150.</li>
+        <li>
+          Neuroinflammation in amyotrophic lateral sclerosis: role of glial activation in motor
+          neuron disease: Lancet Neurol 2011; 10: 253–63.
+        </li>
+        <li>
+          The Role of the Complement System and the Activation Fragment C5a in the Central Nervous
+          System: Neuromol Med 2010; 12:179–192.
+        </li>
+        <li>
+          Role for terminal complement activation in amyotrophic lateral sclerosis disease
+          progression: Proc Natl Acad Sci U S A. 2014; 111(1): E3–E4.
+        </li>
+        <li>
+          Complement activation at the motor end-plates in amyotrophic lateral sclerosis: Journal of
+          Neuroinflammation 2016; 13:72.
+        </li>
+      </ul>
+    </section>
+  </div>
 </BaseLayout>

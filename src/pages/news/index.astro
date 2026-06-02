@@ -1,36 +1,39 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import Hero from '../../components/Hero.astro';
 import { getCollection } from 'astro:content';
 
+// Published undated (Rob's locked decision) — order by the `order` field, not date.
 const posts = (await getCollection('news', ({ data }) => !data.draft)).sort(
-  (a, b) => b.data.date.valueOf() - a.data.date.valueOf(),
+  (a, b) => a.data.order - b.data.order,
 );
 ---
 
 <BaseLayout title="News — Alsonex Pharmaceuticals" route="news">
-  <section class="alx-container" style="padding:60px 0;max-width:760px">
-    <h1 class="alx-h1">News</h1>
+  <Hero watermark="News" title="News" short>
+    <p class="alx-lead alx-center">
+      Updates on Alsonex's research into new treatments for neurodegenerative disease.
+    </p>
+  </Hero>
+
+  <div class="alx-container alx-news">
     {
       posts.map((post) => (
-        <article style="padding:26px 0;border-bottom:1px solid var(--line)">
-          <div style="display:flex;gap:12px;align-items:center;margin-bottom:10px;font-size:12px;color:var(--ink-muted)">
+        <article class="alx-news__item">
+          <div class="alx-news__meta">
             <span class="alx-tag">{post.data.tag}</span>
-            <time datetime={post.data.date.toISOString()}>
-              {post.data.date.toLocaleDateString('en-AU', {
-                day: 'numeric',
-                month: 'long',
-                year: 'numeric',
-              })}
-            </time>
           </div>
-          <h2 class="alx-h2" style="font-size:22px;margin-bottom:8px">
-            <a href={`/news/${post.id}`} style="color:inherit;text-decoration:none">
+          <h2 class="alx-h2 alx-news__title">
+            <a href={`/news/${post.id}`} class="alx-news__link">
               {post.data.title}
             </a>
           </h2>
           <p class="alx-p">{post.data.summary}</p>
+          <a class="alx-link" href={`/news/${post.id}`}>
+            Read more &#8599;
+          </a>
         </article>
       ))
     }
-  </section>
+  </div>
 </BaseLayout>

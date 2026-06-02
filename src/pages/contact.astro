@@ -1,50 +1,142 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import Hero from '../components/Hero.astro';
+import Button from '../components/Button.astro';
 ---
 
-<BaseLayout title="Contact — Alsonex Pharmaceuticals" route="contact">
-  <section class="alx-container" style="padding:60px 0">
-    <h1 class="alx-h1">Contact</h1>
-    <p class="alx-lead" style="margin-bottom:28px">
-      Enquiries are emailed to <a class="alx-link" href="mailto:info@alsonex.com.au"
-        >info@alsonex.com.au</a
-      >.
+<BaseLayout title="Alsonex | Brisbane, QLD" route="contact">
+  <Hero watermark="Contact" title="Developing a New Treatment for Motor Neuron Disease" short>
+    <!-- Intro rewritten to third person per the brand voice rule (Rob's locked
+         decision). Source copy was second person ("you"); facts unchanged. -->
+    <p class="alx-lead alx-center">
+      Alsonex is focused on developing new treatments for neurodegenerative disease such as Motor
+      Neuron Disease. The company was founded in 2014 from research being undertaken at the
+      University of Queensland and elsewhere into the cause of neuroinflammation and its role in
+      causing neurodegenerative disease.
     </p>
+    <p class="alx-p alx-center alx-prose-narrow">
+      Alsonex is committed to being a part of the solution to slowing or reversing neurodegenerative
+      diseases such as Parkinson's Disease, Alzheimer's Disease, Huntington's Disease and Motor
+      Neuron Disease. Enquiries regarding the status of the company's research are welcome — the
+      Alsonex team is glad to answer questions about MND or any of the products currently in
+      development. Through quality research and development, the company's overarching goal is to
+      make a positive impact on the significant challenges faced by people with neurodegenerative
+      disease.
+    </p>
+  </Hero>
 
-    <!--
-      The form posts to /contact-handler.php — a PHP script that ships in
-      public/ and deploys alongside the built static site into public_html.
-      Spam protection: honeypot field (alx_company) + a captcha placeholder
-      (data-sitekey to be filled when reCAPTCHA/hCaptcha is provisioned).
-      See System/CLAUDE.md and public/contact-handler.php for config.
-    -->
-    <form class="alx-form" action="/contact-handler.php" method="POST">
-      <label class="alx-field">
-        <span>Name</span>
-        <input type="text" name="name" required />
-      </label>
-      <label class="alx-field">
-        <span>Email</span>
-        <input type="email" name="email" required />
-      </label>
-      <label class="alx-field">
-        <span>Message</span>
-        <textarea name="message" rows="6" required></textarea>
-      </label>
+  <div class="alx-container">
+    <div class="alx-contact">
+      <div class="alx-contact__details">
+        <h2 class="alx-h2">Contact Information</h2>
+        <dl class="alx-dl">
+          <div>
+            <dt>Address</dt>
+            <dd>210 Alice Street<br />Brisbane, QLD 4000</dd>
+          </div>
+          <div>
+            <dt>Phone</dt>
+            <dd><a class="alx-link" href="tel:+61417115582">+61 417 115 582</a></dd>
+          </div>
+          <div>
+            <dt>Further Information</dt>
+            <dd>
+              <a class="alx-link" href="mailto:info@alsonex.com.au">info@alsonex.com.au</a>
+            </dd>
+          </div>
+        </dl>
 
-      <!-- Honeypot: hidden from humans; bots tend to fill it. -->
-      <div class="alx-hp" aria-hidden="true">
-        <label
-          >Company<input type="text" name="alx_company" tabindex="-1" autocomplete="off" /></label
-        >
+        <h2 class="alx-h2 alx-contact__hours-h">Hours of Operation</h2>
+        <dl class="alx-dl">
+          <div>
+            <dt>Open</dt>
+            <dd>9:00am – 5:00pm<br />Monday to Friday</dd>
+          </div>
+        </dl>
       </div>
 
-      <!-- CAPTCHA placeholder — add the provider script + real sitekey before launch.
-           e.g. reCAPTCHA: <div class="g-recaptcha" data-sitekey="YOUR_SITE_KEY"></div>
-                hCaptcha:   <div class="h-captcha" data-sitekey="YOUR_SITE_KEY"></div> -->
-      <div class="alx-captcha-placeholder" data-sitekey="REPLACE_WITH_CAPTCHA_SITE_KEY"></div>
+      <div class="alx-contact__formwrap">
+        <h2 class="alx-h2">Send Us a Message</h2>
 
-      <button class="alx-btn" type="submit">Send Enquiry</button>
-    </form>
-  </section>
+        <!--
+          The form posts to /contact-handler.php — a PHP script that ships in
+          public/ and deploys alongside the built static site into public_html.
+          Native POST works without JS; the inline script below upgrades it to
+          an async submit so a status message can be shown in place.
+          Spam protection: honeypot field (alx_company) + a captcha placeholder
+          (data-sitekey to be filled when reCAPTCHA/hCaptcha is provisioned).
+          See System/CLAUDE.md and public/contact-handler.php for config.
+        -->
+        <form class="alx-form" action="/contact-handler.php" method="POST" id="alx-contact-form">
+          <label class="alx-field">
+            <span>Name</span>
+            <input type="text" name="name" required autocomplete="name" />
+          </label>
+          <label class="alx-field">
+            <span>Email</span>
+            <input type="email" name="email" required autocomplete="email" />
+          </label>
+          <label class="alx-field">
+            <span>Queries</span>
+            <textarea name="message" rows="6" required></textarea>
+          </label>
+
+          <!-- Honeypot: hidden from humans; bots tend to fill it. -->
+          <div class="alx-hp" aria-hidden="true">
+            <label
+              >Company<input
+                type="text"
+                name="alx_company"
+                tabindex="-1"
+                autocomplete="off"
+              /></label
+            >
+          </div>
+
+          <!-- CAPTCHA placeholder — add the provider script + real sitekey before launch.
+               e.g. reCAPTCHA: <div class="g-recaptcha" data-sitekey="YOUR_SITE_KEY"></div>
+                    hCaptcha:   <div class="h-captcha" data-sitekey="YOUR_SITE_KEY"></div> -->
+          <div class="alx-captcha-placeholder" data-sitekey="REPLACE_WITH_CAPTCHA_SITE_KEY"></div>
+
+          <div>
+            <Button type="submit">Send</Button>
+          </div>
+
+          <p class="alx-form__status" role="status" aria-live="polite" hidden></p>
+        </form>
+      </div>
+    </div>
+  </div>
 </BaseLayout>
+
+<script is:inline>
+  (function () {
+    const form = document.getElementById('alx-contact-form');
+    if (!form) return;
+    const status = form.querySelector('.alx-form__status');
+    const SUCCESS = 'Thank you for submitting a form, someone will be in touch shortly.';
+    const ERROR =
+      'Oops, looks like something has gone wrong, please re-submit or call us directly if you are still experiencing issues.';
+
+    form.addEventListener('submit', async function (e) {
+      e.preventDefault();
+      status.hidden = false;
+      status.className = 'alx-form__status';
+      status.textContent = 'Sending…';
+      try {
+        const res = await fetch(form.action, { method: 'POST', body: new FormData(form) });
+        if (res.ok) {
+          status.classList.add('is-success');
+          status.textContent = SUCCESS;
+          form.reset();
+        } else {
+          status.classList.add('is-error');
+          status.textContent = ERROR;
+        }
+      } catch {
+        status.classList.add('is-error');
+        status.textContent = ERROR;
+      }
+    });
+  })();
+</script>

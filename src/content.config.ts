@@ -3,16 +3,20 @@ import { glob } from 'astro/loaders';
 
 /**
  * News content collection.
- * Real posts are authored as Markdown in src/content/news/ by Cora (Phase 2).
- * One example post ships with the scaffold to prove the pipeline.
+ * Real posts are authored as Markdown in src/content/news/.
+ *
+ * Posts are published UNDATED: the legacy Alsonex site carried no publication
+ * dates on any news item and none could be sourced (Rob's locked decision, see
+ * Team Inbox/content/news.md). An optional `order` controls list ordering
+ * (ascending) — no date is stored or rendered.
  */
 const news = defineCollection({
   loader: glob({ pattern: '**/*.md', base: './src/content/news' }),
   schema: z.object({
     title: z.string(),
-    date: z.coerce.date(),
     summary: z.string(),
     tag: z.string().default('Announcement'),
+    order: z.number().default(0),
     draft: z.boolean().default(false),
   }),
 });
