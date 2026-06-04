@@ -51,7 +51,7 @@ export default function MoleculeViewer({
   src = '/assets/als-205-3d.sdf',
   fallbackSrc = '/assets/als-205-2d.png',
   label = 'Interactive 3D model of the ALS-205 molecule',
-  caption = 'ALS-205 — drag to rotate, scroll to zoom',
+  caption = 'click to rotate, scroll to zoom',
 }: Props) {
   const hostRef = useRef<HTMLDivElement>(null);
   const [failed, setFailed] = useState(false);
@@ -104,7 +104,6 @@ export default function MoleculeViewer({
         <div className="alx-molviewer__box">
           <img className="alx-molviewer__fallback" src={fallbackSrc} alt={label} />
         </div>
-        <p className="alx-molviewer__hint">ALS-205 — two-dimensional structural diagram</p>
       </div>
     );
   }
