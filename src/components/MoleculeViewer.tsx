@@ -9,9 +9,11 @@
  * script nor the SDF is fetched until the viewer scrolls into view, keeping it
  * scoped to the Technology page.
  *
- * Fallback: a 2D structural diagram (PNG) is shown if 3Dmol fails to load, if the
- * SDF fetch fails, or if WebGL is unavailable. A <noscript> in the host markup
- * covers the JS-off case.
+ * Fallback: a 2D structural diagram (PNG) is shown by default — this is what SSR
+ * emits and what renders pre-hydration, with JS disabled, or if 3Dmol fails to
+ * load / the SDF fetch fails / WebGL is unavailable. Only once the interactive
+ * viewer is confirmed running do we reveal the canvas and the caption, hiding the
+ * fallback image. So the slot always holds exactly one thing, in the same place.
  */
 import { useEffect, useRef, useState } from 'react';
 
@@ -53,8 +55,13 @@ export default function MoleculeViewer({
   label = 'Interactive 3D model of the ALS-205 molecule',
   caption = 'click to rotate, scroll to zoom',
 }: Props) {
+  // The element 3Dmol owns. React renders NO children into it, so 3Dmol's
+  // canvas can never collide with React reconciliation.
   const hostRef = useRef<HTMLDivElement>(null);
-  const [failed, setFailed] = useState(false);
+  // `ready` flips true only once the interactive viewer is confirmed running.
+  // Until then (SSR, pre-hydration, JS off, or load failure) we show the
+  // fallback image overlay and no caption.
+  const [ready, setReady] = useState(false);
 
   useEffect(() => {
     let cancelled = false;
@@ -80,10 +87,11 @@ export default function MoleculeViewer({
         viewer.zoomTo();
         viewer.render();
         viewer.spin('y', 0.5); // gentle continuous rotation
+        if (!cancelled) setReady(true); // reveal canvas + caption, hide fallback
       } catch (err) {
         // eslint-disable-next-line no-console
-        console.warn('[MoleculeViewer] falling back to 2D diagram:', err);
-        if (!cancelled) setFailed(true);
+        console.warn('[MoleculeViewer] keeping 2D fallback diagram:', err);
+        // Leave `ready` false → fallback image stays visible, no caption.
       }
     })();
 
@@ -98,27 +106,32 @@ export default function MoleculeViewer({
     };
   }, [src]);
 
-  if (failed) {
-    return (
-      <div className="alx-molviewer">
-        <div className="alx-molviewer__box">
-          <img className="alx-molviewer__fallback" src={fallbackSrc} alt={label} />
-        </div>
-      </div>
-    );
-  }
-
+  // One slot, one thing at a time:
+  //  - `alx-molviewer__host` is the 3Dmol-owned canvas host (always mounted so
+  //    its ref is stable; empty until the viewer renders into it).
+  //  - The fallback <img> is an absolutely-positioned overlay covering the box.
+  //    It is the only visible content until `ready`, then it is hidden.
+  //  - The caption renders only when `ready` (interactive viewer running).
   return (
     <div className="alx-molviewer">
-      <div
-        ref={hostRef}
-        className="alx-molviewer__box"
-        role="img"
-        aria-label={label}
-        // 3Dmol positions its canvas absolutely within the host.
-        style={{ position: 'relative' }}
-      />
-      <p className="alx-molviewer__hint">{caption}</p>
+      <div className="alx-molviewer__box" role="img" aria-label={label}>
+        <div
+          ref={hostRef}
+          className="alx-molviewer__host"
+          aria-hidden="true"
+          // 3Dmol positions its canvas absolutely within this host.
+          style={{ position: 'relative', width: '100%', height: '100%' }}
+        />
+        {!ready && (
+          <img
+            className="alx-molviewer__fallback"
+            src={fallbackSrc}
+            alt={label}
+            aria-hidden="true"
+          />
+        )}
+      </div>
+      {ready && <p className="alx-molviewer__hint">{caption}</p>}
     </div>
   );
 }

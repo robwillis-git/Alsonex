@@ -670,6 +670,7 @@ img {
   width: 100%;
 }
 .alx-molviewer__box {
+  position: relative; /* anchor for the fallback image overlay */
   width: 100%;
   height: 420px;
   border: none; /* no visible box around the molecule */
@@ -680,7 +681,12 @@ img {
 .alx-molviewer__box canvas {
   border-radius: 0;
 }
+/* 2D fallback diagram — absolutely-positioned overlay filling the box.
+   It is the only visible content by default (SSR / pre-hydration / no-JS /
+   3Dmol failure); hidden once the interactive viewer is running. */
 .alx-molviewer__fallback {
+  position: absolute;
+  inset: 0;
   width: 100%;
   height: 100%;
   object-fit: contain;
