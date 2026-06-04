@@ -4,21 +4,24 @@
  * Mirrors the reference build: project/ui_kits/website/Components.jsx (ImageTextRow).
  *
  * Body copy goes in the default slot. An optional `action` slot holds a CTA
- * (e.g. a <Button />) rendered beneath the copy.
+ * (e.g. a <Button />) rendered beneath the copy. An optional `media` slot
+ * replaces the default <img> entirely (e.g. an interactive viewer island);
+ * when it is provided, `image`/`alt` are not required.
  */
 interface Props {
   /** optional teal H2 heading */
   heading?: string;
-  /** image source (e.g. /assets/neuron-hero.jpg) */
-  image: string;
+  /** image source (e.g. /assets/neuron-hero.jpg). Omit when using the `media` slot. */
+  image?: string;
   /** image alt text */
   alt?: string;
-  /** place the image first (text right) */
+  /** place the image (or media) first (text right) */
   reverse?: boolean;
 }
 
 const { heading, image, alt = '', reverse = false } = Astro.props;
 const hasAction = Astro.slots.has('action');
+const hasMedia = Astro.slots.has('media');
 ---
 
 <section class={`alx-row alx-imgtext${reverse ? ' is-reverse' : ''}`}>
@@ -34,6 +37,6 @@ const hasAction = Astro.slots.has('action');
     }
   </div>
   <div class="alx-imgtext__media">
-    <img src={image} alt={alt} />
+    {hasMedia ? <slot name="media" /> : <img src={image} alt={alt} />}
   </div>
 </section>
