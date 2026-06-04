@@ -78,5 +78,7 @@ jobs:
           local_path: './dist/*'
           remote_path: ${{ steps.target.outputs.dir }}
           sftp_only: true
-          # keep false so we never wipe the remote dir mid-deploy
+          # Staging cleanup is intentionally MANUAL (done from cPanel / over SSH), never
+          # automated here. Keep this false so a deploy only uploads/overwrites and never
+          # wipes the remote dir. Do NOT flip to true to "clean" staging.
           delete_remote_files: false
