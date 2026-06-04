@@ -4,6 +4,7 @@ import Hero from '../components/Hero.astro';
 import SectionLabel from '../components/SectionLabel.astro';
 import ImageTextRow from '../components/ImageTextRow.astro';
 import MoleculeViewer from '../components/MoleculeViewer.tsx';
+import PipelineChart from '../components/PipelineChart.astro';
 ---
 
 <BaseLayout
@@ -25,16 +26,8 @@ import MoleculeViewer from '../components/MoleculeViewer.tsx';
   </Hero>
 
   <div class="alx-container">
-    <!-- Pipeline reused as the original image in a bordered, hard-cornered box
-         (Rob's locked decision: do not use the PipelineRow component yet). -->
-    <figure class="alx-figure">
-      <div class="alx-figure__box">
-        <img
-          src="/assets/pipeline.png"
-          alt="Alsonex drug development pipeline. ALS-205 for motor neuron disease has progressed through Preclinical, IND-enabling toxicology, Regulatory approval and into Phase I clinical trials. ALS-205 for Parkinson's Disease and for Alzheimer's Disease are each at the Regulatory approval stage. ALS-205 Oral Formulation is in IND-enabling toxicology."
-        />
-      </div>
-    </figure>
+    <!-- Native, animated pipeline chart (replaces the former static image). -->
+    <PipelineChart />
   </div>
 
   <div class="alx-band">
