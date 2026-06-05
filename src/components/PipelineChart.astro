@@ -79,8 +79,7 @@ const centrePct = (stage: number) => ((stage - 0.5) / stageCount) * 100;
 
           {/* Accessible, animation-independent description */}
           <p class="alx-sr-only">
-            {p.program} — {p.indication}: reached {stages[p.stage - 1]} (stage {p.stage} of{' '}
-            {stageCount}).
+            {`${p.program} — ${p.indication}: reached ${stages[p.stage - 1]} (stage ${p.stage} of ${stageCount}).`}
           </p>
 
           <div class="alx-pchart__track" aria-hidden="true">
