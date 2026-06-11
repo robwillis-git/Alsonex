@@ -1,16 +1,17 @@
 ---
 /**
- * Home — V2 "Meridian Cine" (Phase 3, exact reproduction).
+ * Home — V2 "Meridian Cine" (verbatim reproduction of the V2 reference).
  *
- * Reproduces design_handoff_alsonex_v2/modern/meridian-cine.html + the approved
- * home decisions, populated with Alsonex's REAL content (objective copy, bios):
- *   video HeroCine → "Our Principal Commercial Objective" Split (real V1 copy,
- *   "More on the Science" ghost button) → Pipe (V2 set) → Stats → leadership
- *   People → investor CtaBand.
+ * Reproduces design_handoff_alsonex_v2/modern/meridian-cine.html EXACTLY —
+ * text AND images — section by section:
+ *   cinematic video HeroCine → "Our principal commercial objective" Split
+ *   (care-conversation image, "More on the Science" ghost button) → Pipe (V2
+ *   set) → Stats → leadership People ("Meet the full board & advisors" button)
+ *   → investor CtaBand.
  *
- * Leadership: the real featured leaders are shown in the V2 grid with V1's
- * verbatim bios. Per the brief, the "Meet the full board" button is DROPPED
- * (there is no separate board page — About carries the full set).
+ * NOTE: the V2 reference leadership bios are short stand-ins, used here verbatim
+ * for an exact V2 match (see report flag — Rob may prefer the longer real bios).
+ * This is the HOME PAGE ONLY; inner pages correctly keep V1 content.
  */
 import BaseLayout from '../layouts/BaseLayout.astro';
 import HeroCine from '../components/HeroCine.astro';
@@ -21,24 +22,24 @@ import Stats from '../components/Stats.astro';
 import People from '../components/People.astro';
 import CtaBand from '../components/CtaBand.astro';
 
-// Real leadership (V1 bios, verbatim). Photos already in /assets/.
+// Leadership — V2 reference bios, verbatim (short stand-ins). Photos in /assets/.
 const leaders = [
   {
     name: 'David Groth',
     role: 'Non-Executive Chairman',
-    bio: 'David is a co-founder and director of Integra Advisory. David has over 20 years of experience in advising companies and in senior management positions. David has managed a significant number of initial public offers, secondary capital raisings, mergers and acquisition transactions as part of developing and maintaining long term relationships with clients.',
+    bio: 'Co-founder of Integra Advisory; 20+ years advising on IPOs, raisings and M&A, including 18 years at Wilson HTM as CEO.',
     image: '/assets/team-groth.jpg',
   },
   {
     name: 'Alan Robertson',
-    role: 'Chief Executive Officer and Managing Director',
-    bio: 'Alan was the CEO and MD of Pharmaxis Ltd for 14 years. He was responsible for raising more than $350 million in the U.S., Europe and Australia. In that role, he oversaw the development to Marketing Authorisation a new inhaled dry powder treatment for cystic fibrosis (Bronchitol) and a bronchial challenge test for hyperactive airway disease (Aridol). He also built a drug discovery capability within Pharmaxis and participated in the creation of PXS4728 – now licensed to Boehringer Ingelheim for the treatment of NASH.',
+    role: 'CEO & Managing Director',
+    bio: 'CEO of Pharmaxis for 14 years, raising $350M+; created PXS4728 (Boehringer Ingelheim) and invented Zomig at Wellcome.',
     image: '/assets/team-robertson.jpg',
   },
   {
     name: 'Trent Woodruff',
     role: 'Scientific Advisor',
-    bio: "A/Prof Woodruff is an ARC Future Fellow conducting research into the innate immune system in the brain. Specific research revolves around the Complement System. A focus of his work has been the chronic neurodegenerative diseases amyotrophic lateral sclerosis, Huntington's disease, and Parkinson's disease as well as maintaining an active interest in Alzheimer's disease. In 2010, A/Prof Woodruff started his own group and independent laboratory at the University of Queensland.",
+    bio: "ARC Future Fellow at UQ researching the complement system across ALS, Huntington's and Parkinson's disease.",
     image: '/assets/team-woodruff.jpg',
   },
 ];
@@ -63,41 +64,25 @@ const leaders = [
     ]}
   />
 
-  <!-- OUR PRINCIPAL COMMERCIAL OBJECTIVE — real V1 copy (verbatim). -->
+  <!-- MISSION / OBJECTIVE — verbatim V2 reference copy + care-conversation image. -->
   <section class="section section--tight">
     <Split
-      eyebrow="Our Principal Commercial Objective"
-      image="/assets/neuron-hero.jpg"
-      imageAlt="Signals travelling through the nervous system"
+      eyebrow="Our principal commercial objective"
+      heading="A focused path from the laboratory to the patient."
+      lead="The objective is to develop a new treatment option for people with neurodegenerative disease — and to enhance shareholder value through the clinical development of ALS-205."
+      image="/assets/care-conversation.jpg"
+      imageAlt="A nurse in conversation with an older man at home"
       list={[
-        'The leading compound, ALS-205, has completed a Single Ascending and Multiple Ascending Dose Phase I clinical trial in healthy volunteers, establishing a suitable dose for future clinical studies.',
-        'A Phase Ib clinical trial in subjects with MND has been completed demonstrating safe target engagement in the intended patient population and properties suitable for further development.',
+        'The lead compound has completed Phase I (Single &amp; Multiple Ascending Dose) in healthy volunteers, establishing a suitable dose.',
+        'A Phase Ib trial in subjects with MND demonstrated safe target engagement in the intended population.',
+        "Additional indications include Alzheimer's and Huntington's disease.",
       ]}
     >
-      <h2 class="display h-lg" style="margin:0 0 18px">
-        A focused path from the laboratory to the patient.
-      </h2>
-      <p class="lead" style="font-size:18px">
-        The principal objective of the company is to develop a new treatment option for people with
-        neurodegenerative diseases and this aligns with our commercial objective, which is to
-        enhance shareholder value through clinical development of ALS-205.
-      </p>
-      <p style="color:var(--ink-soft)">
-        The furthest advanced project is for treating Motor Neuron Disease (MND) or Amyotrophic
-        Lateral Sclerosis (ALS). Additional projects involve expanding the clinical utility of the
-        leading molecule into other degenerative diseases of the CNS and benefit from the
-        preclinical work undertaken for the first indication. Additional indications include
-        Alzheimer's Disease and Huntington's Disease.
-      </p>
-      <p style="color:var(--ink-soft)">
-        Earlier projects are focused on validation of the biochemical target and may lead to
-        additional commercialisation opportunities as the studies progress.
-      </p>
       <Button slot="action" href="/technology" variant="ghost" arrow>More on the Science</Button>
     </Split>
   </section>
 
-  <!-- DEVELOPMENT PIPELINE — V2 set (Pipe defaults). ⚠ Rob clinical sign-off. -->
+  <!-- DEVELOPMENT PIPELINE — V2 set (Pipe defaults). -->
   <section class="section--tight" style="padding-top:0">
     <div class="wrap">
       <div class="slabel reveal">
@@ -110,7 +95,7 @@ const leaders = [
     </div>
   </section>
 
-  <!-- STATS STRIP (4-up). ⚠ Phase Ib status + "4" count are Rob sign-off items. -->
+  <!-- STATS STRIP (4-up). -->
   <section class="section--tight">
     <div class="wrap reveal">
       <Stats
@@ -124,17 +109,19 @@ const leaders = [
     </div>
   </section>
 
-  <!-- LEADERSHIP — real featured leaders, V1 bios verbatim. No "full board"
-       button (no separate board page; About carries the full set). -->
+  <!-- LEADERSHIP — V2 reference (3 people, verbatim bios) + full-board button. -->
   <section class="section">
     <div class="wrap">
       <div class="slabel reveal">
-        <div class="eyebrow center">Our Leadership Team</div>
+        <div class="eyebrow center">Our leadership team</div>
         <h2 class="display h-lg" style="margin-top:16px">
           Experienced drug developers and proven operators
         </h2>
       </div>
       <People members={leaders} />
+      <div class="reveal" style="text-align:center;margin-top:36px">
+        <Button href="/about" variant="ghost" arrow>Meet the full board &amp; advisors</Button>
+      </div>
     </div>
   </section>
 
