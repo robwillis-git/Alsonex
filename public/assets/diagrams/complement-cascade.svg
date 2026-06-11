@@ -1,0 +1,106 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 720" role="img" aria-labelledby="cc-title cc-desc" font-family="'Hanken Grotesk', system-ui, sans-serif">
+  <title id="cc-title">The complement cascade</title>
+  <desc id="cc-desc">Three initiation pathways — classical (antibody and C1q), MB-lectin (mannan-binding lectin) and alternative (pathogen surfaces) — converge on the C3 convertase, which cleaves C3. This forms the C5 convertase, which cleaves C5 into two fragments: C5a, the potent inflammatory signal, and C5b, which assembles with C6 to C9 into the membrane-attack complex.</desc>
+
+  <defs>
+    <marker id="cc-arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0 0L10 5L0 10z" fill="#475569"/>
+    </marker>
+    <marker id="cc-arrow-accent" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0 0L10 5L0 10z" fill="#2F5FE0"/>
+    </marker>
+  </defs>
+
+  <!-- backdrop -->
+  <rect width="760" height="720" fill="#F6F4EF"/>
+
+  <!-- ===================== INITIATION PATHWAYS ===================== -->
+  <text x="40" y="44" font-size="13" font-weight="600" letter-spacing="0.08em" fill="#626f85">INITIATION PATHWAYS</text>
+
+  <g id="cc-pathways">
+    <!-- Classical -->
+    <g id="cc-classical">
+      <rect x="40" y="60" width="210" height="92" rx="14" fill="#FFFFFF" stroke="#D5CEC0" stroke-width="1"/>
+      <text x="60" y="90" font-family="'Newsreader', Georgia, serif" font-size="19" font-weight="500" fill="#13243A">Classical</text>
+      <text x="60" y="114" font-size="13.5" fill="#475569">Antibody–antigen</text>
+      <text x="60" y="132" font-size="13.5" fill="#475569">complexes · C1q</text>
+    </g>
+    <!-- Lectin -->
+    <g id="cc-lectin">
+      <rect x="275" y="60" width="210" height="92" rx="14" fill="#FFFFFF" stroke="#D5CEC0" stroke-width="1"/>
+      <text x="295" y="90" font-family="'Newsreader', Georgia, serif" font-size="19" font-weight="500" fill="#13243A">MB-lectin</text>
+      <text x="295" y="114" font-size="13.5" fill="#475569">Mannan-binding</text>
+      <text x="295" y="132" font-size="13.5" fill="#475569">lectin (MBL)</text>
+    </g>
+    <!-- Alternative -->
+    <g id="cc-alternative">
+      <rect x="510" y="60" width="210" height="92" rx="14" fill="#FFFFFF" stroke="#D5CEC0" stroke-width="1"/>
+      <text x="530" y="90" font-family="'Newsreader', Georgia, serif" font-size="19" font-weight="500" fill="#13243A">Alternative</text>
+      <text x="530" y="114" font-size="13.5" fill="#475569">Pathogen</text>
+      <text x="530" y="132" font-size="13.5" fill="#475569">surfaces</text>
+    </g>
+  </g>
+
+  <!-- converging connectors to C3 convertase -->
+  <g fill="none" stroke="#475569" stroke-width="1.5">
+    <path d="M145 152 V178 Q145 192 159 192 H366 Q380 192 380 206 V222" marker-end="url(#cc-arrow)"/>
+    <path d="M380 152 V222" marker-end="url(#cc-arrow)"/>
+    <path d="M615 152 V178 Q615 192 601 192 H394 Q380 192 380 206 V222" marker-end="url(#cc-arrow)"/>
+  </g>
+
+  <!-- ===================== CONVERGENCE CHAIN ===================== -->
+  <!-- C3 convertase -->
+  <g id="cc-c3conv">
+    <rect x="265" y="226" width="230" height="56" rx="14" fill="#0B2440"/>
+    <text x="380" y="252" font-size="14.5" font-weight="600" fill="#FFFFFF" text-anchor="middle">C3 convertase</text>
+    <text x="380" y="271" font-size="12" fill="#AEBED4" text-anchor="middle">pathways converge here</text>
+  </g>
+  <line x1="380" y1="282" x2="380" y2="312" stroke="#475569" stroke-width="1.5" marker-end="url(#cc-arrow)"/>
+
+  <!-- C3 -->
+  <g id="cc-c3">
+    <rect x="320" y="316" width="120" height="44" rx="12" fill="#FFFFFF" stroke="#D5CEC0" stroke-width="1"/>
+    <text x="380" y="343" font-family="'Newsreader', Georgia, serif" font-size="18" font-weight="500" fill="#13243A" text-anchor="middle">C3</text>
+  </g>
+  <line x1="380" y1="360" x2="380" y2="390" stroke="#475569" stroke-width="1.5" marker-end="url(#cc-arrow)"/>
+
+  <!-- C5 convertase -->
+  <g id="cc-c5conv">
+    <rect x="265" y="394" width="230" height="56" rx="14" fill="#0B2440"/>
+    <text x="380" y="420" font-size="14.5" font-weight="600" fill="#FFFFFF" text-anchor="middle">C5 convertase</text>
+    <text x="380" y="439" font-size="12" fill="#AEBED4" text-anchor="middle">cleaves C5</text>
+  </g>
+  <line x1="380" y1="450" x2="380" y2="480" stroke="#475569" stroke-width="1.5" marker-end="url(#cc-arrow)"/>
+
+  <!-- C5 -->
+  <g id="cc-c5">
+    <rect x="320" y="484" width="120" height="44" rx="12" fill="#FFFFFF" stroke="#D5CEC0" stroke-width="1"/>
+    <text x="380" y="511" font-family="'Newsreader', Georgia, serif" font-size="18" font-weight="500" fill="#13243A" text-anchor="middle">C5</text>
+  </g>
+
+  <!-- split into C5a / C5b -->
+  <text x="380" y="548" font-size="12" fill="#626f85" text-anchor="middle" font-style="italic">splits into two fragments</text>
+  <g fill="none" stroke-width="1.6">
+    <path d="M380 528 V556 Q380 568 368 568 H205 Q193 568 193 580 V596" stroke="#2F5FE0" marker-end="url(#cc-arrow-accent)"/>
+    <path d="M380 528 V556 Q380 568 392 568 H555 Q567 568 567 580 V596" stroke="#475569" marker-end="url(#cc-arrow)"/>
+  </g>
+
+  <!-- C5a — the climax -->
+  <g id="cc-c5a">
+    <rect x="78" y="600" width="230" height="84" rx="14" fill="#2F5FE0"/>
+    <text x="193" y="636" font-family="'Newsreader', Georgia, serif" font-size="30" font-weight="600" fill="#FFFFFF" text-anchor="middle">C5a</text>
+    <text x="193" y="662" font-size="13" font-weight="600" fill="#FFFFFF" text-anchor="middle" opacity="0.92">inflammatory signal</text>
+  </g>
+
+  <!-- C5b branch -->
+  <g id="cc-c5b">
+    <rect x="452" y="600" width="230" height="44" rx="12" fill="#FFFFFF" stroke="#D5CEC0" stroke-width="1"/>
+    <text x="567" y="627" font-family="'Newsreader', Georgia, serif" font-size="18" font-weight="500" fill="#13243A" text-anchor="middle">C5b</text>
+  </g>
+  <line x1="567" y1="644" x2="567" y2="664" stroke="#475569" stroke-width="1.5" marker-end="url(#cc-arrow)"/>
+  <g id="cc-mac">
+    <rect x="452" y="668" width="230" height="44" rx="12" fill="#EFEDE6" stroke="#D5CEC0" stroke-width="1"/>
+    <text x="567" y="690" font-size="13.5" font-weight="600" fill="#13243A" text-anchor="middle">+ C6–C9 → MAC</text>
+    <text x="567" y="705" font-size="11" fill="#626f85" text-anchor="middle">membrane-attack complex</text>
+  </g>
+</svg>

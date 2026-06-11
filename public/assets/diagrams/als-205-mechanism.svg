@@ -1,0 +1,72 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 460" role="img" aria-labelledby="am-title am-desc" font-family="'Hanken Grotesk', system-ui, sans-serif">
+  <title id="am-title">ALS-205 blocks the C5a1 receptor</title>
+  <desc id="am-desc">ALS-205, a small-molecule antagonist, occupies the C5a1 receptor on neurons and glia. With the receptor blocked, C5a can no longer bind or signal, so the inflammatory signalling is switched off and neuroinflammation is calmed — while the rest of innate immunity keeps working.</desc>
+
+  <defs>
+    <marker id="am-arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0 0L10 5L0 10z" fill="#475569"/>
+    </marker>
+  </defs>
+
+  <rect width="760" height="460" fill="#F6F4EF"/>
+
+  <!-- ===== C5a — blocked ===== -->
+  <g id="am-c5a">
+    <circle cx="84" cy="150" r="38" fill="none" stroke="#9aa6b8" stroke-width="2" stroke-dasharray="5 5"/>
+    <text x="84" y="156" font-family="'Newsreader', Georgia, serif" font-size="22" font-weight="500" fill="#8593a6" text-anchor="middle">C5a</text>
+    <text x="84" y="208" font-size="12.5" font-weight="600" fill="#8593a6" text-anchor="middle">cannot signal</text>
+  </g>
+
+  <!-- blocked binding: dashed line stops short, with a no-entry cross -->
+  <path d="M124 150 H176" fill="none" stroke="#9aa6b8" stroke-width="1.8" stroke-dasharray="5 5"/>
+  <g id="am-block" transform="translate(190,150)">
+    <circle r="13" fill="#FFFFFF" stroke="#475569" stroke-width="2"/>
+    <line x1="-7" y1="-7" x2="7" y2="7" stroke="#475569" stroke-width="2"/>
+    <line x1="7" y1="-7" x2="-7" y2="7" stroke="#475569" stroke-width="2"/>
+  </g>
+
+  <!-- ===== cell membrane + occupied receptor ===== -->
+  <text x="266" y="84" font-size="13" font-weight="600" letter-spacing="0.06em" fill="#626f85">NEURONS &amp; GLIA</text>
+
+  <g id="am-cell">
+    <rect x="266" y="98" width="290" height="252" rx="18" fill="#FFFFFF" stroke="#D5CEC0" stroke-width="1"/>
+    <rect x="266" y="138" width="290" height="24" fill="#EFEDE6"/>
+    <line x1="266" y1="138" x2="556" y2="138" stroke="#D5CEC0" stroke-width="1"/>
+    <line x1="266" y1="162" x2="556" y2="162" stroke="#D5CEC0" stroke-width="1"/>
+    <text x="540" y="155" font-size="11" fill="#626f85" text-anchor="end">cell membrane</text>
+
+    <!-- C5a1 receptor: same U-channel as the C5a diagram, now plugged by ALS-205 -->
+    <g id="am-receptor">
+      <path d="M236 124 h36 v12 h-18 v28 h18 v12 h-36 z"
+            fill="#FFFFFF" stroke="#475569" stroke-width="2" stroke-linejoin="round"/>
+      <!-- ALS-205 small molecule seated in the pocket -->
+      <g id="am-als205">
+        <rect x="237" y="133" width="26" height="24" rx="7" fill="#2F5FE0"/>
+        <circle cx="250" cy="145" r="4" fill="#FFFFFF"/>
+        <circle cx="243" cy="139" r="2.4" fill="#FFFFFF" opacity="0.85"/>
+        <circle cx="257" cy="151" r="2.4" fill="#FFFFFF" opacity="0.85"/>
+      </g>
+      <text x="254" y="192" font-size="12.5" font-weight="700" fill="#2F5FE0" text-anchor="middle">ALS-205</text>
+      <text x="254" y="208" font-size="10.5" fill="#626f85" text-anchor="middle">occupies the receptor</text>
+    </g>
+
+    <!-- quiet interior -->
+    <text x="430" y="222" font-size="13.5" fill="#13243A" text-anchor="middle" font-weight="600">cell quiet</text>
+    <text x="430" y="246" font-size="12.5" fill="#475569" text-anchor="middle">no C5a signalling,</text>
+    <text x="430" y="266" font-size="12.5" fill="#475569" text-anchor="middle">no inflammatory</text>
+    <text x="430" y="286" font-size="12.5" fill="#475569" text-anchor="middle">activation</text>
+  </g>
+
+  <!-- ===== outcome ===== -->
+  <path d="M556 210 H600" fill="none" stroke="#475569" stroke-width="1.6" marker-end="url(#am-arrow)"/>
+
+  <g id="am-calmed">
+    <rect x="604" y="168" width="132" height="84" rx="14" fill="#2F5FE0"/>
+    <text x="670" y="204" font-size="14.5" font-weight="600" fill="#FFFFFF" text-anchor="middle">Inflammation</text>
+    <text x="670" y="226" font-size="14.5" font-weight="600" fill="#FFFFFF" text-anchor="middle">calmed</text>
+  </g>
+
+  <!-- caption -->
+  <text x="380" y="408" font-size="13" fill="#475569" text-anchor="middle">A potent, selective antagonist of the human C5a1 receptor — blocking C5a precisely</text>
+  <text x="380" y="428" font-size="13" fill="#475569" text-anchor="middle">where it does harm, while the rest of innate immunity keeps working.</text>
+</svg>

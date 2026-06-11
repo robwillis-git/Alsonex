@@ -1,0 +1,73 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 460" role="img" aria-labelledby="cn-title cn-desc" font-family="'Hanken Grotesk', system-ui, sans-serif">
+  <title id="cn-title">C5a drives neuroinflammation</title>
+  <desc id="cn-desc">In the central nervous system, the inflammatory signal C5a binds the C5a1 receptor present on neurons and glia, including microglia. This signalling activates those cells and drives chronic neuroinflammation, which in turn damages and destroys neurons.</desc>
+
+  <defs>
+    <marker id="cn-arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0 0L10 5L0 10z" fill="#475569"/>
+    </marker>
+    <marker id="cn-arrow-accent" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0 0L10 5L0 10z" fill="#2F5FE0"/>
+    </marker>
+  </defs>
+
+  <rect width="760" height="460" fill="#F6F4EF"/>
+
+  <!-- ===== C5a trigger ===== -->
+  <g id="cn-c5a">
+    <circle cx="96" cy="150" r="44" fill="#2F5FE0"/>
+    <text x="96" y="157" font-family="'Newsreader', Georgia, serif" font-size="24" font-weight="600" fill="#FFFFFF" text-anchor="middle">C5a</text>
+    <text x="96" y="222" font-size="13" font-weight="600" fill="#2F5FE0" text-anchor="middle">the trigger</text>
+  </g>
+
+  <!-- binding arrow to receptor -->
+  <path d="M144 150 H236" fill="none" stroke="#2F5FE0" stroke-width="1.8" marker-end="url(#cn-arrow-accent)"/>
+  <text x="190" y="138" font-size="11.5" fill="#626f85" text-anchor="middle" font-style="italic">binds</text>
+
+  <!-- ===== cell membrane + C5a1 receptor ===== -->
+  <text x="266" y="84" font-size="13" font-weight="600" letter-spacing="0.06em" fill="#626f85">NEURONS &amp; GLIA (incl. MICROGLIA)</text>
+
+  <g id="cn-cell">
+    <rect x="266" y="98" width="290" height="252" rx="18" fill="#FFFFFF" stroke="#D5CEC0" stroke-width="1"/>
+    <!-- membrane band spanning the cell, with the receptor opening on its left wall -->
+    <rect x="266" y="138" width="290" height="24" fill="#EFEDE6"/>
+    <line x1="266" y1="138" x2="556" y2="138" stroke="#D5CEC0" stroke-width="1"/>
+    <line x1="266" y1="162" x2="556" y2="162" stroke="#D5CEC0" stroke-width="1"/>
+    <text x="540" y="155" font-size="11" fill="#626f85" text-anchor="end">cell membrane</text>
+
+    <!-- C5a1 receptor: a U-shaped channel set into the left wall, opening toward C5a -->
+    <g id="cn-receptor">
+      <path d="M236 124 h36 v12 h-18 v28 h18 v12 h-36 z"
+            fill="#FFFFFF" stroke="#2F5FE0" stroke-width="2.5" stroke-linejoin="round"/>
+      <text x="300" y="192" font-size="13" font-weight="600" fill="#2F5FE0" text-anchor="middle">C5a1 receptor</text>
+    </g>
+
+    <!-- activated cell interior -->
+    <text x="420" y="222" font-size="13.5" fill="#13243A" text-anchor="middle" font-weight="600">cell activated</text>
+    <text x="420" y="246" font-size="12.5" fill="#475569" text-anchor="middle">microglial activation,</text>
+    <text x="420" y="266" font-size="12.5" fill="#475569" text-anchor="middle">gliosis, inflammatory</text>
+    <text x="420" y="286" font-size="12.5" fill="#475569" text-anchor="middle">mediators released</text>
+  </g>
+
+  <!-- ===== to neuroinflammation ===== -->
+  <path d="M556 210 H600" fill="none" stroke="#475569" stroke-width="1.6" marker-end="url(#cn-arrow)"/>
+
+  <g id="cn-inflammation">
+    <rect x="604" y="100" width="132" height="84" rx="14" fill="#0B2440"/>
+    <text x="670" y="138" font-size="14" font-weight="600" fill="#FFFFFF" text-anchor="middle">Chronic</text>
+    <text x="670" y="158" font-size="14" font-weight="600" fill="#FFFFFF" text-anchor="middle">neuro-</text>
+    <text x="670" y="172" font-size="13.5" font-weight="600" fill="#FFFFFF" text-anchor="middle">inflammation</text>
+  </g>
+
+  <path d="M670 184 V224" fill="none" stroke="#475569" stroke-width="1.6" marker-end="url(#cn-arrow)"/>
+
+  <g id="cn-damage">
+    <rect x="604" y="228" width="132" height="72" rx="14" fill="#FFFFFF" stroke="#D5CEC0" stroke-width="1"/>
+    <text x="670" y="262" font-size="13.5" font-weight="600" fill="#13243A" text-anchor="middle">Neuronal</text>
+    <text x="670" y="282" font-size="13.5" font-weight="600" fill="#13243A" text-anchor="middle">damage &amp; loss</text>
+  </g>
+
+  <!-- caption -->
+  <text x="380" y="408" font-size="13" fill="#475569" text-anchor="middle">In a healthy brain this signalling is measured and controlled.</text>
+  <text x="380" y="428" font-size="13" fill="#475569" text-anchor="middle">In neurodegeneration, excess C5a drives the damage.</text>
+</svg>
