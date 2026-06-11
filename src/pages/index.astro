@@ -59,7 +59,7 @@ const leaders = [
     poster="/assets/hero-riverdelta-sunrise-right-poster.jpg"
     posterAlt="Aerial vista of a branching river delta at sunrise, echoing the form of neuron dendrites"
     buttons={[
-      { label: 'Explore the Science', href: '/technology' },
+      { label: 'Explore the Science', href: '/science' },
       { label: 'Meet the Team', href: '/about' },
     ]}
   />
@@ -78,7 +78,7 @@ const leaders = [
         "Additional indications include Alzheimer's and Huntington's disease.",
       ]}
     >
-      <Button slot="action" href="/technology" variant="ghost" arrow>More on the Science</Button>
+      <Button slot="action" href="/science" variant="ghost" arrow>More on the Science</Button>
     </Split>
   </section>
 
@@ -102,7 +102,13 @@ const leaders = [
         items={[
           { n: '2014', l: 'Founded — out of UQ research' },
           { n: 'ALS-205', l: 'Lead clinical compound' },
+          // Phase Ib label = "Completed" (Rob's call).
           { n: 'Phase Ib', l: 'Completed in MND patients' },
+          // ⚠️ Indications count PENDING ROB'S VERIFICATION. Kept as the single
+          // source of truth for the "indications" number across the site (no
+          // other page introduces a conflicting figure); the pipeline lists 3
+          // active programmes (MND / Alzheimer's / Huntington's) while the
+          // About origins copy also names Parkinson's. Confirm 4 vs 3 with Rob.
           { n: '4', l: 'CNS indications in view' },
         ]}
       />

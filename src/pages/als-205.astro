@@ -1,14 +1,13 @@
 ---
 /**
- * The Science — V2 "Meridian Cine" RE-SKIN of the existing V1 Technology page.
- * Route stays /technology; nav label is "The Science".
+ * ALS-205 — V2 "Meridian Cine" evidence page (NEW page, route /als-205).
  *
- * Fidelity rule: re-skin only. V1's real copy (the ALS-205 lead-candidate
- * section, the SOD1 animal-model section, orphan-drug commercial protection,
- * the US/Europe orphan-drug cards and the additional-reading references) is
- * kept VERBATIM and restyled with the V2 system. The interactive 3D
- * MoleculeViewer is retained (already restyled to the V2 rounded card). The
- * development pipeline aligns to the SAME V2 set as the home (Pipe defaults).
+ * Built from Cora's approved copy (Team Inbox/v2-inner-content/als-205.md): the
+ * proof behind the lead compound — what it is (incl. the small-molecule, not an
+ * antibody thread), the clinical evidence, the SOD1G93A animal-model studies,
+ * the development pipeline (V2 set), orphan-drug protection (2-up cards) and the
+ * references. The interactive 3D MoleculeViewer (moved here from the old
+ * /technology page) sits beside the molecule description.
  */
 import BaseLayout from '../layouts/BaseLayout.astro';
 import PageHead from '../components/PageHead.astro';
@@ -30,24 +29,25 @@ const orphanCards = [
 ---
 
 <BaseLayout
-  title="The Science — Alsonex Pharmaceuticals"
-  description="ALS-205 is Alsonex's lead compound — a clinically validated candidate targeting Motor Neuron Disease, with potential across the broader central nervous system. Explore the development pipeline."
-  route="technology"
+  title="ALS-205 — The Evidence — Alsonex Pharmaceuticals"
+  description="ALS-205 is Alsonex's lead compound: a small-molecule, orally active, brain-penetrant C5a1-receptor antagonist. Improved survival in animal models of MND, safe target engagement in patients, and orphan-drug protection in the US and Europe."
+  route="als-205"
 >
   <PageHead
-    eyebrow="The Science"
-    title="Drug Development Pipeline for Alsonex"
-    lead="ALS-205 is Alsonex's lead compound — a clinically validated candidate targeting Motor Neuron Disease, with potential across the broader central nervous system."
+    eyebrow="Lead Compound"
+    title="ALS-205 — The Evidence"
+    lead="ALS-205 is Alsonex's lead compound: a small-molecule, orally active, brain-penetrant C5a1-receptor antagonist — selective for the receptor that drives the damage. It has improved survival in animal models of MND and shown safe target engagement in patients, and it carries orphan-drug protection in both the United States and Europe."
     watermark="ALS-205"
   />
 
-  <!-- Lead drug candidate — V1 copy verbatim, with the interactive 3D viewer. -->
+  <!-- §1 — The Molecule (with the interactive 3D MoleculeViewer). -->
   <section class="section section--tight">
     <Split
+      eyebrow="The molecule"
       image="/assets/tech-band.jpg"
       imageAlt="Glossy translucent molecular spheres linked together against a soft blue background"
     >
-      <h2 class="display h-lg" style="margin:0 0 18px">The Lead Drug Candidate – ALS-205</h2>
+      <h2 class="display h-lg" style="margin:0 0 18px">A Selective C5a1-Receptor Antagonist</h2>
       <p style="color:var(--ink-soft)">
         ALS-205 is a potent antagonist of the human C5a1 receptor with no activity at the C5a2
         receptor. It binds to the human C5a1 receptor on white blood cells and is a functional
@@ -65,13 +65,59 @@ const orphanCards = [
     </Split>
   </section>
 
-  <!-- Animal model — V1 copy verbatim. -->
+  <!-- The small-molecule, not an antibody thread. -->
+  <section class="section--tight" style="padding-top:0">
+    <div class="wrap wrap--narrow">
+      <p class="reveal" style="color:var(--ink-soft)">
+        What sets ALS-205 apart is as much how it is built as what it blocks. Most efforts to target
+        the complement system have relied on antibodies and other biologics — large protein
+        molecules that, for all their precision, carry two practical limitations for brain disease.
+        Their size keeps them from crossing the blood-brain barrier in any meaningful quantity, so
+        they struggle to reach the very neuroinflammation that takes hold inside the central nervous
+        system; and being proteins, they cannot survive the gut and must be delivered by injection
+        or infusion — a considerable burden when treatment is lifelong, as it is in
+        neurodegenerative disease. ALS-205 is not an antibody. It is a small molecule, and that
+        difference is deliberate: small enough and sufficiently lipophilic to be taken by mouth and
+        to reach the brain, it can get to where the damage is being done and be dosed for the long
+        term without the demands of regular infusion.
+      </p>
+      <p class="reveal prose-caption" style="font-size:15px">
+        Three properties, one small molecule: oral, brain-penetrant, and selective for the receptor
+        that matters.
+      </p>
+    </div>
+  </section>
+
+  <!-- §2 — Clinical Evidence. -->
   <section class="section--tight" style="padding-top:0">
     <div class="wrap wrap--narrow">
       <div class="slabel reveal">
-        <div class="eyebrow center">
-          ALS-205 Activity in Animal Model of Motor Neuron Disease (Rats)
-        </div>
+        <div class="eyebrow center">Clinical evidence</div>
+        <h2 class="display h-md" style="margin-top:14px">Tested in Volunteers and in Patients</h2>
+      </div>
+      <p class="reveal" style="color:var(--ink-soft)">
+        ALS-205 has completed a Single Ascending and Multiple Ascending Dose (SAD/MAD) Phase I
+        clinical trial in healthy volunteers, establishing a suitable dose for future clinical
+        studies. A Phase Ib clinical trial in subjects with MND has since been completed,
+        demonstrating safe target engagement in the intended patient population and properties
+        suitable for further development.
+      </p>
+      <p class="reveal" style="color:var(--ink-soft);margin-top:14px">
+        Together these trials establish what every drug-development programme needs before it can go
+        further: a dose, a safety profile, and evidence that the molecule reaches and engages its
+        target in the people it is meant to help.
+      </p>
+    </div>
+  </section>
+
+  <!-- §3 — The Animal-Model Studies. -->
+  <section class="section--tight" style="padding-top:0">
+    <div class="wrap wrap--narrow">
+      <div class="slabel reveal">
+        <div class="eyebrow center">The animal-model studies</div>
+        <h2 class="display h-md" style="margin-top:14px">
+          ALS-205 in an Animal Model of Motor Neuron Disease
+        </h2>
       </div>
       <p class="reveal" style="color:var(--ink-soft)">
         Although the majority of ALS cases are sporadic, approximately 10% are of genetic origin due
@@ -103,11 +149,33 @@ const orphanCards = [
     </div>
   </section>
 
-  <!-- Commercial protection — V1 copy verbatim. -->
+  <!-- §4 — The Development Pipeline (V2 set — Pipe defaults). -->
+  <section class="section--tight" style="padding-top:0">
+    <div class="wrap">
+      <div class="slabel reveal">
+        <div class="eyebrow center">The development pipeline</div>
+        <h2 class="display h-md" style="margin-top:14px">
+          One Molecule, a Widening Clinical Frontier
+        </h2>
+      </div>
+      <p class="reveal wrap--narrow" style="color:var(--ink-soft);margin:0 auto 28px">
+        ALS-205 was developed first for MND, but the rationale — blocking damaging C5a signalling in
+        the brain — applies across neurodegenerative disease. Additional indications expand the
+        clinical utility of the lead molecule into other degenerative diseases of the CNS, and
+        benefit from the preclinical work already undertaken for the first indication.
+      </p>
+      <Pipe />
+    </div>
+  </section>
+
+  <!-- §5 — Commercial Protection (orphan-drug 2-up cards). -->
   <section class="section--tight" style="padding-top:0">
     <div class="wrap wrap--narrow">
       <div class="slabel reveal">
-        <div class="eyebrow center">Commercial Protection for ALS-205</div>
+        <div class="eyebrow center">Commercial protection</div>
+        <h2 class="display h-md" style="margin-top:14px">
+          Orphan-Drug Protection in the US and Europe
+        </h2>
       </div>
       <p class="reveal" style="color:var(--ink-soft)">
         ALS-205 has been granted orphan drug designation by the FDA for the U.S. and by the EMA for
@@ -120,34 +188,17 @@ const orphanCards = [
     </div>
   </section>
 
-  <!-- Orphan-drug cards — V1 copy verbatim, restyled as a 2-up V2 card grid. -->
   <section class="section--tight" style="padding-top:0">
     <div class="wrap">
-      <div class="slabel reveal">
-        <div class="eyebrow center">Orphan Drugs Labelling and Legal Status</div>
-      </div>
       <CardGrid cols={2} cards={orphanCards} />
     </div>
   </section>
 
-  <!-- Development pipeline — SAME V2 set as the home (Pipe defaults). -->
-  <section class="section--tight" style="padding-top:0">
-    <div class="wrap">
-      <div class="slabel reveal">
-        <div class="eyebrow center">Development pipeline</div>
-        <h2 class="display h-md" style="margin-top:14px">
-          One molecule, a widening clinical frontier
-        </h2>
-      </div>
-      <Pipe />
-    </div>
-  </section>
-
-  <!-- Additional reading — V1 reference list verbatim. -->
+  <!-- §6 — References. -->
   <section class="section--tight" style="padding-top:0;padding-bottom:clamp(72px,9vw,120px)">
     <div class="wrap wrap--narrow">
       <div class="slabel reveal">
-        <div class="eyebrow center">Additional Reading</div>
+        <div class="eyebrow center">Additional reading</div>
       </div>
       <ul class="refs reveal">
         <li>

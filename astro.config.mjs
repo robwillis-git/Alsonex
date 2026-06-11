@@ -9,6 +9,12 @@ import sitemap from '@astrojs/sitemap';
 export default defineConfig({
   site: 'https://alsonex.com.au',
   output: 'static',
+  // Preserve inbound links to the old Technology URL. The Science page now
+  // lives at /science (and the new ALS-205 evidence page at /als-205); a
+  // static redirect keeps /technology resolving to /science.
+  redirects: {
+    '/technology': '/science',
+  },
   integrations: [
     react(),
     // Generates sitemap-index.xml + sitemap-0.xml from `site`. The internal

@@ -1,252 +1,150 @@
 ---
 /**
- * About — V2 "Meridian Cine" RE-SKIN of the existing V1 About content.
+ * About — V2 "Meridian Cine" company & leadership page (route /about).
  *
- * Fidelity rule: re-skin only. V1's real copy (mission intro + the
- * inflammation / neurodegeneration / complement science sections + the
- * complement-cascade figure + affiliations) is kept VERBATIM and restyled with
- * the V2 system (PageHead navy header w/ "About" watermark, Split for the lead
- * sections that carry a side image, V2 prose/figure styling). No content was
- * reorganised or rewritten.
+ * Built from Cora's approved copy (Team Inbox/v2-inner-content/about.md): in V2
+ * About becomes the company & leadership page — all science moved to The Science
+ * (/science) and ALS-205 (/als-205). This is the destination for the Home page's
+ * "Meet the full board & advisors" button, so the full board lives here with the
+ * real, full bios. Composition: PageHead → origins Split → "Our Approach" 3-up
+ * CardGrid → leadership People grid → affiliations strip → investor CtaBand.
  */
 import BaseLayout from '../layouts/BaseLayout.astro';
 import PageHead from '../components/PageHead.astro';
 import Split from '../components/Split.astro';
+import CardGrid from '../components/CardGrid.astro';
+import People from '../components/People.astro';
+import CtaBand from '../components/CtaBand.astro';
+
+const approachCards = [
+  {
+    k: '01',
+    title: 'Validated Targets',
+    body: 'Alsonex builds on well-understood biology. Its programmes begin with validation of the biochemical target — the complement system and the C5a1 receptor that drives damaging neuroinflammation — establishing a sound scientific basis before a molecule advances toward patients.',
+  },
+  {
+    k: '02',
+    title: 'Proof-of-Concept',
+    body: 'A key part of the business model is to advance products through to the proof-of-concept stage in patients. For the longer and more costly clinical studies, development risk is shared with a larger pharmaceutical or biotechnology partner.',
+  },
+  {
+    k: '03',
+    title: 'Pipeline Expansion',
+    body: "The lead molecule, ALS-205, is being expanded into other degenerative diseases of the CNS, benefiting from the preclinical work already undertaken for the first indication. Additional indications include Alzheimer's and Huntington's disease, widening the clinical frontier from a single validated molecule.",
+  },
+];
+
+// Leadership / board — full real bios (verbatim from Cora's about.md).
+const leaders = [
+  {
+    name: 'David Groth',
+    role: 'Non-Executive Chairman',
+    bio: 'David is a co-founder and director of Integra Advisory, with over 20 years of experience advising companies and in senior management positions. He has managed a significant number of initial public offers, secondary capital raisings, mergers and acquisition transactions as part of developing and maintaining long-term relationships with clients. David has also held a number of senior management positions (including CEO), giving him a management and client perspective of capital raisings, M&A transactions, strategic advice and stakeholder/investor relations. Prior to establishing Integra Advisory, David spent 18 years at Wilson HTM, where he held several senior positions, including Chief Executive Officer.',
+    image: '/assets/team-groth.jpg',
+  },
+  {
+    name: 'Alan Robertson',
+    role: 'Chief Executive Officer and Managing Director',
+    bio: 'Alan was the CEO and MD of Pharmaxis Ltd for 14 years, responsible for raising more than $350 million in the U.S., Europe and Australia. In that role he oversaw the development to Marketing Authorisation of a new inhaled dry powder treatment for cystic fibrosis (Bronchitol) and a bronchial challenge test for hyperactive airway disease (Aridol). He built a drug discovery capability within Pharmaxis and participated in the creation of PXS4728 — now licensed to Boehringer Ingelheim for the treatment of NASH. Previously, he was the CEO of Promics Ltd (now part of Teva) and developed the first C5a receptor antagonist to patients with rheumatoid arthritis. While head of drug discovery at Kinacia, he invented KN-309, a PI3 kinase inhibitor (subsequently licensed to AstraZeneca). He is a former member of the scientific advisory board of Xenome Limited, a former Non-Executive Director of Patrys Limited and is a current Non-Executive Director of Infensa Bioscience Ltd and Chairman of AllVascular Ltd. While in the UK, as a Senior Scientist at Wellcome PLC (now GSK), he invented the anti-migraine drug Zomig.',
+    image: '/assets/team-robertson.jpg',
+  },
+  {
+    name: 'Steven Boggiano',
+    role: 'Non-Executive Director',
+    bio: "Steven possesses over twenty years' executive management and investment banking experience across North America (New York), Europe (London) and Asia Pacific (Hong Kong / Sydney). During his career, Steven has advised on a broad range of listed and unlisted mergers, divestments, acquisitions, strategic reviews, restructurings and capital raisings within Healthcare. Previously Steven was Managing Director and Head of Asia for Healthcare at Barclays Investment Bank and the former Chief Strategy Officer and Acting Chief Financial Officer of Estia Health. He is currently the Head of Healthcare and M&A at Ord Minnett.",
+    image: '/assets/team-boggiano.jpg',
+  },
+  {
+    name: 'Trent Woodruff',
+    role: 'Scientific Advisor',
+    bio: "A/Prof Woodruff is an ARC Future Fellow conducting research into the innate immune system in the brain, with specific research revolving around the Complement System. A focus of his work has been the chronic neurodegenerative diseases amyotrophic lateral sclerosis, Huntington's disease and Parkinson's disease, as well as maintaining an active interest in Alzheimer's disease. In 2010, A/Prof Woodruff started his own group and independent laboratory at the University of Queensland.",
+    image: '/assets/team-woodruff.jpg',
+  },
+  {
+    name: 'Alan Scott',
+    role: 'Non-Executive Director',
+    bio: 'Alan has experience in corporate reorganisation and M&A. He was the previous Chairman and Managing Director of Progen Industries for 11 years, including listing on the ASX and completing a direct NASDAQ cross listing. More recently, he was the Managing Director of Promics Pty Ltd and executed a trade sale to Cephalon/Teva. Currently, he is the CEO of Biosecurity/Opti Grow.',
+    image: '/assets/team-scott.jpg',
+  },
+  {
+    name: 'Paul Field',
+    role: 'Strategic Advisor',
+    bio: 'Paul has over 25 years of business development experience across a range of disease areas, including CNS disorders, and a deep network in the global biopharmaceutical industry. His current roles include business development manager at BioCurate, established in 2017 by Monash University and the University of Melbourne to commercialise drug discoveries in their two institutions. He was previously the life sciences specialist at Austrade, the Australian Government’s investment promotion agency, where he facilitated foreign direct investment into Australian research in infectious diseases, autoimmune diseases, neurodegenerative diseases, cancer and other therapeutic areas. Earlier, Paul was the founder and Executive Chairman of Bio-Link, a privately-owned biotechnology business development company with a range of clients across Australia.',
+    image: '/assets/team-field.jpg',
+  },
+];
 ---
 
 <BaseLayout
   title="About — Alsonex Pharmaceuticals"
-  description="Alsonex was founded in 2014 on research from the University of Queensland into neuroinflammation and the complement cascade. Meet the leadership team behind its work in neurodegenerative disease."
+  description="Alsonex is a Brisbane-based clinical-stage biopharmaceutical company founded in 2014 out of University of Queensland research into neuroinflammation. Meet the leadership team and board behind ALS-205."
   route="about"
 >
   <PageHead
     eyebrow="About Alsonex"
-    title="Alsonex – Developing a New Treatment for Motor Neuron Disease"
-    lead="The mission of Alsonex is to discover and develop new pharmaceutical products and technology through to proof-of-concept studies in areas where the clinical need is acute and to partner those products and technologies for further development and marketing. Alsonex has an expanding interest in neurodegenerative disease built on modulation of the innate immune system."
+    title="Built to Take Neurodegeneration Seriously"
+    lead="Alsonex is a Brisbane-based clinical-stage biopharmaceutical company developing new treatments for neurodegenerative disease. Founded in 2014 out of University of Queensland research into neuroinflammation, it is led by experienced drug developers and proven operators."
     watermark="About"
   />
 
-  <!-- Inflammation — V1 copy verbatim, restyled as a V2 split (side image). -->
+  <!-- §1 — Origins (Split). -->
   <section class="section section--tight">
     <Split
-      eyebrow="The Science"
+      eyebrow="Our story"
+      heading="Founded in 2014, Out of University of Queensland Research"
       image="/assets/inflammation-neurons.jpg"
       imageAlt="Blue-lit network of neurons signalling across their synaptic connections"
     >
-      <h2 class="display h-lg" style="margin:0 0 18px">Inflammation</h2>
       <p style="color:var(--ink-soft)">
-        Inflammation is the immune response to injury to one of the organs of the body. It is most
-        obvious and most immediately apparent when the injury is to the skin. Acute inflammation
-        presents as pain, heat, swelling, and redness at the site of the injury and it may involve
-        loss of function of the involved tissues. This type is normal and is the protective response
-        following trauma or infection. Acute inflammation involves local dilation of blood vessels
-        and increased vessel permeability to improve blood flow to the injured area. At the site of
-        an infection or injury, a variety of cells release signalling molecules that recruit
-        leukocytes to the affected area. However, inflammation that becomes chronic can damage the
-        body's own organs as the inflammatory cells release reactive oxygen species and proteases in
-        an attempt to destroy the source of inflammation. Tissue damage is a characteristic of
-        chronic inflammation. A common occurrence for this is in the disease asthma, where chronic
-        inflammation of the lung leads to structural changes in the lung and, if left untreated,
-        irreversible damage to the lung, loss of lung function with disastrous consequences for the
-        patient. More often than not and particularly in the brain the body is unable to repair
-        tissue damage and the cascade of events creates further damage. ALS is such a disease where
-        neuronal inflammation is apparent. A key component driving this inflammation is a suite of
-        proteins known as the complement system. The complement system is complex, but now well
-        understood and, theoretically at least, a highly targeted inhibitor of the complement system
-        should dampen down inflammation, return the brain to a more normal homeostatic condition and
-        prevent further damage. ALS-205 is such an inhibitor of the complement system.
+        Alsonex is a biopharmaceutical company focused on the development of new treatments for
+        neurodegenerative disease. The company was founded in 2014 and arose out of research being
+        undertaken at the University of Queensland and elsewhere into neuroinflammation and
+        neurodegenerative disease.
+      </p>
+      <p style="color:var(--ink-soft)">
+        Neurodegenerative disease remains a complex and elusive goal for the pharmaceutical
+        industry, but one in which new research is beginning to shed some light, and for which new
+        treatment options are emerging. Alsonex plans to be part of the solution to slowing or
+        reversing neurodegenerative diseases such as Parkinson's disease, Alzheimer's disease,
+        Huntington's disease and Motor Neuron Disease.
+      </p>
+      <p style="color:var(--ink-soft)">
+        <strong>Our principal commercial objective.</strong> The principal objective of the company is
+        to develop a new treatment option for people with neurodegenerative diseases, and this aligns
+        with our commercial objective, which is to enhance shareholder value through clinical development
+        of ALS-205.
       </p>
     </Split>
   </section>
 
-  <!-- Neurodegenerative Disease — V1 copy verbatim. -->
+  <!-- §2 — Our Approach (3-up CardGrid). -->
   <section class="section--tight" style="padding-top:0">
-    <div class="wrap wrap--narrow">
-      <h2 class="display h-md reveal">Neurodegenerative Disease</h2>
-      <p class="reveal" style="color:var(--ink-soft);margin-top:14px">
-        Neurodegenerative diseases occur when nervous system cells (neurons) in the brain and spinal
-        cord begin to deteriorate. Changes in these cells cause them to function abnormally and
-        eventually result in the death of the cell. Neurons normally don't reproduce or replace
-        themselves, so when they become damaged or die they cannot be replaced. As neurons
-        deteriorate, an individual may first experience relatively mild symptoms — problems with
-        coordination or remembering names. But as larger numbers of neurons die, symptoms become
-        progressively worse. In some cases, patients lose the ability to walk independently, think
-        clearly, or generally function in the world. Ultimately, many of these diseases are fatal.
-      </p>
-    </div>
-  </section>
-
-  <!-- Examples of Neurodegenerative Diseases — V1 copy verbatim, side image. -->
-  <section class="section--tight" style="padding-top:0">
-    <Split
-      rev
-      image="/assets/complement-activation-diagram.jpg"
-      imageAlt="Diagram of the three complement activation pathways — classical, MB-lectin and alternative — converging on complement activation, which drives recruitment of inflammatory cells, opsonisation of pathogens and killing of pathogens."
-    >
-      <h2 class="display h-lg" style="margin:0 0 18px">Examples of Neurodegenerative Diseases</h2>
-      <p style="color:var(--ink-soft)">
-        Examples of neurodegenerative diseases include Amyotrophic Lateral Sclerosis (ALS),
-        Parkinson's, Alzheimer's, and Huntington's disease.
-      </p>
-      <p style="color:var(--ink-soft)">
-        There are three main pathways of complement activation: the classical pathway, which is
-        triggered by antibody or by direct binding of complement component C1q to the pathogen
-        surface; the MB-lectin pathway, which is triggered by mannan-binding lectin, a normal serum
-        constituent that binds some encapsulated bacteria; and the alternative pathway, which is
-        triggered directly on pathogen surfaces. All of these pathways generate a crucial enzymatic
-        activity that, in turn, generates the effector molecules of complement.
-      </p>
-      <p style="color:var(--ink-soft)">
-        The three main consequences of complement activation are opsonisation of pathogens (making
-        them susceptible to destruction), the recruitment of inflammatory cells, and direct killing
-        of pathogen.
-      </p>
-      <p style="color:var(--ink-soft)">
-        Complement is mostly activated by three distinct pathways as shown in the Figure. However, a
-        fourth extrinsic pathway exists that helps amplify the cascade using cellular proteases to
-        cleave C3 and C5.
-      </p>
-    </Split>
-  </section>
-
-  <!-- Complement — V1 copy verbatim. -->
-  <section class="section--tight" style="padding-top:0">
-    <div class="wrap wrap--narrow">
-      <h2 class="display h-md reveal">Complement</h2>
-      <p class="reveal" style="color:var(--ink-soft);margin-top:14px">
-        The complement system is made up of a number of distinct plasma proteins that react with one
-        another to adhere to pathogens and induce a series of inflammatory responses that help fight
-        infection. A number of complement proteins are proteases that are themselves activated by
-        proteolytic cleavage. In the complement system, the precursor proteins are widely
-        distributed throughout the body without causing any problems. However, at sites of
-        infection, they are activated locally and trigger a series of potent inflammatory events.
-        The complement system activates through a triggered-enzyme cascade. In such a cascade, an
-        active complement enzyme, generated by cleavage of its precursor protein, cleaves its
-        substrate, another complement protein, to its active enzymatic form. This, in turn, cleaves
-        and activates the next protein in the complement cascade. In this way, the activation of a
-        small number of complement proteins at the start of the pathway is hugely amplified by each
-        successive enzymatic reaction, resulting in the rapid generation of a disproportionately
-        large complement response. As might be expected, there are many regulatory mechanisms to
-        prevent uncontrolled complement activation.
-      </p>
-      <p class="reveal" style="color:var(--ink-soft);margin-top:14px">
-        The three distinct pathways through which complement can be activated depend on different
-        molecules for their initiation, but they converge to generate the same set of effector
-        molecules. There are three ways in which the complement system protects against infection:
-      </p>
-      <ul class="prose-list reveal">
-        <li>
-          Generating large numbers of activated complement proteins that bind to pathogens, making
-          bacteria or other cells susceptible to the action of phagocytes bearing complement
-          receptors.
-        </li>
-        <li>
-          The small fragments of some complement proteins act as chemoattractants to recruit more
-          phagocytes to the site of complement activation, and also to activate these phagocytes.
-        </li>
-        <li>
-          The terminal complement components damage certain bacteria by creating pores in the
-          bacterial membrane.
-        </li>
-      </ul>
-    </div>
-  </section>
-
-  <!-- The Complement Cascade — figure (V1 verbatim caption/alt). -->
-  <section class="section--tight" style="padding-top:0">
-    <div class="wrap wrap--narrow">
+    <div class="wrap">
       <div class="slabel reveal">
-        <div class="eyebrow center">The Complement Cascade</div>
+        <div class="eyebrow center">Our Approach</div>
+        <h2 class="display h-lg" style="margin-top:16px">
+          A Focused Path From the Laboratory to the Patient
+        </h2>
       </div>
-      <figure class="figure reveal">
-        <div class="figure__box">
-          <img
-            src="/assets/complement-cascade.png"
-            alt="Diagram of the complement cascade showing the classical, lectin and alternative pathways converging on a pathway-specific C3 convertase, the cleavage of C3 and C5, the C3aR and C5aR receptors driving inflammation and chemotaxis, and the terminal pathway forming the membrane-attack complex (MAC, C5b-9) leading to lysis of bacteria."
-          />
-        </div>
-        <figcaption class="figure__cap">
-          Figure: The main pathways for complement activation.
-        </figcaption>
-      </figure>
-
-      <p class="reveal" style="color:var(--ink-soft);margin-top:26px">
-        The classical pathway is triggered by activation of the subunits of C1 after contact with
-        immunoglobulin-G (IgG)- and IgM-containing immune complexes and by C-reactive protein (CRP).
-      </p>
-      <p class="reveal" style="color:var(--ink-soft);margin-top:14px">
-        The lectin pathway involves the interaction of a serum protein, mannose-binding lectin
-        (MBL), with mannose residues on bacterial surfaces, resulting in the activation of
-        MBL-associated serine protease 1 in the serum. At this point, the classical and lectin
-        pathways converge, the outcome being limited cleavage of C4 and C2, generating C4bC2a, a C3
-        convertase.
-      </p>
-      <p class="reveal" style="color:var(--ink-soft);margin-top:14px">
-        The alternative pathway is typically triggered by lipopolysaccharide (LPS) derived from
-        Gram-negative bacteria. C3b is formed and interacts with factor B, followed by activation of
-        factor D, resulting in the generation of a C3 convertase. C3 convertase is where the three
-        main pathways converge and results in the limited cleavage of C3, generating the smaller
-        fragment C3a, and the larger fragment C3b. C3a is an anaphylatoxin that causes smooth-muscle
-        contraction, vasodilation and increased vascular permeability, which are all features of the
-        acute inflammatory response. C3b is an important opsonic factor. C3b also becomes
-        incorporated into the C3 convertase, forming a C5 convertase, which selectively cleaves C5
-        into C5a and C5b. C5a is a potent anaphylatoxin, and is the centrepiece of the complement
-        cascade. The other fragment from C5 cleavage, C5b, interacts sequentially with C6, C7, C8
-        and C9 to form C5b–C9, the membrane-attack complex (MAC).
-      </p>
-      <p class="reveal" style="color:var(--ink-soft);margin-top:14px">
-        The small complement fragments C3a and C5a act on specific receptors to produce local
-        inflammatory responses. When produced in large amounts or injected systemically, they induce
-        a generalised circulatory collapse, producing a shock-like syndrome similar to that seen in
-        a systemic allergic reaction involving IgE antibodies. Such a reaction is termed
-        anaphylactic shock and these small fragments of complement are therefore often referred to
-        as anaphylotoxins. C5a is the most stable and has the highest specific biological activity.
-        Both C5a and C3a can induce smooth-muscle contraction and increase vascular permeability and
-        act on the endothelial cells lining blood vessels to induce adhesion molecules.
-      </p>
-      <p class="reveal" style="color:var(--ink-soft);margin-top:14px">
-        In addition, C3a and C5a can activate the mast cells that populate submucosal tissues to
-        release mediators such as histamine and TNF-α that cause similar effects. The changes
-        induced by C5a and C3a recruit antibody, complement, and phagocytic cells to the site of an
-        infection and the increased fluid in the tissues hastens the movement of pathogen-bearing
-        antigen-presenting cells to the local lymph nodes, contributing to the prompt initiation of
-        the adaptive immune response.
-      </p>
+      <CardGrid cards={approachCards} />
     </div>
   </section>
 
-  <!-- Complement Plays a Central Role In Innate Immunity — V1 copy verbatim. -->
-  <section class="section--tight" style="padding-top:0">
-    <div class="wrap wrap--narrow">
+  <!-- §3 — Our Leadership Team (People grid — full board, real bios). -->
+  <section class="section">
+    <div class="wrap">
       <div class="slabel reveal">
-        <div class="eyebrow center">Complement Plays a Central Role In Innate Immunity</div>
+        <div class="eyebrow center">Our Leadership Team</div>
+        <h2 class="display h-lg" style="margin-top:16px">
+          Experienced Drug Developers and Proven Operators
+        </h2>
       </div>
-      <p class="reveal" style="color:var(--ink-soft)">
-        Complement plays a central role being involved in innate immunity, driving local and central
-        inflammation and in the destruction of neurons. Neuroinflammation, including microglial
-        activation, reactive gliosis, and early activation of the classical complement cascade, is a
-        hallmark of many neurodegenerative diseases. The recognition that complement activation and
-        activated microglia play an important role in eliminating synapses throughout the normal
-        developing brain raises the possibility that complement activation actively drives the loss
-        of synapses early in neurodegenerative disease, leading to loss of neurons and accelerating
-        disease progression.
-      </p>
-      <p class="reveal" style="color:var(--ink-soft);margin-top:14px">
-        The complement component C5a is also produced locally in the CNS and the C5a receptor is
-        present on neurones and glia. In the case of MND, there is a significant contribution of
-        immune and inflammatory components to the pathology of the disease. Activation fragments of
-        the complement system are increased in the plasma and cerebrospinal fluid of MND patients.
-        Elevated levels of these fragments are also localised to glia in the spinal cord and the
-        motor cortex of these patients. C5a is also elevated within leukocytes from ALS patients
-        suggesting heightened C5a receptor interaction. These findings indicate there is enhanced
-        peripheral immune complement terminal pathway activation in MND, which likely plays an
-        important role in the disease process.
-      </p>
+      <People members={leaders} />
     </div>
   </section>
 
-  <!-- Our Affiliations — V1 verbatim logos/links. -->
-  <section class="section--tight" style="padding-top:0;padding-bottom:clamp(72px,9vw,120px)">
+  <!-- Affiliations — tidy logo strip. -->
+  <section class="section--tight" style="padding-top:0">
     <div class="wrap wrap--narrow">
       <div class="slabel reveal">
         <div class="eyebrow center">Our Affiliations</div>
@@ -273,6 +171,19 @@ import Split from '../components/Split.astro';
           </a>
         </li>
       </ul>
+    </div>
+  </section>
+
+  <!-- §4 — Investor CTA. -->
+  <section class="section--tight" style="padding-top:0;padding-bottom:clamp(72px,9vw,120px)">
+    <div class="wrap reveal">
+      <CtaBand
+        eyebrow="For investors & partners"
+        heading={'Partner With Us to Bring <span style="white-space:nowrap">ALS-205</span> to Patients'}
+        lead="Alsonex advances its programmes to proof-of-concept, then shares later-stage development with the right pharmaceutical partner."
+        buttonLabel="Contact the team"
+        buttonHref="/contact"
+      />
     </div>
   </section>
 </BaseLayout>

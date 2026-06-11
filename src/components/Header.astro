@@ -9,7 +9,8 @@
  * - Mobile (≤900px): .nav__burger toggles the .nav__links overlay
  *   (open/close + Esc handled by meridian.js).
  *
- * Routes preserved: "The Science" relabels /technology (no URL change).
+ * Routes: "The Science" → /science, "ALS-205" → /als-205 (new evidence page).
+ * The old /technology route redirects to /science (see astro.config.mjs).
  *
  * Phase 0 note: this emits the production V2 nav so the home-hero proof
  * is faithful. Frankie may refine in Phase 1 (e.g. an Astro <Button> for
@@ -23,7 +24,8 @@ const { route } = Astro.props;
 const items = [
   { id: 'home', label: 'Home', href: '/' },
   { id: 'about', label: 'About', href: '/about' },
-  { id: 'technology', label: 'The Science', href: '/technology' },
+  { id: 'science', label: 'The Science', href: '/science' },
+  { id: 'als-205', label: 'ALS-205', href: '/als-205' },
   { id: 'news', label: 'News', href: '/news' },
   { id: 'contact', label: 'Contact', href: '/contact' },
 ];

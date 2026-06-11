@@ -1,0 +1,219 @@
+---
+/**
+ * The Science — V2 "Meridian Cine" story funnel (route /science).
+ *
+ * Built from Cora's approved copy (Team Inbox/v2-inner-content/the-science.md):
+ * a single flowing funnel narrative — challenge → complement system → C5a →
+ * ALS-205 the answer — in the Alsonex voice. The four bespoke SVG diagrams are
+ * rendered INLINE (via <Diagram>) at Cora's [DIAGRAM: …] markers so their
+ * <title>/<desc> + selectable text work, each in a clean reveal figure. The
+ * page introduces the science and the answer, then hands off to /als-205 where
+ * the deep clinical and animal-model proof lives.
+ *
+ * (Replaces the V1-reskin /technology page; /technology now redirects here.)
+ */
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHead from '../components/PageHead.astro';
+import Diagram from '../components/Diagram.astro';
+import Button from '../components/Button.astro';
+---
+
+<BaseLayout
+  title="The Science — Alsonex Pharmaceuticals"
+  description="Chronic neuroinflammation drives neurodegeneration. Alsonex follows that thread through the complement system to C5a — and to ALS-205, an oral, brain-penetrant small molecule designed to switch the damaging signal off."
+  route="science"
+>
+  <PageHead
+    eyebrow="The Science"
+    title="Calming the Inflammation That Drives Neurodegeneration"
+    lead="Neurodegenerative diseases share a common thread — chronic inflammation in the brain. Alsonex follows that thread to a single, well-understood target, and to a molecule designed to switch the damaging signal off."
+    watermark="C5a"
+  />
+
+  <!-- §1 — The Challenge -->
+  <section class="section section--tight">
+    <div class="wrap wrap--narrow">
+      <div class="eyebrow reveal">The challenge</div>
+      <h2 class="display h-lg reveal" style="margin:14px 0 18px">A Common Thread in the Brain</h2>
+      <p class="reveal" style="color:var(--ink-soft)">
+        For all their differences, the great neurodegenerative diseases — Motor Neuron Disease
+        (MND), also known as Amyotrophic Lateral Sclerosis (ALS), along with Alzheimer's and
+        Huntington's disease — share a striking feature. In each, nervous system cells in the brain
+        and spinal cord begin to deteriorate, function abnormally and ultimately die. And neurons,
+        unlike most cells in the body, do not reproduce or replace themselves: once they are lost,
+        they are lost for good. Symptoms that begin mildly become progressively worse, and many of
+        these diseases are ultimately fatal.
+      </p>
+      <p class="reveal" style="color:var(--ink-soft);margin-top:14px">
+        Inflammation is meant to protect the body. It is the immune system's normal response to
+        injury or infection, and in healthy tissue it does its work and resolves. But inflammation
+        that becomes chronic turns destructive, as inflammatory cells release reactive oxygen
+        species and proteases that damage the very tissue they were meant to defend. In the brain
+        the body is largely unable to repair this damage, and the cascade of events creates further
+        damage still. MND is such a disease, where neuronal inflammation is plainly apparent. The
+        thread that runs through neurodegeneration, then, is chronic neuroinflammation — and the
+        question Alsonex set out to answer was what drives it.
+      </p>
+    </div>
+  </section>
+
+  <!-- [DIAGRAM: the challenge] -->
+  <section class="section--tight" style="padding-top:0">
+    <div class="wrap wrap--narrow">
+      <Diagram
+        name="the-challenge"
+        caption="Figure: A healthy neuron deteriorates under chronic neuroinflammation — mild, then progressive, then lost."
+      />
+    </div>
+  </section>
+
+  <!-- §2 — The Complement System -->
+  <section class="section--tight" style="padding-top:0">
+    <div class="wrap wrap--narrow">
+      <div class="eyebrow reveal">The complement system</div>
+      <h2 class="display h-lg reveal" style="margin:14px 0 18px">
+        The Body's Inflammatory Tripwire
+      </h2>
+      <p class="reveal" style="color:var(--ink-soft)">
+        A key part of what drives this inflammation is a suite of proteins known as the complement
+        system. Complement is part of innate immunity — the body's first line of defence — and is
+        made up of distinct plasma proteins that react with one another to recognise threats and
+        trigger a series of inflammatory responses that help fight infection. Ordinarily these
+        precursor proteins circulate harmlessly throughout the body; at a site of infection, they
+        are activated locally and set off a chain of potent inflammatory events.
+      </p>
+      <p class="reveal" style="color:var(--ink-soft);margin-top:14px">
+        Complement works as a triggered-enzyme cascade. One activated complement protein cleaves the
+        next, which cleaves the next again, so that a small initial signal is rapidly and hugely
+        amplified into a large response. It can be set off through three distinct activation
+        pathways — the classical pathway, triggered by antibody or by C1q binding directly to a
+        target; the MB-lectin pathway, triggered by mannan-binding lectin; and the alternative
+        pathway, triggered directly on the target surface. The three pathways begin differently but
+        converge on the same point: the cleavage of complement component C3, and then of C5,
+        generating the same set of effector molecules.
+      </p>
+    </div>
+  </section>
+
+  <!-- [DIAGRAM: complement cascade] -->
+  <section class="section--tight" style="padding-top:0">
+    <div class="wrap wrap--narrow">
+      <Diagram
+        name="complement-cascade"
+        caption="Figure: Three initiation pathways converge on C3, then C5 — generating C5a, the potent inflammatory signal."
+      />
+    </div>
+  </section>
+
+  <section class="section--tight" style="padding-top:0">
+    <div class="wrap wrap--narrow">
+      <p class="reveal" style="color:var(--ink-soft)">
+        Powerful systems need brakes, and complement has many regulatory mechanisms to prevent it
+        running unchecked. The trouble in neurodegenerative disease is that, in the brain, those
+        brakes fail to hold — and the cascade keeps producing its most potent inflammatory signal.
+      </p>
+    </div>
+  </section>
+
+  <!-- §3 — C5a, the Crux -->
+  <section class="section--tight" style="padding-top:0">
+    <div class="wrap wrap--narrow">
+      <div class="eyebrow reveal">C5a, the crux</div>
+      <h2 class="display h-lg reveal" style="margin:14px 0 18px">C5a — The Signal at the Centre</h2>
+      <p class="reveal" style="color:var(--ink-soft)">
+        When the cascade reaches its terminal step, the C5 convertase cleaves C5 into two fragments:
+        C5b and C5a. C5a is a potent anaphylatoxin and the centrepiece of the complement cascade —
+        the most stable of the small complement fragments and the one with the highest specific
+        biological activity. It is a major effector of all the complement activation pathways: it
+        recruits and activates inflammatory cells, increases vascular permeability and amplifies
+        inflammation wherever it is produced.
+      </p>
+      <p class="reveal" style="color:var(--ink-soft);margin-top:14px">
+        Critically, C5a is also produced locally within the central nervous system — and the C5a1
+        receptor through which it acts is present on neurons and glia, the brain's own cells. C5a
+        signals by binding this C5a1 receptor. In a healthy brain that signalling is measured and
+        controlled. In neurodegeneration it is not: excess C5a, acting through the C5a1 receptor on
+        neurons and glia, drives the chronic neuroinflammation that damages and destroys neurons.
+      </p>
+    </div>
+  </section>
+
+  <!-- [DIAGRAM: C5a drives neuroinflammation] -->
+  <section class="section--tight" style="padding-top:0">
+    <div class="wrap wrap--narrow">
+      <Diagram
+        name="c5a-neuroinflammation"
+        caption="Figure: C5a binds the C5a1 receptor on neurons and glia, driving microglial activation, gliosis and neuron loss."
+      />
+    </div>
+  </section>
+
+  <section class="section--tight" style="padding-top:0">
+    <div class="wrap wrap--narrow">
+      <p class="reveal" style="color:var(--ink-soft)">
+        The fingerprints of this process are visible in patients. In MND there is a significant
+        contribution of immune and inflammatory components to the disease. Activation fragments of
+        the complement system are increased in the plasma and cerebrospinal fluid of MND patients,
+        and are localised to glia in the spinal cord and the motor cortex. C5a itself is elevated
+        within leukocytes from ALS patients, suggesting heightened C5a receptor interaction. These
+        findings point to enhanced complement terminal-pathway activation in MND that likely plays
+        an important role in the disease process. C5a, in short, is the signal at the centre of the
+        damage — and the obvious place to intervene.
+      </p>
+    </div>
+  </section>
+
+  <!-- §4 — ALS-205, the Answer -->
+  <section class="section--tight" style="padding-top:0">
+    <div class="wrap wrap--narrow">
+      <div class="eyebrow reveal">ALS-205, the answer</div>
+      <h2 class="display h-lg reveal" style="margin:14px 0 18px">
+        ALS-205 — Switching the Signal Off
+      </h2>
+      <p class="reveal" style="color:var(--ink-soft)">
+        If excess C5a signalling drives the damage, then blocking that signal should calm it. A
+        highly targeted inhibitor of the complement system should, at least in principle, dampen the
+        inflammation, return the brain toward a more normal homeostatic state and prevent further
+        damage. ALS-205 is such an inhibitor.
+      </p>
+      <p class="reveal" style="color:var(--ink-soft);margin-top:14px">
+        ALS-205 is a potent and selective antagonist of the human C5a1 receptor. Rather than
+        shutting down the whole complement system — which the body needs to fight infection — it
+        blocks C5a precisely where it does its harm, at the C5a1 receptor on neurons and glia, while
+        leaving the rest of innate immunity to function. Where most attempts to target complement
+        have used antibodies — large proteins that do not readily cross into the brain and must be
+        given by injection — ALS-205 is a small molecule, and that matters: small enough and
+        sufficiently lipophilic to be taken orally and to cross readily into the central nervous
+        system, where neurodegenerative disease takes hold.
+      </p>
+    </div>
+  </section>
+
+  <!-- [DIAGRAM: ALS-205 blocks the C5a1 receptor] -->
+  <section class="section--tight" style="padding-top:0">
+    <div class="wrap wrap--narrow">
+      <Diagram
+        name="als-205-mechanism"
+        caption="Figure: ALS-205 occupies the C5a1 receptor so C5a can no longer signal — and the inflammation quietens."
+      />
+    </div>
+  </section>
+
+  <section class="section--tight" style="padding-top:0">
+    <div class="wrap wrap--narrow">
+      <p class="reveal" style="color:var(--ink-soft)">
+        <strong>A small molecule, not an antibody:</strong> oral, brain-penetrant, selective. ALS-205
+        is Alsonex's lead compound, and it has already moved from this rationale into the clinic and into
+        disease models — with improved survival in animal studies of MND and safe target engagement in
+        patients.
+      </p>
+    </div>
+  </section>
+
+  <!-- Hand-off to the ALS-205 evidence page. -->
+  <section class="section--tight" style="padding-top:0;padding-bottom:clamp(72px,9vw,120px)">
+    <div class="wrap wrap--narrow reveal" style="text-align:center">
+      <Button href="/als-205" variant="primary" arrow>See the evidence behind ALS-205</Button>
+    </div>
+  </section>
+</BaseLayout>

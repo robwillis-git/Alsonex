@@ -1,0 +1,55 @@
+---
+/**
+ * Diagram — V2 "Meridian Cine" inline-SVG science figure.
+ *
+ * Renders one of the bespoke science SVGs (public/assets/diagrams/*.svg)
+ * INLINE — not as an <img> — so the SVG's <title>/<desc> reach the
+ * accessibility tree and its text remains selectable/scalable. Wrapped in a
+ * clean contained figure that reveals on scroll (`.reveal`) like the rest of
+ * the page, with an optional caption.
+ *
+ * The SVGs are read at build time via import.meta.glob (raw) and injected
+ * with set:html; `name` selects which one.
+ */
+const svgs = import.meta.glob('/public/assets/diagrams/*.svg', {
+  query: '?raw',
+  import: 'default',
+  eager: true,
+}) as Record<string, string>;
+
+type DiagramName =
+  | 'the-challenge'
+  | 'complement-cascade'
+  | 'c5a-neuroinflammation'
+  | 'als-205-mechanism';
+
+interface Props {
+  /** diagram file name (without path/extension) */
+  name: DiagramName;
+  /** optional caption shown beneath the figure */
+  caption?: string;
+  /** reveal stagger index (`data-d`) */
+  delay?: number;
+}
+
+const { name, caption, delay } = Astro.props;
+const svg = svgs[`/public/assets/diagrams/${name}.svg`];
+if (!svg) {
+  throw new Error(`Diagram: unknown SVG "${name}"`);
+}
+---
+
+<figure class="figure diagram reveal" data-d={delay ? delay : undefined}>
+  <div class="figure__box diagram__box" set:html={svg} />
+  {caption && <figcaption class="figure__cap">{caption}</figcaption>}
+</figure>
+
+<style>
+  /* The inline SVG fills the contained figure box, scaling to its viewBox. */
+  .diagram__box :global(svg) {
+    display: block;
+    width: 100%;
+    height: auto;
+    max-height: none;
+  }
+</style>
