@@ -24,6 +24,9 @@ export default [
         window: 'readonly',
         fetch: 'readonly',
         console: 'readonly',
+        // browser globals used by the V2 behaviour script (public/scripts/meridian.js)
+        IntersectionObserver: 'readonly',
+        setTimeout: 'readonly',
       },
     },
   },

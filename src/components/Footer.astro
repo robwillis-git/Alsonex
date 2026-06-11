@@ -1,21 +1,21 @@
 ---
 /**
- * Shared site footer.
- * Mirrors the reference build: project/ui_kits/website/Components.jsx (Footer).
- * Placeholder structure only; Frankie refines in Phase 1.
+ * Shared site footer — V2 "Meridian Cine" .foot.
+ * Ported from design_handoff_alsonex_v2/modern/meridian-cine.html.
+ * Locked decision: address + email only (the phone number was removed).
  */
+const year = new Date().getFullYear();
 ---
 
-<footer class="alx-footer">
-  <div class="alx-container">
-    <hr class="alx-rule alx-rule--soft" />
-    <div class="alx-footer__brand">ALSONEX</div>
-    <div class="alx-footer__line">
-      210 Alice Street, Brisbane, QLD 4000&nbsp;&nbsp;|&nbsp;&nbsp;0417 115
-      582&nbsp;&nbsp;|&nbsp;&nbsp;<a href="mailto:info@alsonex.com.au">info@alsonex.com.au</a>
+<footer class="foot">
+  <div class="wrap">
+    <div class="foot__brand">ALSONEX</div>
+    <div class="foot__line">
+      210 Alice Street, Brisbane, QLD 4000 &nbsp;·&nbsp;
+      <a href="mailto:info@alsonex.com.au">info@alsonex.com.au</a>
     </div>
-    <div class="alx-footer__fine">
-      Alsonex Pty Ltd · focused on the development of new treatments for neurodegenerative disease
+    <div class="foot__fine">
+      Alsonex Pty Ltd · developing new treatments for neurodegenerative disease · © {year}
     </div>
   </div>
 </footer>

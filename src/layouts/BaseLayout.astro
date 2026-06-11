@@ -46,6 +46,24 @@ const siteName = 'Alsonex Pharmaceuticals';
     <meta name="description" content={description} />
     <link rel="canonical" href={canonicalURL} />
 
+    <!-- V2 self-hosted fonts: preload the two above-the-fold faces
+         (Newsreader display + Hanken Grotesk body). @font-face lives in
+         src/styles/fonts.css (font-display: swap). -->
+    <link
+      rel="preload"
+      href="/fonts/newsreader-latin.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+    <link
+      rel="preload"
+      href="/fonts/hanken-grotesk-latin.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+
     <!-- Favicon (brand mark) -->
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
@@ -65,11 +83,16 @@ const siteName = 'Alsonex Pharmaceuticals';
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={ogImageURL} />
   </head>
-  <body>
+  <body class="theme-meridian cine">
     <Header route={route} />
     <main>
       <slot />
     </main>
     <Footer />
+
+    <!-- V2 global behaviour: sticky/condensing nav, scroll reveals,
+         mobile hamburger overlay. Ported from modern.js. Loaded once,
+         site-wide. defer = runs after DOM parse. -->
+    <script is:inline defer src="/scripts/meridian.js"></script>
   </body>
 </html>

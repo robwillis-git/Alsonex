@@ -1,1122 +1,1278 @@
 /* ============================================================
-   ALSONEX — GLOBAL BASE
-   Imports the verbatim design-token layer, then a minimal
-   structural base mirroring the reference build
-   (Ops/standards/alsonex-design-system/project/ui_kits/website/index.html).
-   Frankie extends this with full component CSS in Phase 1.
+   ALSONEX — V2 "Meridian Cine" GLOBAL COMPONENT SYSTEM
+   The V2 visual layer. Ported from the handoff
+   design_handoff_alsonex_v2/modern/modern.css (component CSS,
+   pull values verbatim) + brand/alsonex-logo.css (the wordmark).
+
+   Phase 0 / mid-migration: this is the NEW system. The legacy
+   alx- component classes are gone — V2 markup uses the class
+   names below (.nav, .hero-cine, .split, .pipe, .people, .card,
+   .newsitem, .pagehead, .cta, .foot, .contact, .form, .btn--*,
+   .reveal, .eyebrow, type utilities .h-xl…/.lead).
+
+   Order: tokens → self-hosted fonts → base → components → theme.
    ============================================================ */
-
 @import './tokens.css';
+@import './fonts.css';
 
-/* One intentional a11y shade (NOT a design token — tokens.css is verbatim and
-   left untouched). Body/inline links need ≥4.5:1 on white for WCAG AA; the brand
-   blue #629EC3 is ~2.9:1. This is a darkened brand blue used for body links only
-   (large H1s/accents and nav keep #629EC3). #326D9B measures ~5.5:1 on white. */
-:root {
-  --link-body: #326d9b;
-}
-
+/* ---------- base ---------- */
 * {
   box-sizing: border-box;
 }
-html,
-body {
-  margin: 0;
-  overflow-x: hidden; /* guard against any wide element (e.g. hero watermark) */
+html {
+  scroll-behavior: smooth;
 }
 body {
+  margin: 0;
   font-family: var(--font-body);
-  font-size: var(--fs-body);
   color: var(--ink);
-  background: var(--bg-white);
-  line-height: var(--lh-body);
+  background: var(--bg);
   -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  line-height: 1.6;
 }
 img {
   max-width: 100%;
   display: block;
 }
+a {
+  color: inherit;
+  text-decoration: none;
+}
 
-/* ---- Layout primitives ---- */
-.alx-container {
-  max-width: 1100px;
+/* ---------- layout wrap ---------- */
+.wrap {
+  max-width: var(--maxw);
   margin: 0 auto;
-  padding: 0 32px;
+  padding: 0 var(--gutter);
 }
-.alx-center {
-  text-align: center;
+.wrap--narrow {
+  max-width: 880px;
 }
 
-/* ---- Header ---- */
-.alx-header {
-  position: sticky;
-  top: 0;
-  z-index: 50;
-  background: #fff;
-  border-bottom: 1px solid var(--line);
+/* ---------- eyebrow / micro-label ---------- */
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--font-body);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--accent);
 }
-.alx-header__inner {
+.eyebrow::before {
+  content: '';
+  width: 26px;
+  height: 1px;
+  background: var(--accent);
+  display: inline-block;
+}
+.eyebrow.center {
+  justify-content: center;
+}
+
+/* ---------- display / headings + type utilities ---------- */
+.display {
+  font-family: var(--font-display);
+  font-weight: var(--display-weight);
+  font-style: var(--display-style);
+  line-height: 1.04;
+  letter-spacing: var(--display-tracking, -0.01em);
+  color: var(--ink);
+}
+.h-xl {
+  font-size: clamp(38px, 5.6vw, 68px);
+}
+.h-lg {
+  font-size: clamp(30px, 3.8vw, 46px);
+}
+.h-md {
+  font-size: clamp(24px, 2.6vw, 32px);
+}
+.h-sm {
+  font-size: clamp(20px, 2vw, 24px);
+}
+.lead {
+  font-size: clamp(18px, 1.5vw, 21px);
+  line-height: 1.62;
+  color: var(--ink-soft);
+  font-weight: 400;
+}
+.muted {
+  color: var(--ink-muted);
+}
+.accent {
+  color: var(--accent);
+}
+
+/* ---------- buttons ---------- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  white-space: nowrap;
+  font-family: var(--font-body);
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  padding: 14px 26px;
+  border-radius: var(--r-sm);
+  cursor: pointer;
+  border: 1px solid transparent;
+  transition:
+    transform 0.25s var(--ease),
+    background 0.25s var(--ease),
+    box-shadow 0.25s var(--ease),
+    border-color 0.25s var(--ease),
+    color 0.25s var(--ease);
+}
+.btn .arr {
+  transition: transform 0.3s var(--ease);
+}
+.btn:hover .arr {
+  transform: translate(3px, -3px);
+}
+.btn--primary {
+  background: var(--accent);
+  color: var(--on-accent);
+}
+.btn--primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 28px var(--accent-shadow);
+}
+.btn--ghost {
+  background: transparent;
+  color: var(--ink);
+  border-color: var(--line-strong);
+}
+.btn--ghost:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+.btn--on-dark {
+  background: var(--accent);
+  color: var(--on-accent);
+}
+
+/* ---------- header / nav ---------- */
+.nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 80;
+  transition: all 0.35s var(--ease);
+}
+.nav__in {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  height: 90px;
+  height: 88px;
+  transition: height 0.35s var(--ease);
 }
-.alx-logo img {
-  /* 902×297 (~3:1) wordmark — scaled up to match the live site; height drives
-     width via the natural aspect ratio so it never distorts. */
-  height: 56px;
-  width: auto;
-  transition: opacity var(--dur) var(--ease-brand);
+.nav.is-stuck .nav__in {
+  height: 66px;
 }
-.alx-logo:hover img {
-  opacity: 0.7;
-}
-.alx-nav {
-  display: flex;
-  gap: 30px;
-}
-.alx-nav__item {
-  font-size: 15px;
-  white-space: nowrap;
-  color: var(--ink);
-  text-decoration: none;
-  padding: 6px 0;
-  border-bottom: 2px solid transparent;
-  transition:
-    opacity var(--dur) var(--ease-brand),
-    border-color var(--dur) var(--ease-brand);
-}
-.alx-nav__item:hover {
-  opacity: 0.7;
-}
-.alx-nav__item.is-current {
-  color: var(--brand-teal);
-  border-bottom-color: var(--brand-teal);
-}
-
-/* ---- Footer ---- */
-.alx-footer {
-  background: var(--bg);
-  padding: 46px 0;
-  text-align: center;
-  color: var(--footer-ink);
-}
-.alx-footer__brand {
-  font-size: 26px;
+.nav__logo {
+  display: inline-flex;
+  align-items: baseline;
+  font-family: var(--font-body);
   font-weight: 700;
-  letter-spacing: 0.06em;
-  color: var(--logo-grey);
+  font-size: 23px;
+  letter-spacing: 0.16em;
+  color: var(--nav-ink);
+  transition:
+    color 0.35s var(--ease),
+    font-size 0.35s var(--ease);
 }
-.alx-footer__line {
-  margin-top: 10px;
-  font-size: 14px;
+.nav.is-stuck .nav__logo {
+  font-size: 21px;
 }
-.alx-footer__line a {
-  color: var(--link-body);
-  text-decoration: underline;
-  text-underline-offset: 0.15em;
-}
-.alx-footer__fine {
-  margin-top: 14px;
-  font-size: 12px;
-  color: var(--ink-muted);
-}
-.alx-rule {
-  border: none;
-  height: 1px;
-  background: var(--line-strong);
-  margin: 0;
-}
-.alx-rule--soft {
-  background: var(--line);
-  margin-bottom: 26px;
-}
-
-/* ---- Hero / proof-of-life ---- */
-.alx-hero {
+.nav__logo .x {
   position: relative;
-  overflow: hidden;
-  padding: 72px 0 40px;
-  background: var(--bg-white);
+  color: transparent;
+  display: inline-block;
 }
-/* Full-width blue neuron banner shown above the headline on every page. Hard
-   corners per brand; the watermark word is overlaid in white at the left. */
-.alx-hero__banner {
-  position: relative;
-  width: 100%;
-  margin-bottom: 44px;
-}
-.alx-hero__banner img {
-  width: 100%;
-  height: clamp(180px, 26vw, 300px);
-  object-fit: cover;
-  object-position: center;
-  border-radius: 0;
-}
-.alx-hero__bannerlabel {
-  position: absolute;
-  left: max(32px, calc((100% - 1100px) / 2 + 32px));
-  bottom: 28px;
-  margin: 0;
-  font-family: var(--font-head);
-  font-weight: var(--w-light);
-  font-size: clamp(30px, 5vw, 52px);
-  color: #fff;
-  line-height: 1;
-  pointer-events: none;
-  text-shadow: 0 1px 10px rgba(0, 0, 0, 0.25);
-}
-.alx-watermark {
+.nav__logo .x::before,
+.nav__logo .x::after {
+  content: '';
   position: absolute;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%);
-  font-size: clamp(120px, 20vw, 260px);
-  font-weight: 700;
-  color: var(--bg-nav-tint);
-  opacity: 0.5;
-  line-height: 1;
-  pointer-events: none;
-  white-space: nowrap;
-  z-index: 0;
+  width: 0.12em;
+  background: var(--accent);
+  border-radius: 0.06em;
 }
-.alx-hero--short {
-  padding: 60px 0 30px;
-}
-/* When a banner image leads the hero it provides the top whitespace itself, so
-   drop the section's own top padding (the banner has its own bottom margin). */
-.alx-hero--banner {
-  padding-top: 0;
-}
-.alx-hero__inner {
-  position: relative;
-  z-index: 1;
-}
-.alx-hero__title {
-  max-width: 880px;
-  margin-left: auto;
-  margin-right: auto;
-  font-size: clamp(28px, 4vw, 38px);
-}
-.alx-prose-narrow {
-  max-width: 760px;
-  margin-left: auto;
-  margin-right: auto;
-}
-/* `.alx-p` declares `margin: 0 0 1em`, whose shorthand resets left/right to 0
-   and (being later in the cascade) overrides `.alx-prose-narrow`'s auto margins,
-   leaving narrow body paragraphs left-anchored instead of block-centred. The
-   compound selector below raises specificity so the auto centring wins while
-   preserving the 1em bottom rhythm. Keeps `.alx-lead` (a separate class) intact. */
-.alx-p.alx-prose-narrow {
-  margin-inline: auto;
-}
-
-/* ---- Typographic helpers ---- */
-.alx-h1 {
-  font-family: var(--font-head);
-  font-weight: var(--w-regular);
-  color: var(--brand-blue);
-  font-size: var(--fs-h1);
-  line-height: var(--lh-tight);
-  margin: 0 0 20px;
-}
-.alx-h2 {
-  font-family: var(--font-head);
-  font-weight: var(--w-regular);
-  color: var(--brand-teal);
-  font-size: var(--fs-h2);
-  line-height: var(--lh-snug);
-  margin: 0 0 14px;
-}
-.alx-h3 {
-  font-family: var(--font-head);
-  font-weight: var(--w-regular);
-  color: var(--ink);
-  font-size: var(--fs-h3);
-  margin: 0 0 10px;
-}
-.alx-lead {
-  font-size: var(--fs-lead);
-  font-weight: var(--w-light);
-  line-height: var(--lh-loose);
-  color: var(--ink-soft);
-  max-width: 760px;
-  margin: 0 auto 18px;
-}
-.alx-p {
-  font-size: var(--fs-body);
-  line-height: var(--lh-body);
-  color: var(--ink);
-  margin: 0 0 1em;
-}
-.alx-prose .alx-p:last-child {
-  margin-bottom: 0;
-}
-/* Body/prose links use a darker blue (#326D9B, ~5.5:1 on white) and an
-   underline so they meet WCAG 2.1 AA (1.4.3 / 1.4.1) at body text size — the
-   brand blue #629EC3 (~2.9:1) is reserved for large H1s/accents and nav, which
-   are not body links. This is the one intentional new shade (a darkened brand
-   blue), scoped to inline body links only. */
-.alx-link {
-  color: var(--link-body);
-  text-decoration: underline;
-  text-underline-offset: 0.15em;
-  transition: opacity var(--dur) var(--ease-brand);
-}
-.alx-link:hover {
-  opacity: 0.7;
-}
-
-/* ---- Buttons ---- */
-.alx-btn {
-  display: inline-flex;
+.nav__logo .x::before {
+  height: 0.78em;
+  transform: translate(-50%, -50%) rotate(-28deg);
+} /* \ leg */
+.nav__logo .x::after {
+  height: 1.2em;
+  transform: translate(-50%, -56%) rotate(28deg);
+} /* / leg, extended up-right */
+.nav__links {
+  display: flex;
+  gap: 34px;
   align-items: center;
-  gap: 8px;
-  font-family: var(--font-head);
-  font-size: 14px;
-  font-weight: var(--w-bold);
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
-  color: #fff;
-  background: var(--brand-blue);
-  border: none;
-  padding: 13px 26px;
-  border-radius: var(--radius-sm);
-  cursor: pointer;
-  text-decoration: none;
-  transition:
-    background var(--dur) var(--ease-brand),
-    opacity var(--dur) var(--ease-brand);
 }
-.alx-btn:hover {
-  background: var(--brand-blue-deep);
-}
-.alx-btn--teal {
-  background: var(--brand-teal);
-}
-.alx-btn--teal:hover {
-  background: var(--brand-teal-deep);
-}
-.alx-btn--ghost {
-  background: transparent;
-  color: var(--brand-blue);
-  border: 1px solid var(--brand-blue);
-}
-.alx-btn--ghost:hover {
-  background: var(--bg-blue-tint);
-}
-.alx-btn__icon {
+.nav__links a {
   font-size: 15px;
+  font-weight: 500;
+  white-space: nowrap;
+  color: var(--nav-ink);
+  position: relative;
+  padding: 4px 0;
+  transition: color 0.25s var(--ease);
+}
+.nav__links a::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 100%;
+  bottom: -2px;
+  height: 2px;
+  background: var(--accent);
+  transition: right 0.3s var(--ease);
+}
+.nav__links a:hover::after,
+.nav__links a.current::after {
+  right: 0;
+}
+.nav__links a:hover,
+.nav__links a.current {
+  color: var(--accent);
+}
+.nav__cta {
+  margin-left: 8px;
 }
 
-/* ---- Keyboard focus (a11y) ----
-   Visible brand-blue focus ring for keyboard users on interactive elements.
-   :focus-visible keeps it off mouse/touch clicks so the brand stays clean. */
-.alx-nav__item:focus-visible,
-.alx-link:focus-visible,
-.alx-logo:focus-visible,
-.alx-btn:focus-visible {
-  outline: 2px solid var(--brand-blue);
-  outline-offset: 3px;
+/* ---------- section rhythm ---------- */
+.section {
+  padding: clamp(72px, 9vw, 128px) 0;
+}
+.section--tight {
+  padding: clamp(48px, 6vw, 80px) 0;
 }
 
-/* ---- Section label ---- */
-.alx-sectionlabel {
-  text-align: center;
-  padding: 34px 0 10px;
+/* ---------- reveal animation (safe: only below-fold gets hidden) ---------- */
+.reveal {
+  transition:
+    opacity 0.8s var(--ease),
+    transform 0.8s var(--ease);
 }
-.alx-sectionlabel .alx-h1 {
-  margin: 22px 0;
+.reveal.pre {
+  opacity: 0;
+  transform: translateY(26px);
+}
+.reveal.pre[data-d='1'] {
+  transition-delay: 0.08s;
+}
+.reveal.pre[data-d='2'] {
+  transition-delay: 0.16s;
+}
+.reveal.pre[data-d='3'] {
+  transition-delay: 0.24s;
+}
+.reveal.pre[data-d='4'] {
+  transition-delay: 0.32s;
+}
+@media (prefers-reduced-motion: reduce) {
+  .reveal.pre {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
 }
 
-/* ---- Rows: image + text and person ---- */
-.alx-row {
-  padding: 70px 0;
-}
-.alx-imgtext,
-.alx-person {
+/* ---------- stats strip ---------- */
+.stats {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 48px;
-  align-items: center;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1px;
+  background: var(--line);
 }
-.alx-imgtext.is-reverse .alx-imgtext__media,
-.alx-person.is-reverse .alx-person__media {
-  order: -1;
+.stat {
+  background: var(--bg);
+  padding: 30px 26px;
 }
-.alx-imgtext__media img,
-.alx-person__media img {
-  width: 100%;
-  height: 100%;
-  max-height: 420px;
-  object-fit: cover;
-  border-radius: 0 !important; /* photos are always hard-cornered (README §Imagery) */
+.stat__n {
+  font-family: var(--font-display);
+  font-weight: var(--display-weight);
+  font-style: var(--display-style);
+  font-size: clamp(34px, 4vw, 52px);
+  line-height: 1;
+  color: var(--accent);
+  letter-spacing: -0.02em;
 }
-.alx-imgtext__action {
-  margin-top: 22px;
-}
-.alx-person {
-  grid-template-columns: 1.4fr 1fr;
-  gap: 40px;
-  padding: 70px 0;
-  border-bottom: 1px solid var(--line);
-}
-.alx-person__media img {
-  max-height: 300px;
-}
-.alx-person__role {
-  display: block;
+.stat__l {
+  margin-top: 10px;
   font-size: 14px;
+  color: var(--ink-muted);
+  font-weight: 500;
+}
+
+/* ---------- pipeline ---------- */
+.pipe {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.pipe__row {
+  display: grid;
+  grid-template-columns: 230px 1fr;
+  gap: 24px;
+  align-items: center;
+  padding: 20px 24px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--r);
+  padding-bottom: 40px;
+}
+.pipe__prog {
+  font-family: var(--font-display);
+  font-style: var(--display-style);
+  font-weight: var(--display-weight);
+  font-size: 20px;
+  color: var(--ink);
+}
+.pipe__ind {
+  font-size: 13.5px;
   color: var(--ink-muted);
   margin-top: 3px;
 }
-
-/* ---- Lists ---- */
-.alx-list {
-  margin: 0;
-  padding: 0;
-  list-style: none;
-}
-.alx-list li {
-  position: relative;
-  padding-left: 22px;
-  margin-bottom: 10px;
-  font-size: var(--fs-body);
-  line-height: var(--lh-snug);
-  color: var(--ink);
-}
-.alx-list li::before {
-  content: '';
-  position: absolute;
-  left: 2px;
-  top: 9px;
-  width: 7px;
-  height: 7px;
-  background: var(--brand-blue);
-  border-radius: 0;
-}
-
-/* ---- Cards ---- */
-.alx-cards {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 22px;
-  padding: 10px 0 50px;
-}
-.alx-card {
-  background: #fff;
-  border: 1px solid var(--line);
-  border-radius: var(--radius-sm);
-  padding: 24px;
-}
-.alx-card .alx-p:last-child {
-  margin-bottom: 0;
-}
-
-/* ---- Pipeline ---- */
-.alx-pipeline {
-  padding: 8px 0 56px;
-  display: flex;
-  flex-direction: column;
-  gap: 14px;
-}
-.alx-pl {
-  display: grid;
-  grid-template-columns: 240px 1fr;
-  gap: 20px;
-  align-items: center;
-  background: #fff;
-  border: 1px solid var(--line);
-  border-radius: var(--radius-sm);
-  padding: 16px 20px;
-}
-.alx-pl__prog {
-  font-weight: 700;
-  color: var(--brand-teal);
-  font-size: 16px;
-}
-.alx-pl__ind {
-  font-size: 13px;
-  color: var(--ink-muted);
-  margin-top: 2px;
-}
-.alx-pl__track {
+.pipe__track {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
-  gap: 6px;
+  gap: 8px;
 }
-.alx-pl__stage {
+.pipe__stage {
   position: relative;
-  height: 34px;
-  border-radius: var(--radius-sm);
-  background: var(--bg);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border: 1px solid var(--line);
+  height: 8px;
+  border-radius: 99px;
+  background: var(--track);
 }
-.alx-pl__stage span {
+.pipe__stage span {
+  position: absolute;
+  top: 16px;
+  left: 0;
   font-size: 11px;
-  letter-spacing: 0.02em;
+  letter-spacing: 0.03em;
   color: var(--ink-muted);
+  white-space: nowrap;
 }
-.alx-pl__stage.is-done {
-  background: var(--bg-blue-tint);
-  border-color: transparent;
+.pipe__stage.done {
+  background: var(--accent);
 }
-.alx-pl__stage.is-done span {
-  color: var(--brand-blue-deep);
-  font-weight: 700;
+.pipe__stage.cur {
+  background: var(--accent);
+  box-shadow: 0 0 0 4px var(--accent-ring);
 }
-.alx-pl__stage.is-current {
-  background: var(--brand-blue);
-  border-color: transparent;
-}
-.alx-pl__stage.is-current span {
-  color: #fff;
+.pipe__stage.cur span {
+  color: var(--accent);
   font-weight: 700;
 }
 
-/* ---- Pipeline chart (native, animated multi-programme) ---- */
-.alx-pchart {
-  --pc-stages: 5;
-  --pc-meta-w: 240px;
-  padding: 8px 0 56px;
-}
-
-/* Stage column headers */
-.alx-pchart__head {
+/* ---------- cards (leadership) ---------- */
+.people {
   display: grid;
-  grid-template-columns: var(--pc-meta-w) 1fr;
-  gap: 20px;
-  align-items: end;
-  padding-bottom: 12px;
-  border-bottom: 1px solid var(--line-strong);
-  margin-bottom: 18px;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 26px;
 }
-.alx-pchart__stages {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  display: grid;
-  grid-template-columns: repeat(var(--pc-stages), 1fr);
-  gap: 6px;
+.person {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--r);
+  overflow: hidden;
+  transition:
+    transform 0.35s var(--ease),
+    box-shadow 0.35s var(--ease),
+    border-color 0.35s var(--ease);
 }
-.alx-pchart__stage {
-  display: flex;
-  flex-direction: column;
-  gap: 3px;
-  padding: 0 6px;
-  text-align: center;
+.person:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--shadow-lift);
+  border-color: var(--line-strong);
 }
-.alx-pchart__stage-num {
-  font-size: 11px;
+.person__img {
+  aspect-ratio: 4/3.4;
+  overflow: hidden;
+  background: var(--track);
+}
+.person__img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: var(--img-filter);
+  transition:
+    transform 0.6s var(--ease),
+    filter 0.5s var(--ease);
+}
+.person:hover .person__img img {
+  transform: scale(1.04);
+}
+.person__body {
+  padding: 22px 24px 26px;
+}
+.person__name {
+  font-family: var(--font-display);
+  font-style: var(--display-style);
+  font-weight: var(--display-weight);
+  font-size: 22px;
+  color: var(--ink);
+}
+.person__role {
+  font-size: 13px;
+  font-weight: 600;
   letter-spacing: 0.04em;
   text-transform: uppercase;
-  color: var(--brand-blue-deep);
+  color: var(--accent);
+  margin-top: 6px;
 }
-.alx-pchart__stage-name {
-  font-size: 12px;
-  line-height: 1.3;
+.person__bio {
+  margin-top: 13px;
+  font-size: 14.5px;
+  line-height: 1.6;
   color: var(--ink-soft);
 }
 
-/* Rows */
-.alx-pchart__rows {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  display: flex;
-  flex-direction: column;
-  gap: 14px;
-}
-.alx-pchart__row {
+/* ---------- image+text row (split) ---------- */
+.split {
   display: grid;
-  grid-template-columns: var(--pc-meta-w) 1fr;
-  gap: 20px;
+  grid-template-columns: 1.05fr 1fr;
+  gap: clamp(40px, 5vw, 72px);
   align-items: center;
 }
-.alx-pchart__meta {
-  display: flex;
-  flex-direction: column;
+.split--rev .split__media {
+  order: -1;
 }
-.alx-pchart__prog {
-  font-size: 15px;
-  color: var(--brand-teal);
-}
-.alx-pchart__ind {
-  font-size: 13px;
-  color: var(--ink-muted);
-  margin-top: 2px;
-}
-
-/* Track */
-.alx-pchart__track {
-  position: relative;
-  height: 34px;
-  background: var(--bg);
-  border: 1px solid var(--line);
-  border-radius: var(--radius-none);
+.split__media {
+  border-radius: var(--r);
   overflow: hidden;
-}
-.alx-pchart__grid {
-  position: absolute;
-  inset: 0;
-  display: grid;
-  grid-template-columns: repeat(var(--pc-stages), 1fr);
-}
-.alx-pchart__cell {
   position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-right: 1px solid var(--line);
-  min-width: 0;
 }
-.alx-pchart__cell:last-child {
-  border-right: 0;
+.split__media img {
+  width: 100%;
+  height: 100%;
+  max-height: 520px;
+  object-fit: cover;
+  filter: var(--img-filter);
 }
-
-/* Animated fill — starts at 0, transitions to --fill on reveal */
-.alx-pchart__fill {
+.split ul {
+  list-style: none;
+  margin: 18px 0 26px;
+  padding: 0;
+}
+.split li {
+  position: relative;
+  padding-left: 26px;
+  margin-bottom: 13px;
+  font-size: 15.5px;
+  line-height: 1.55;
+  color: var(--ink-soft);
+}
+.split li::before {
+  content: '';
   position: absolute;
   left: 0;
-  top: 0;
-  bottom: 0;
-  width: 0;
-  background: var(--brand-blue);
-  transition: width 480ms var(--ease-brand);
-  transition-delay: calc(var(--row-i) * 90ms);
-}
-.alx-pchart.is-revealed .alx-pchart__fill {
-  width: var(--fill);
+  top: 8px;
+  width: 9px;
+  height: 9px;
+  border-radius: 99px;
+  background: var(--accent);
+  box-shadow: 0 0 0 4px var(--accent-ring);
 }
 
-/* Current-stage marker — a thin teal rule at the centre of the reached stage */
-.alx-pchart__marker {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: var(--at);
-  width: 3px;
-  margin-left: -1.5px;
-  background: var(--brand-teal);
-  opacity: 0;
-  transition: opacity 300ms var(--ease-brand);
-  transition-delay: calc(var(--row-i) * 90ms + 360ms);
+/* ---------- CTA band ---------- */
+.cta {
+  background: var(--cta-bg);
+  color: var(--cta-ink);
+  border-radius: var(--r);
+  padding: clamp(44px, 6vw, 76px);
+  position: relative;
+  overflow: hidden;
 }
-.alx-pchart.is-revealed .alx-pchart__marker {
-  opacity: 1;
-}
-.alx-pchart__marker-label {
+.cta__wm {
   position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  white-space: nowrap;
-  font-size: 11px;
-  color: #fff;
-  background: var(--brand-teal);
-  padding: 2px 7px;
+  right: -2%;
+  bottom: -30%;
+  font-family: var(--font-display);
+  font-style: var(--display-style);
+  font-weight: var(--display-weight);
+  font-size: clamp(160px, 24vw, 340px);
+  line-height: 1;
+  color: var(--cta-wm);
   pointer-events: none;
+  letter-spacing: -0.03em;
 }
 
-/* Reduced motion: no transitions, bars filled, marker visible immediately */
-@media (prefers-reduced-motion: reduce) {
-  .alx-pchart__fill {
-    transition: none;
-    transition-delay: 0s;
-    width: var(--fill);
-  }
-  .alx-pchart__marker {
-    transition: none;
-    transition-delay: 0s;
-    opacity: 1;
-  }
+/* ---------- footer ---------- */
+.foot {
+  background: var(--foot-bg);
+  color: var(--foot-ink);
+  padding: 64px 0 40px;
 }
-
-/* Screen-reader-only utility */
-.alx-sr-only {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  margin: -1px;
-  padding: 0;
-  border: 0;
-  overflow: hidden;
-  clip: rect(0 0 0 0);
-  clip-path: inset(50%);
-  white-space: nowrap;
-}
-
-/* ---- News ---- */
-.alx-news {
-  padding: 20px 0 60px;
-  max-width: 760px;
-}
-.alx-news__item {
-  padding: 26px 0;
-  border-bottom: 1px solid var(--line);
-}
-.alx-news__meta {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  margin-bottom: 10px;
-  font-size: 12px;
-  color: var(--ink-muted);
-}
-.alx-tag {
-  background: var(--bg-teal-tint);
-  color: var(--brand-teal-deep);
-  font-weight: 700;
+.foot__brand {
+  font-family: var(--font-display);
+  font-style: var(--display-style);
+  font-weight: var(--display-weight);
+  font-size: 30px;
   letter-spacing: 0.04em;
-  text-transform: uppercase;
-  font-size: 11px;
-  padding: 3px 9px;
-  border-radius: var(--radius-sm);
+  color: var(--foot-brand);
 }
-.alx-news__title {
-  font-size: 22px;
-  margin-bottom: 8px;
+.foot__line {
+  margin-top: 14px;
+  font-size: 14.5px;
+  color: var(--foot-ink);
 }
-.alx-news__item--media {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 40px;
-  align-items: center;
+.foot__line a {
+  color: var(--accent);
 }
-.alx-news__item--media .alx-news__media img {
-  width: 100%;
-  height: 100%;
-  max-height: 320px;
-  object-fit: cover;
-  border-radius: 0;
+.foot__fine {
+  margin-top: 22px;
+  padding-top: 22px;
+  border-top: 1px solid var(--foot-line);
+  font-size: 12.5px;
+  color: var(--foot-muted);
 }
 
-/* ---- Contact map (hard-cornered, full container width) ---- */
-.alx-map {
-  margin: 16px 0 8px;
-  border: 1px solid var(--line-strong);
-  border-radius: 0;
-  line-height: 0;
+/* ---------- section label (centred, modern rule) ---------- */
+.slabel {
+  text-align: center;
+  margin-bottom: clamp(36px, 5vw, 60px);
 }
-.alx-map iframe {
-  display: block;
-  width: 100%;
-  height: 380px;
-  border: 0;
+.slabel .eyebrow {
+  margin-bottom: 18px;
 }
 
-/* ---- Contact details ---- */
-.alx-contact {
-  display: grid;
-  grid-template-columns: 1fr 1.2fr;
-  gap: 54px;
-  padding: 24px 0 64px;
+/* =====================================================================
+   MERIDIAN theme nav surface (transparent over hero → frosted when stuck)
+   ===================================================================== */
+body.theme-meridian .nav {
+  background: rgba(246, 244, 239, 0);
 }
-.alx-dl {
-  margin: 14px 0 0;
-}
-.alx-dl > div {
-  padding: 14px 0;
+body.theme-meridian .nav.is-stuck {
+  background: rgba(246, 244, 239, 0.86);
+  backdrop-filter: blur(14px);
   border-bottom: 1px solid var(--line);
 }
-.alx-dl dt {
-  font-size: 12px;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  color: var(--ink-muted);
-  margin-bottom: 4px;
-}
-.alx-dl dd {
-  margin: 0;
-  font-size: 16px;
-  color: var(--ink);
-  line-height: 1.5;
-}
 
-/* ---- Form (used by contact page) ---- */
-.alx-form {
+/* =====================================================================
+   CINEMATIC FULL-BLEED HERO (.hero-cine + body.cine — Meridian Cine)
+   ===================================================================== */
+.hero-cine {
+  position: relative;
+  min-height: 100vh;
   display: flex;
-  flex-direction: column;
-  gap: 16px;
-  max-width: 560px;
-}
-.alx-field {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-}
-.alx-field span {
-  font-size: 13px;
-  font-weight: 700;
-  color: var(--ink-soft);
-}
-.alx-field input,
-.alx-field select,
-.alx-field textarea {
-  font-family: var(--font-body);
-  font-size: 15px;
-  color: var(--ink);
-  padding: 11px 13px;
-  border: 1px solid var(--line-strong);
-  border-radius: var(--radius-sm);
-  background: #fff;
-}
-.alx-field input:focus,
-.alx-field select:focus,
-.alx-field textarea:focus {
-  border-color: var(--brand-blue);
-}
-.alx-field input:focus-visible,
-.alx-field select:focus-visible,
-.alx-field textarea:focus-visible {
-  outline: 2px solid var(--brand-blue);
-  outline-offset: 1px;
-  border-color: var(--brand-blue);
-}
-/* Honeypot — hidden from real users, bots fill it. */
-.alx-hp {
-  position: absolute;
-  left: -9999px;
-  width: 1px;
-  height: 1px;
+  align-items: flex-end;
   overflow: hidden;
+  background: #06182b;
+  padding-top: 104px;
 }
-
-/* CAPTCHA placeholder — wired but disabled until a provider is chosen.
-   Renders nothing visible; the provider widget replaces it later. */
-.alx-captcha-placeholder {
-  display: none;
-}
-
-/* Form status message (success / error). */
-.alx-form__status {
-  margin: 4px 0 0;
-  font-size: 14px;
-  line-height: var(--lh-snug);
-  color: var(--ink-soft);
-}
-.alx-form__status.is-success {
-  color: var(--brand-teal-deep);
-}
-.alx-form__status.is-error {
-  color: #b23b3b;
-}
-
-/* ---- Figure (bordered, hard-cornered image box) ----
-   Used for reused original imagery: the complement cascade (About) and the
-   drug-development pipeline (Technology). Hard corners, thin grey border. */
-.alx-figure {
-  margin: 0;
-  padding: 48px 0 22px;
-}
-.alx-figure__box {
-  border: 1px solid var(--line-strong);
-  border-radius: 0;
-  background: #fff;
-  padding: 22px;
-  display: flex;
-  justify-content: center;
-}
-.alx-figure__box img {
-  width: 100%;
-  height: auto;
-  max-width: 900px;
-  border-radius: 0;
-}
-.alx-figure__caption {
-  margin-top: 12px;
-  text-align: center;
-  font-size: var(--fs-caption);
-  font-style: italic;
-  color: var(--ink-muted);
-}
-
-/* ---- Interactive 3D molecule viewer (Technology / ALS-205) ----
-   Flat clinical brand: white box, square corners, thin grey hairline border.
-   The 3Dmol canvas fills the box; height is fixed and reflows on mobile. */
-.alx-molviewer {
-  width: 100%;
-}
-.alx-molviewer__box {
-  position: relative; /* anchor for the fallback image overlay */
-  width: 100%;
-  height: 420px;
-  border: none; /* no visible box around the molecule */
-  border-radius: 0;
-  background: #fff;
-  overflow: hidden;
-}
-.alx-molviewer__box canvas {
-  border-radius: 0;
-}
-/* 2D fallback diagram — absolutely-positioned overlay filling the box.
-   It is the only visible content by default (SSR / pre-hydration / no-JS /
-   3Dmol failure); hidden once the interactive viewer is running. */
-.alx-molviewer__fallback {
+.hero-cine__media {
   position: absolute;
   inset: 0;
+  z-index: 0;
+}
+.hero-cine__media img,
+.hero-cine__media video {
   width: 100%;
   height: 100%;
-  object-fit: contain;
-  border-radius: 0;
-  background: #fff;
+  object-fit: cover;
+  object-position: 78% 50%;
 }
-.alx-molviewer__hint {
-  margin-top: 12px;
-  text-align: center;
-  font-size: var(--fs-caption);
-  font-style: normal;
-  color: var(--ink-muted);
+@media (prefers-reduced-motion: no-preference) {
+  .hero-cine__media img {
+    animation: kenburns 24s var(--ease) infinite alternate;
+  }
+}
+@keyframes kenburns {
+  from {
+    transform: scale(1.04) translate(0, 0);
+  }
+  to {
+    transform: scale(1.16) translate(-2%, -2%);
+  }
+}
+.hero-cine__media::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(
+      90deg,
+      rgba(4, 14, 28, 0.94) 0%,
+      rgba(4, 14, 28, 0.78) 34%,
+      rgba(4, 14, 28, 0.4) 64%,
+      rgba(4, 14, 28, 0.5) 100%
+    ),
+    linear-gradient(
+      180deg,
+      rgba(4, 14, 28, 0.55) 0%,
+      rgba(4, 14, 28, 0.1) 26%,
+      rgba(4, 14, 28, 0.45) 70%,
+      rgba(4, 14, 28, 0.9) 100%
+    );
+}
+.hero-cine__scrim {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background:
+    linear-gradient(
+      90deg,
+      rgba(4, 14, 28, 0.95) 0%,
+      rgba(4, 14, 28, 0.8) 34%,
+      rgba(4, 14, 28, 0.42) 64%,
+      rgba(4, 14, 28, 0.52) 100%
+    ),
+    linear-gradient(
+      180deg,
+      rgba(4, 14, 28, 0.58) 0%,
+      rgba(4, 14, 28, 0.12) 26%,
+      rgba(4, 14, 28, 0.46) 70%,
+      rgba(4, 14, 28, 0.92) 100%
+    );
+}
+/* centred hero (Meridian Cine): light vignette so the video stays visible;
+   legibility comes mostly from the heading's own text-shadow */
+.hero-cine__scrim--center {
+  background:
+    radial-gradient(
+      90% 75% at 26% 60%,
+      rgba(4, 14, 28, 0.06) 0%,
+      rgba(4, 14, 28, 0.02) 46%,
+      rgba(4, 14, 28, 0) 70%
+    ),
+    linear-gradient(
+      90deg,
+      rgba(4, 14, 28, 0.1) 0%,
+      rgba(4, 14, 28, 0.03) 26%,
+      rgba(4, 14, 28, 0) 50%,
+      rgba(4, 14, 28, 0) 100%
+    ),
+    linear-gradient(
+      180deg,
+      rgba(4, 14, 28, 0.06) 0%,
+      rgba(4, 14, 28, 0) 36%,
+      rgba(4, 14, 28, 0.05) 78%,
+      rgba(4, 14, 28, 0.44) 100%
+    );
+}
+.hero-cine__in {
+  position: relative;
+  z-index: 2;
+  padding: 0 0 9vh;
+  color: #fff;
+}
+/* Meridian Cine: keep the dark base; video + scrim handled below */
+body.cine .hero-cine {
+  background: #06182b;
+}
+/* Meridian Cine: light scrim back for text legibility */
+body.cine .hero-cine__scrim {
+  display: block;
+  background:
+    radial-gradient(
+      95% 80% at 30% 56%,
+      rgba(4, 14, 28, 0.16) 0%,
+      rgba(4, 14, 28, 0.06) 46%,
+      rgba(4, 14, 28, 0) 72%
+    ),
+    linear-gradient(
+      90deg,
+      rgba(4, 14, 28, 0.2) 0%,
+      rgba(4, 14, 28, 0.07) 28%,
+      rgba(4, 14, 28, 0) 56%,
+      rgba(4, 14, 28, 0) 100%
+    ),
+    linear-gradient(
+      180deg,
+      rgba(4, 14, 28, 0.04) 0%,
+      rgba(4, 14, 28, 0) 38%,
+      rgba(4, 14, 28, 0.06) 80%,
+      rgba(4, 14, 28, 0.34) 100%
+    );
+}
+/* Meridian Cine: strip the media overlay gradient + colour filter → raw video */
+body.cine .hero-cine__media::after {
+  display: none;
+}
+body.cine .hero-cine__media video,
+body.cine .hero-cine__media img {
+  filter: none;
+}
+.hero-cine .eyebrow {
+  color: #7fb0ff;
+}
+.hero-cine .eyebrow::before {
+  background: #7fb0ff;
+}
+.hero-cine .lead {
+  color: #dce7f4;
+  max-width: 600px;
+  margin-top: 22px;
+  text-shadow: 0 1px 18px rgba(4, 16, 30, 0.5);
+}
+.hero-cine__scroll {
+  position: absolute;
+  left: 50%;
+  bottom: 26px;
+  transform: translateX(-50%);
+  z-index: 2;
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 12px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+.hero-cine__scroll::after {
+  content: '';
+  width: 1px;
+  height: 34px;
+  background: linear-gradient(rgba(255, 255, 255, 0.6), transparent);
+  animation: scrollpulse 2s var(--ease) infinite;
+}
+@keyframes scrollpulse {
+  0% {
+    opacity: 0.2;
+    transform: scaleY(0.4);
+  }
+  50% {
+    opacity: 1;
+    transform: scaleY(1);
+  }
+  100% {
+    opacity: 0.2;
+    transform: scaleY(0.4);
+  }
 }
 
-/* ---- Long-form text blocks (About / Technology body sections) ---- */
-.alx-prose-wide {
-  max-width: 820px;
+/* nav colours over the cine hero (white) → dark when stuck */
+body.theme-meridian.cine .nav__links a {
+  color: #fff;
+}
+body.theme-meridian.cine .nav__logo {
+  color: #fff;
+}
+body.theme-meridian.cine .nav.is-stuck .nav__links a {
+  color: var(--ink);
+}
+body.theme-meridian.cine .nav.is-stuck .nav__links a:hover {
+  color: var(--accent);
+}
+body.theme-meridian.cine .nav.is-stuck .nav__logo {
+  color: var(--ink);
+}
+
+/* ---------- centred cinematic hero variant ---------- */
+.hero-cine--center {
+  align-items: center;
+  text-align: center;
+}
+.hero-cine--center .hero-cine__in {
+  padding: 104px 0 9vh;
+  width: 100%;
+}
+.hero-cine--center .eyebrow {
+  justify-content: center;
+}
+.hero-cine--center .hero-cine__media video,
+.hero-cine--center .hero-cine__media img {
+  filter: brightness(1.32) saturate(1.08) contrast(1.02);
+}
+.hero-cine--center .lead {
   margin-left: auto;
   margin-right: auto;
 }
-.alx-textblock {
-  padding: 30px 0;
-}
-.alx-textblock + .alx-textblock {
-  border-top: 1px solid var(--line);
-}
-.alx-refs .alx-list li {
-  color: var(--ink-soft);
-  font-size: 15px;
-}
-
-/* ---- Full-width decorative band image (Technology, News) ---- */
-.alx-band {
-  width: 100%;
-  margin: 56px 0;
-}
-.alx-band img {
-  width: 100%;
-  height: clamp(160px, 22vw, 280px);
-  object-fit: cover;
-  object-position: center;
-  border-radius: 0;
-}
-
-/* ---- Side image (hard-cornered, floated beside long-form prose) ---- */
-.alx-sideimg {
-  border-radius: 0;
-  margin: 4px 0 16px;
-}
-.alx-sideimg--right {
-  float: right;
-  width: 280px;
-  max-width: 42%;
-  margin-left: 28px;
-}
-.alx-sideimg--left {
-  float: left;
-  width: 280px;
-  max-width: 42%;
-  margin-right: 28px;
-}
-
-/* ---- Affiliation logos row (About) — even row, hard corners, on white ---- */
-.alx-logos {
-  list-style: none;
-  margin: 0;
-  padding: 24px 0 64px;
-  display: flex;
-  flex-wrap: wrap;
+.hero-cine--center .hero-cine__cta {
   justify-content: center;
-  align-items: center;
-  gap: 56px;
 }
-.alx-logos__item {
-  flex: 0 0 auto;
+.hero-cine__h {
+  font-family: var(--font-display);
+  font-weight: var(--display-weight);
+  font-style: var(--display-style);
+  letter-spacing: var(--display-tracking);
+  line-height: 1.04;
+  color: #fff;
+  font-size: clamp(38px, 6vw, 72px);
+  margin: 18px auto 0;
+  max-width: 17ch;
+  text-shadow:
+    0 2px 24px rgba(4, 14, 28, 0.98),
+    0 1px 7px rgba(4, 14, 28, 0.9),
+    0 0 56px rgba(4, 14, 28, 0.55);
 }
-.alx-logos__link {
-  display: block;
-  transition: opacity var(--dur) var(--ease-brand);
+.hero-cine--center .eyebrow {
+  text-shadow:
+    0 1px 12px rgba(4, 14, 28, 0.95),
+    0 0 24px rgba(4, 14, 28, 0.7);
 }
-.alx-logos__link:hover {
-  opacity: 0.7;
+.hero-cine--center .lead {
+  text-shadow:
+    0 1px 16px rgba(4, 14, 28, 0.96),
+    0 0 28px rgba(4, 14, 28, 0.7);
 }
-.alx-logos__link img {
-  height: 84px;
-  width: auto;
-  border-radius: 0;
-  background: #fff;
+.hero-cine__h .accent {
+  color: #9fc0ff;
 }
-.alx-logos__link:focus-visible {
-  outline: 2px solid var(--brand-blue);
-  outline-offset: 3px;
+/* eyebrow as a subtle glass chip at the top of the hero */
+.eyebrow--chip {
+  margin-bottom: 24px;
+  padding: 9px 18px;
+  border-radius: 999px;
+  white-space: nowrap;
+  background: rgba(8, 18, 32, 0.42);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+  text-shadow: none !important;
 }
-
-/* Two-up card layout (Technology orphan-drug US/Europe). */
-.alx-cards--2 {
-  grid-template-columns: repeat(2, 1fr);
-}
-.alx-cards .alx-card .alx-list {
-  margin-top: 6px;
-}
-
-/* ---- News list polish ---- */
-.alx-news__link {
-  color: inherit;
-  text-decoration: none;
-  transition: opacity var(--dur) var(--ease-brand);
-}
-.alx-news__link:hover {
-  opacity: 0.7;
-}
-.alx-news__item .alx-link {
-  display: inline-block;
-  margin-top: 10px;
-  font-size: 14px;
-}
-
-/* ---- News article (single post) ---- */
-.alx-article {
-  padding: 60px 0;
-  max-width: 760px;
-}
-.alx-article__meta {
-  margin-bottom: 12px;
-}
-.alx-article__back {
-  margin-top: 36px;
-}
-
-/* ---- Contact page extras ---- */
-.alx-contact__hours-h {
-  margin-top: 36px;
-}
-.alx-contact__formwrap .alx-form {
-  max-width: none;
-}
-
-/* ---- Mobile nav (pale-blue fill, not blur) ---- */
-.alx-navtoggle {
+.eyebrow--chip::before {
   display: none;
-  background: none;
-  border: none;
-  padding: 8px;
-  cursor: pointer;
-  color: var(--ink);
 }
-.alx-navtoggle__bar,
-.alx-navtoggle__bar::before,
-.alx-navtoggle__bar::after {
-  display: block;
-  width: 24px;
-  height: 2px;
-  background: var(--ink);
-  position: relative;
-  transition: transform var(--dur) var(--ease-brand);
-}
-.alx-navtoggle__bar::before,
-.alx-navtoggle__bar::after {
-  content: '';
+.hero-cine__foot {
   position: absolute;
   left: 0;
+  right: 0;
+  bottom: 30px;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  pointer-events: none;
 }
-.alx-navtoggle__bar::before {
-  top: -7px;
+.hero-cine__foot .eyebrow {
+  margin: 0;
 }
-.alx-navtoggle__bar::after {
-  top: 7px;
+.hero-cine__scrollline {
+  width: 1px;
+  height: 32px;
+  background: linear-gradient(rgba(255, 255, 255, 0.6), transparent);
+  animation: scrollpulse 2s var(--ease) infinite;
+}
+
+/* ---------- responsive: collapse grids ≤900px ---------- */
+@media (max-width: 900px) {
+  .nav__links {
+    display: none;
+  }
+  .split,
+  .split--rev .split__media {
+    grid-template-columns: 1fr;
+  }
+  .split--rev .split__media {
+    order: 0;
+  }
+  .people {
+    grid-template-columns: 1fr;
+  }
+  .stats {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .pipe__row {
+    grid-template-columns: 1fr;
+    gap: 18px;
+  }
+}
+
+/* ---------- mobile hamburger menu (Meridian Cine / body.cine) ---------- */
+.nav__burger {
+  display: none;
+  position: relative;
+  z-index: 130;
+  width: 42px;
+  height: 42px;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+  padding: 0;
+  color: #fff;
+}
+.nav__burger i {
+  position: absolute;
+  left: 10px;
+  right: 10px;
+  height: 2px;
+  background: currentColor;
+  border-radius: 2px;
+  transition:
+    transform 0.3s var(--ease),
+    opacity 0.2s var(--ease);
+}
+.nav__burger i:nth-child(1) {
+  top: 15px;
+}
+.nav__burger i:nth-child(2) {
+  top: 21px;
+}
+.nav__burger i:nth-child(3) {
+  top: 27px;
+}
+body.cine .nav.is-stuck .nav__burger {
+  color: var(--ink);
+}
+body.cine .nav.menu-open .nav__burger {
+  color: #fff;
+}
+body.cine .nav.menu-open .nav__burger i:nth-child(1) {
+  top: 21px;
+  transform: rotate(45deg);
+}
+body.cine .nav.menu-open .nav__burger i:nth-child(2) {
+  opacity: 0;
+}
+body.cine .nav.menu-open .nav__burger i:nth-child(3) {
+  top: 21px;
+  transform: rotate(-45deg);
+}
+
+@media (max-width: 900px) {
+  body.cine .nav__burger {
+    display: inline-flex;
+  }
+  body.cine .nav__links {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 120;
+    background: rgba(9, 20, 36, 0.98);
+    backdrop-filter: blur(12px);
+    padding: 90px 30px 30px;
+    transform: translateY(-102%);
+    transition: transform 0.42s var(--ease);
+    box-shadow: 0 24px 60px rgba(0, 0, 0, 0.5);
+  }
+  body.cine .nav.menu-open .nav__links {
+    transform: none;
+  }
+  body.cine .nav__links a {
+    color: #fff !important;
+    font-size: 19px;
+    padding: 15px 2px;
+    width: 100%;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  }
+  body.cine .nav__links a.current {
+    color: var(--accent) !important;
+  }
+  body.cine .nav__links a:hover {
+    color: var(--accent) !important;
+  }
+  body.cine .nav__cta {
+    margin-top: 22px;
+    border-bottom: 0 !important;
+    justify-content: center;
+    background: var(--accent);
+    color: #fff !important;
+    border-radius: var(--r-sm);
+    padding: 15px 22px;
+  }
+  body.cine .nav__cta:hover {
+    color: #fff !important;
+  }
+}
+
+/* =====================================================================
+   INNER PAGES (About / Science / News / Contact) — Meridian Cine system
+   ===================================================================== */
+/* navy page-header band (sits behind the fixed nav; white nav text reads over it) */
+.pagehead {
+  background: var(--navy);
+  color: #fff;
+  position: relative;
+  overflow: hidden;
+  padding: clamp(132px, 16vw, 168px) 0 clamp(64px, 8vw, 92px);
+}
+.pagehead .eyebrow {
+  color: #7fb0ff;
+}
+.pagehead .eyebrow::before {
+  background: #7fb0ff;
+}
+.pagehead h1 {
+  color: #fff;
+  margin: 20px 0 0;
+  max-width: 18ch;
+}
+.pagehead .lead {
+  color: #c7d5ea;
+  max-width: 680px;
+  margin-top: 18px;
+}
+.pagehead__wm {
+  position: absolute;
+  right: -2%;
+  bottom: -34%;
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 400;
+  font-size: clamp(150px, 24vw, 360px);
+  line-height: 1;
+  color: rgba(255, 255, 255, 0.05);
+  pointer-events: none;
+  white-space: nowrap;
+}
+
+/* simple card grid */
+.cardgrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 22px;
+}
+.cardgrid--2 {
+  grid-template-columns: repeat(2, 1fr);
+}
+.card {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--r);
+  padding: 28px 26px;
+  transition:
+    transform 0.35s var(--ease),
+    box-shadow 0.35s var(--ease),
+    border-color 0.35s var(--ease);
+}
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--shadow-lift);
+  border-color: var(--line-strong);
+}
+.card__k {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 400;
+  font-size: 34px;
+  color: var(--accent);
+  line-height: 1;
+  margin-bottom: 14px;
+}
+.card h3 {
+  font-family: var(--font-display);
+  font-weight: var(--display-weight);
+  font-size: 22px;
+  color: var(--ink);
+  margin: 0 0 10px;
+  letter-spacing: -0.01em;
+}
+.card p {
+  font-size: 14.5px;
+  line-height: 1.62;
+  color: var(--ink-soft);
+  margin: 0;
+}
+
+/* news list */
+.newslist {
+  max-width: 820px;
+  margin: 0 auto;
+}
+.newsitem {
+  display: block;
+  padding: 30px 0;
+  border-bottom: 1px solid var(--line);
+  transition: padding-left 0.3s var(--ease);
+}
+.newsitem:hover {
+  padding-left: 8px;
+}
+.newsitem__meta {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 12px;
+}
+.tag {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--accent);
+  background: var(--bg-2);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 4px 12px;
+}
+.newsitem time {
+  font-size: 13px;
+  color: var(--ink-muted);
+}
+.newsitem h3 {
+  font-family: var(--font-display);
+  font-weight: var(--display-weight);
+  font-size: clamp(22px, 2.4vw, 28px);
+  color: var(--ink);
+  margin: 0 0 10px;
+  letter-spacing: -0.01em;
+}
+.newsitem p {
+  font-size: 15.5px;
+  line-height: 1.6;
+  color: var(--ink-soft);
+  margin: 0 0 12px;
+  max-width: 64ch;
+}
+.newsitem__more {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--accent);
+}
+
+/* contact */
+.contact {
+  display: grid;
+  grid-template-columns: 0.85fr 1.15fr;
+  gap: clamp(40px, 5vw, 72px);
+  align-items: start;
+}
+.contact__dl {
+  margin: 18px 0 0;
+}
+.contact__dl > div {
+  padding: 16px 0;
+  border-bottom: 1px solid var(--line);
+}
+.contact__dl dt {
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--ink-muted);
+  margin-bottom: 6px;
+}
+.contact__dl dd {
+  margin: 0;
+  font-size: 16.5px;
+  color: var(--ink);
+  line-height: 1.5;
+}
+.contact__dl dd a {
+  color: var(--accent);
+}
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--r);
+  padding: clamp(26px, 3vw, 38px);
+}
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+.field label {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--ink-soft);
+}
+.field input,
+.field select,
+.field textarea {
+  font-family: var(--font-body);
+  font-size: 15px;
+  color: var(--ink);
+  background: #fff;
+  border: 1px solid var(--line-strong);
+  border-radius: var(--r-sm);
+  padding: 13px 15px;
+  transition: border-color 0.2s var(--ease);
+}
+.field input:focus,
+.field select:focus,
+.field textarea:focus {
+  outline: none;
+  border-color: var(--accent);
+}
+.form__done {
+  background: var(--bg-2);
+  border: 1px solid var(--line);
+  border-radius: var(--r);
+  padding: 34px;
+  text-align: center;
+}
+.form__done h3 {
+  font-family: var(--font-display);
+  font-weight: var(--display-weight);
+  font-size: 24px;
+  color: var(--ink);
+  margin: 0 0 10px;
+}
+.form__done p {
+  margin: 0;
+  color: var(--ink-soft);
 }
 
 @media (max-width: 820px) {
-  .alx-navtoggle {
-    display: inline-flex;
-  }
-  .alx-nav {
-    display: none;
-    position: absolute;
-    top: 90px;
-    left: 0;
-    right: 0;
-    flex-direction: column;
-    gap: 0;
-    background: var(--bg-nav-tint); /* pale-blue fill, not a blur */
-    border-bottom: 1px solid var(--line-strong);
-    padding: 8px 0;
-  }
-  .alx-nav.is-open {
-    display: flex;
-  }
-  .alx-nav__item {
-    padding: 12px 32px;
-    border-bottom: none;
-  }
-  .alx-nav__item.is-current {
-    border-bottom: none;
-    background: rgba(255, 255, 255, 0.4);
-  }
-  .alx-figure__box {
-    padding: 14px;
-  }
-  .alx-molviewer__box {
-    height: 340px;
-  }
-  .alx-imgtext,
-  .alx-person,
-  .alx-contact,
-  .alx-cards,
-  .alx-cards--2 {
-    grid-template-columns: 1fr;
-    gap: 26px;
-  }
-  .alx-imgtext.is-reverse .alx-imgtext__media,
-  .alx-person.is-reverse .alx-person__media {
-    order: 0;
-  }
-  .alx-pl {
+  .cardgrid,
+  .cardgrid--2,
+  .contact {
     grid-template-columns: 1fr;
   }
-  /* Pipeline chart: stack the programme label above its track, and let the
-     stage row + tracks scroll horizontally together so columns stay aligned
-     and every stage label/marker stays readable on a phone. */
-  .alx-pchart {
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
-  }
-  .alx-pchart__head,
-  .alx-pchart__row {
-    grid-template-columns: 1fr;
-    gap: 8px;
-    min-width: 560px;
-  }
-  .alx-pchart__head {
-    align-items: end;
-  }
-  .alx-pchart__head-label {
-    display: none;
-  }
-  .alx-pchart__rows {
-    gap: 22px;
-  }
-  /* The programme name labels the track sitting directly beneath it */
-  .alx-pchart__meta {
-    margin-bottom: 2px;
-  }
-  .alx-sideimg--right,
-  .alx-sideimg--left {
-    float: none;
-    width: 100%;
-    max-width: 100%;
-    margin: 8px 0 18px;
-  }
-  .alx-logos {
-    gap: 36px;
-  }
-  .alx-logos__link img {
-    height: 64px;
-  }
-  .alx-news__item--media {
-    grid-template-columns: 1fr;
-    gap: 20px;
-  }
+}
+
+/* =====================================================================
+   V2 WORDMARK LOGO — ported from handoff brand/alsonex-logo.css
+   Markup: <span class="alx-logo">ALSONE<span class="alx-logo__x">X</span></span>
+   "ALSONE" inherits currentColor; the X's extended "/" leg = --alx-logo-x.
+   (The .nav__logo .x rules above are the in-nav equivalent.)
+   ===================================================================== */
+.alx-logo {
+  display: inline-flex;
+  align-items: baseline;
+  font-family:
+    'Hanken Grotesk',
+    system-ui,
+    -apple-system,
+    'Segoe UI',
+    Roboto,
+    sans-serif;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  line-height: 1;
+  color: currentColor;
+  font-size: 32px;
+  -webkit-font-smoothing: antialiased;
+  white-space: nowrap;
+  user-select: none;
+}
+.alx-logo__x {
+  position: relative;
+  color: transparent;
+  display: inline-block;
+}
+.alx-logo__x::before,
+.alx-logo__x::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0.12em;
+  background: var(--alx-logo-x);
+  border-radius: 0.06em;
+}
+.alx-logo__x::before {
+  height: 0.78em;
+  transform: translate(-50%, -50%) rotate(-28deg);
+} /* \ leg */
+.alx-logo__x::after {
+  height: 1.2em;
+  transform: translate(-50%, -56%) rotate(28deg);
+} /* / leg (extended up-right) */
+.alx-logo--mono .alx-logo__x::before,
+.alx-logo--mono .alx-logo__x::after {
+  background: currentColor;
 }

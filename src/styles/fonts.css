@@ -1,0 +1,41 @@
+/* ============================================================
+   ALSONEX V2 "Meridian Cine" — self-hosted webfonts
+   Replaces the Google Fonts @import from modern.css.
+
+   Files live in public/fonts/ (served from the site root /fonts/).
+   Both families are VARIABLE fonts, so a single woff2 per family
+   covers the whole weight range; a font-weight RANGE on the
+   @font-face lets the browser interpolate 400/500/600/700.
+
+   Weights in use:
+     Newsreader (display/serif)  400 / 500 / 600  + italic 400
+     Hanken Grotesk (body/sans)  400 / 500 / 600 / 700
+   Subset: latin (the site is en-AU). font-display: swap.
+   ============================================================ */
+
+/* ---- Hanken Grotesk (body) — variable, 400..700 ---- */
+@font-face {
+  font-family: 'Hanken Grotesk';
+  font-style: normal;
+  font-weight: 400 700;
+  font-display: swap;
+  src: url('/fonts/hanken-grotesk-latin.woff2') format('woff2');
+}
+
+/* ---- Newsreader (display) — variable, 400..600 ---- */
+@font-face {
+  font-family: 'Newsreader';
+  font-style: normal;
+  font-weight: 400 600;
+  font-display: swap;
+  src: url('/fonts/newsreader-latin.woff2') format('woff2');
+}
+
+/* ---- Newsreader italic — variable, 400 ---- */
+@font-face {
+  font-family: 'Newsreader';
+  font-style: italic;
+  font-weight: 400 600;
+  font-display: swap;
+  src: url('/fonts/newsreader-italic-latin.woff2') format('woff2');
+}

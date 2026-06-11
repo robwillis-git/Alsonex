@@ -1,9 +1,19 @@
 ---
 /**
- * Shared site header — sticky white nav with a mobile drop-down.
- * Mirrors the reference build: project/ui_kits/website/Header.jsx.
- * On mobile (<=820px) the primary nav collapses behind a toggle button and
- * opens as a pale-blue (--bg-nav-tint) panel — not a blurred overlay.
+ * Shared site header — V2 "Meridian Cine" sticky/condensing nav.
+ * Ported from design_handoff_alsonex_v2/modern/meridian-cine.html.
+ *
+ * - White text/logo over the cine hero → dark when stuck (.is-stuck,
+ *   applied by /scripts/meridian.js at scrollY > 24).
+ * - V2 CSS wordmark: ALSONE + extended-X leg (--alx-logo-x brand blue).
+ * - Mobile (≤900px): .nav__burger toggles the .nav__links overlay
+ *   (open/close + Esc handled by meridian.js).
+ *
+ * Routes preserved: "The Science" relabels /technology (no URL change).
+ *
+ * Phase 0 note: this emits the production V2 nav so the home-hero proof
+ * is faithful. Frankie may refine in Phase 1 (e.g. an Astro <Button> for
+ * any future CTA), but the markup/classes here are the V2 contract.
  */
 interface Props {
   route?: string;
@@ -13,46 +23,28 @@ const { route } = Astro.props;
 const items = [
   { id: 'home', label: 'Home', href: '/' },
   { id: 'about', label: 'About', href: '/about' },
-  { id: 'technology', label: 'The Technology', href: '/technology' },
+  { id: 'technology', label: 'The Science', href: '/technology' },
   { id: 'news', label: 'News', href: '/news' },
   { id: 'contact', label: 'Contact', href: '/contact' },
 ];
 ---
 
-<header class="alx-header">
-  <div class="alx-container alx-header__inner" style="position:relative">
-    <a class="alx-logo" href="/" aria-label="Alsonex Pharmaceuticals — Home">
-      <img src="/assets/alsones_logo.jpg" alt="Alsonex Pharmaceuticals" />
-    </a>
-    <button
-      class="alx-navtoggle"
-      type="button"
-      aria-label="Toggle navigation"
-      aria-expanded="false"
-      aria-controls="alx-primary-nav"
+<header class="nav">
+  <div class="wrap nav__in">
+    <a class="nav__logo" href="/" aria-label="Alsonex Pharmaceuticals — Home"
+      >ALSONE<span class="x" aria-hidden="true">X</span></a
     >
-      <span class="alx-navtoggle__bar" aria-hidden="true"></span>
-    </button>
-    <nav class="alx-nav" id="alx-primary-nav" aria-label="Primary">
+    <nav class="nav__links" id="primary-nav" aria-label="Primary">
       {
         items.map((it) => (
-          <a href={it.href} class={`alx-nav__item${route === it.id ? ' is-current' : ''}`}>
+          <a href={it.href} class={route === it.id ? 'current' : undefined}>
             {it.label}
           </a>
         ))
       }
     </nav>
+    <button class="nav__burger" type="button" aria-label="Open menu" aria-expanded="false">
+      <i></i><i></i><i></i>
+    </button>
   </div>
 </header>
-
-<script is:inline>
-  (function () {
-    const toggle = document.querySelector('.alx-navtoggle');
-    const nav = document.getElementById('alx-primary-nav');
-    if (!toggle || !nav) return;
-    toggle.addEventListener('click', function () {
-      const open = nav.classList.toggle('is-open');
-      toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
-    });
-  })();
-</script>

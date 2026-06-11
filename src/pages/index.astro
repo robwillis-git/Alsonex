@@ -1,77 +1,18 @@
 ---
+/**
+ * Home — V2 "Meridian Cine" PROOF (Phase 0).
+ *
+ * Scope: a production-faithful cinematic VIDEO HERO + the V2 sticky nav
+ * (in BaseLayout's Header) + footer, to validate the V2 look on staging.
+ * Ported from design_handoff_alsonex_v2/modern/meridian-cine.html with the
+ * approved home decisions (INTEGRATION-V1.md).
+ *
+ * Below the hero is intentionally a light placeholder for now — the full
+ * home sections (objective split, pipeline, stats, leadership, investor CTA)
+ * with V1's real content land in Frankie's Phase 3. V1's leadership bios,
+ * objective copy etc. remain in git history (tag v1-live) for reuse.
+ */
 import BaseLayout from '../layouts/BaseLayout.astro';
-import Hero from '../components/Hero.astro';
-import SectionLabel from '../components/SectionLabel.astro';
-import ImageTextRow from '../components/ImageTextRow.astro';
-import PersonRow from '../components/PersonRow.astro';
-import Button from '../components/Button.astro';
-
-// Leadership grid (Rob's locked decision: bios live on Home). Rendered as a
-// stack of PersonRow components, alternating photo side. Steven Boggiano's
-// photo (team-boggiano.jpg) was supplied by Rob.
-interface Leader {
-  name: string;
-  title: string;
-  photo: string;
-  objectPosition?: string;
-  bio: string[];
-}
-const leadership: Leader[] = [
-  {
-    name: 'David Groth',
-    title: 'Non-Executive Chairman',
-    photo: '/assets/team-groth.jpg',
-    bio: [
-      'David is a co-founder and director of Integra Advisory. David has over 20 years of experience in advising companies and in senior management positions. David has managed a significant number of initial public offers, secondary capital raisings, mergers and acquisition transactions as part of developing and maintaining long term relationships with clients.',
-      'David has also held a number of senior management positions (including CEO) providing him with a management and client perspective of capital raisings, M&A transactions, strategic advice and stakeholder/investor relations. Prior to establishing Integra Advisory, David spent 18 years at Wilson HTM. During this time, David held several senior positions, including the Chief Executive Officer.',
-    ],
-  },
-  {
-    name: 'Alan Robertson',
-    title: 'Chief Executive Officer and Managing Director',
-    photo: '/assets/team-robertson.jpg',
-    // Portrait with his head near the top edge — anchor the cover crop to the
-    // top so the centred default doesn't clip the top of his head.
-    objectPosition: 'top center',
-    bio: [
-      'Alan was the CEO and MD of Pharmaxis Ltd for 14 years. He was responsible for raising more than $350 million in the U.S., Europe and Australia. In that role, he oversaw the development to Marketing Authorisation a new inhaled dry powder treatment for cystic fibrosis (Bronchitol) and a bronchial challenge test for hyperactive airway disease (Aridol). He also built a drug discovery capability within Pharmaxis and participated in the creation of PXS4728 – now licensed to Boehringer Ingelheim for the treatment of NASH. Previously, he was the CEO of Promics Ltd (now part of Teva) and developed the first C5a receptor antagonist to patients with rheumatoid arthritis. While head of drug discovery at Kinacia, he invented KN-309, a PI3 kinase inhibitor (subsequently licensed to AstraZeneca). He is a former member of the scientific advisory board of Xenome Limited, a former Non-Executive Director of Patrys Limited and is a current Non-Executive Director of Infensa Bioscience Ltd and Chairman of AllVascular Ltd. While in the UK, as a Senior Scientist at Wellcome PLC (now GSK), he invented the anti-migraine drug Zomig.',
-    ],
-  },
-  {
-    name: 'Steven Boggiano',
-    title: 'Non-Executive Director',
-    photo: '/assets/team-boggiano.jpg',
-    bio: [
-      "Steven possesses over twenty years' executive management and investment banking experience across North America (New York), Europe (London) and Asia Pacific (Hong Kong / Sydney).",
-      'During his career, Steven has advised on a broad range of listed and unlisted mergers, divestments, acquisitions, strategic reviews, restructurings and capital raisings within Healthcare.',
-      'Previously Steven was Managing Director and Head of Asia for Healthcare at Barclays Investment Bank and the former Chief Strategy Officer and Acting Chief Financial Officer of Estia Health. He is currently the Head of Healthcare and M&A at Ord Minnett.',
-    ],
-  },
-  {
-    name: 'Trent Woodruff',
-    title: 'Scientific Advisor',
-    photo: '/assets/team-woodruff.jpg',
-    bio: [
-      'A/Prof Woodruff is an ARC Future Fellow conducting research into the innate immune system in the brain. Specific research revolves around the Complement System. A focus of his work has been the chronic neurodegenerative diseases amyotrophic lateral sclerosis, Huntington’s disease, and Parkinson’s disease as well as maintaining an active interest in Alzheimer’s disease. In 2010, A/Prof Woodruff started his own group and independent laboratory at the University of Queensland.',
-    ],
-  },
-  {
-    name: 'Alan Scott',
-    title: 'Non-Executive Director',
-    photo: '/assets/team-scott.jpg',
-    bio: [
-      'Alan has experience in corporate reorganisation and M&A. He was the previous Chairman and Managing Director of Progen Industries for 11 years, including listing on the ASX and completing a direct NASDAQ cross listing. More recently, he was the Managing Director of Promics Pty Ltd and executed a trade sale to Cephalon/Teva. Currently, he is the CEO of Biosecurity/Opti Grow.',
-    ],
-  },
-  {
-    name: 'Paul Field',
-    title: 'Strategic Advisor',
-    photo: '/assets/team-field.jpg',
-    bio: [
-      'Paul has over 25 years of business development experience across a range of disease areas, including CNS disorders, and a deep network in the global biopharmaceutical industry. His current roles include business development manager at BioCurate, which was established in 2017 by Monash University and the University of Melbourne to commercialise drug discoveries in their two institutions. He was previously the life sciences specialist at Austrade, the Australian Government’s investment promotion agency, where he facilitated foreign direct investment into Australian research in infectious diseases, autoimmune diseases, neurodegenerative diseases, cancer and other therapeutic areas. Earlier, Paul was the founder and Executive Chairman of Bio-Link, a privately-owned biotechnology business development company with a range of clients across Australia.',
-    ],
-  },
-];
 ---
 
 <BaseLayout
@@ -79,89 +20,77 @@ const leadership: Leader[] = [
   description="Alsonex Pharmaceuticals is a Brisbane clinical-stage biopharmaceutical company developing ALS-205, a candidate treatment for Motor Neuron Disease and other neurodegenerative conditions."
   route="home"
 >
-  <Hero
-    watermark="Alsonex"
-    title="Alsonex Pty Ltd is Focused On the Development of New Treatments for Neurodegenerative Disease"
-    wideTitle
-    image="/assets/hero-banner.jpg"
-    imageAlt="Electric-blue neurons firing across a network of nerve cells"
-  >
-    <p class="alx-lead alx-center">
-      Alsonex is a biopharmaceutical company focused on the development of new treatments for
-      neurodegenerative disease. The company was founded in 2014 and arose out of research being
-      undertaken at the University of Queensland and elsewhere into neuroinflammation and
-      neurodegenerative disease.
-    </p>
-    <p class="alx-p alx-center alx-prose-narrow">
-      Neurodegenerative disease remains a complex and elusive goal for the pharmaceutical industry,
-      but one in which new research is beginning to shed some light, and for which new treatment
-      options are emerging. Alsonex plans to be part of the solution to slowing or reversing
-      neurodegenerative diseases such as Parkinson's disease, Alzheimer's disease, Huntington's
-      disease and Motor Neuron Disease.
-    </p>
-    <p class="alx-p alx-center alx-prose-narrow">
-      A key part of the business model is to advance products through to the proof-of-concept stage
-      in patients. For the longer and more costly clinical studies, development risk will be shared
-      with a larger pharmaceutical or biotechnology company.
-    </p>
-  </Hero>
+  <!-- CINEMATIC HERO (video) — approved settings:
+       autoplay/muted/playsinline, NO loop, playbackRate 0.5 (re-asserted),
+       poster fallback, brightness ≈1.32 (via .hero-cine--center), light
+       centre scrim, dark #06182B base. -->
+  <section class="hero-cine hero-cine--center">
+    <div class="hero-cine__media">
+      <video autoplay muted playsinline poster="/assets/hero-riverdelta-sunrise-right-poster.jpg">
+        <source src="/assets/hero-riverdelta-sunrise-right.mp4" type="video/mp4" />
+        <img
+          src="/assets/hero-riverdelta-sunrise-right-poster.jpg"
+          alt="Aerial vista of a branching river delta at sunrise, echoing the form of neuron dendrites"
+        />
+      </video>
+    </div>
+    <div class="hero-cine__scrim hero-cine__scrim--center" aria-hidden="true"></div>
+    <div class="wrap hero-cine__in">
+      <h1 class="hero-cine__h reveal" data-d="1">
+        New treatments for <span class="accent">neurodegenerative</span> disease
+      </h1>
+      <p class="lead reveal" data-d="2">
+        Alsonex develops first-in-class therapies for the diseases medicine has struggled hardest to
+        treat — advancing its lead compound, ALS-205, toward a new option for people living with
+        Motor Neuron Disease.
+      </p>
+      <div class="hero-cine__cta reveal" data-d="3" style="display:flex;gap:14px;margin-top:30px">
+        <a class="btn btn--primary" href="/technology">Explore the Science</a>
+        <a class="btn btn--primary" href="/about">Meet the Team</a>
+      </div>
+    </div>
+    <div class="hero-cine__foot">
+      <div class="hero-cine__scrollline" aria-hidden="true"></div>
+    </div>
+  </section>
 
-  <div class="alx-container">
-    <ImageTextRow
-      heading="Our Principal Commercial Objective"
-      reverse
-      image="/assets/neuron-hero.jpg"
-      alt="Signals travelling through the nervous system"
-    >
-      <p class="alx-p">
-        The principal objective of the company is to develop a new treatment option for people with
-        neurodegenerative diseases and this aligns with our commercial objective, which is to
-        enhance shareholder value through clinical development of ALS-205.
+  <!-- Phase 0 placeholder below the hero. The full V2 home sections
+       (objective split, pipeline, stats, leadership, investor CTA) with
+       V1's real content come in Frankie's Phase 3. -->
+  <section class="section section--tight">
+    <div class="wrap wrap--narrow" style="text-align:center">
+      <div class="eyebrow center" style="justify-content:center">Phase 0 proof</div>
+      <h2 class="display h-md" style="margin-top:14px">
+        Below-the-hero home sections arrive in Phase 3
+      </h2>
+      <p class="lead" style="margin-top:14px">
+        This page validates the V2 cinematic hero and sticky navigation on staging. The objective
+        split, development pipeline, stats strip, leadership grid and investor CTA — populated with
+        Alsonex's real content — are built in the next phase.
       </p>
-      <p class="alx-p">
-        The furthest advanced project is for treating Motor Neuron Disease (MND) or Amyotrophic
-        Lateral Sclerosis (ALS). Additional projects involve expanding the clinical utility of the
-        leading molecule into other degenerative diseases of the CNS and benefit from the
-        preclinical work undertaken for the first indication. Additional indications include
-        Alzheimer's Disease and Huntington's Disease.
-      </p>
-      <p class="alx-p">
-        Earlier projects are focused on validation of the biochemical target and may lead to
-        additional commercialisation opportunities as the studies progress.
-      </p>
-      <ul class="alx-list">
-        <li>
-          The leading compound, ALS-205, has completed a Single Ascending and Multiple Ascending
-          Dose Phase I clinical trial in healthy volunteers, establishing a suitable dose for future
-          clinical studies.
-        </li>
-        <li>
-          A Phase Ib clinical trial in subjects with MND has been completed demonstrating safe
-          target engagement in the intended patient population and properties suitable for further
-          development.
-        </li>
-      </ul>
-      <Button href="/technology" icon slot="action">Read More</Button>
-    </ImageTextRow>
-  </div>
-
-  <div class="alx-container">
-    <SectionLabel>Our Leadership Team</SectionLabel>
-    {
-      leadership.map((p, i) => (
-        <PersonRow
-          name={`${p.name}, `}
-          alt={`${p.name}, ${p.title}`}
-          title={p.title}
-          photo={p.photo}
-          reverse={i % 2 === 1}
-          objectPosition={p.objectPosition}
-        >
-          {p.bio.map((para) => (
-            <p class="alx-p">{para}</p>
-          ))}
-        </PersonRow>
-      ))
-    }
-  </div>
+    </div>
+  </section>
 </BaseLayout>
+
+<!-- Hero video control — approved settings, ported from meridian-cine.html:
+     playbackRate 0.5 (half speed, re-asserted on each play attempt),
+     no loop (plays once, holds final sunrise frame), autoplay-retry on
+     first user interaction for autoplay-blocking browsers. -->
+<script is:inline>
+  (function () {
+    var v = document.querySelector('.hero-cine__media video');
+    if (!v) return;
+    v.playbackRate = 0.5;
+    v.removeAttribute('loop');
+    var tryPlay = function () {
+      v.playbackRate = 0.5;
+      var p = v.play();
+      if (p && p.catch) p.catch(function () {});
+    };
+    tryPlay();
+    v.addEventListener('canplay', tryPlay, { once: true });
+    ['click', 'touchstart', 'scroll', 'keydown'].forEach(function (ev) {
+      window.addEventListener(ev, tryPlay, { once: true, passive: true });
+    });
+  })();
+</script>
