@@ -21,10 +21,10 @@ interface Props {
   lead?: string;
   /** bullet items (rendered as `.split ul/li`) */
   list?: string[];
-  /** image URL */
-  image: string;
+  /** image URL (omit if providing a `media` slot) */
+  image?: string;
   /** image alt text */
-  imageAlt: string;
+  imageAlt?: string;
   /** reveal stagger index for the media column */
   mediaDelay?: number;
 }
@@ -40,6 +40,7 @@ const {
   mediaDelay = 1,
 } = Astro.props;
 const hasAction = Astro.slots.has('action');
+const hasMedia = Astro.slots.has('media');
 const cls = ['wrap', 'split', rev ? 'split--rev' : ''].filter(Boolean).join(' ');
 ---
 
@@ -73,6 +74,6 @@ const cls = ['wrap', 'split', rev ? 'split--rev' : ''].filter(Boolean).join(' ')
     {hasAction && <slot name="action" />}
   </div>
   <div class="split__media reveal" data-d={rev ? undefined : mediaDelay}>
-    <img src={image} alt={imageAlt} />
+    {hasMedia ? <slot name="media" /> : <img src={image} alt={imageAlt} />}
   </div>
 </div>

@@ -42,11 +42,7 @@ const orphanCards = [
 
   <!-- §1 — The Molecule (with the interactive 3D MoleculeViewer). -->
   <section class="section section--tight">
-    <Split
-      eyebrow="The molecule"
-      image="/assets/tech-band.jpg"
-      imageAlt="Glossy translucent molecular spheres linked together against a soft blue background"
-    >
+    <Split eyebrow="The molecule">
       <h2 class="display h-lg" style="margin:0 0 18px">A Selective C5a1-Receptor Antagonist</h2>
       <p style="color:var(--ink-soft)">
         ALS-205 is a potent antagonist of the human C5a1 receptor with no activity at the C5a2
@@ -59,9 +55,7 @@ const orphanCards = [
         is both small enough and sufficiently lipophilic to be orally active at ≤1 mg/kg/day in vivo
         and readily accesses the brain.
       </p>
-      <Fragment slot="action">
-        <div style="width:100%;margin-top:8px"><MoleculeViewer client:visible /></div>
-      </Fragment>
+      <MoleculeViewer client:visible slot="media" />
     </Split>
   </section>
 
