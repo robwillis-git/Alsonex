@@ -1,0 +1,30 @@
+---
+/**
+ * Person — V2 "Meridian Cine" leadership card (`.person`).
+ * Mirrors design_handoff_alsonex_v2/modern/{meridian-cine,about}.html.
+ *
+ * A single card: photo, name, role and bio. Use inside <People> (the `.people`
+ * grid). `delay` sets the reveal stagger index (`data-d`).
+ */
+interface Props {
+  name: string;
+  role: string;
+  bio: string;
+  image: string;
+  /** image alt; defaults to the person's name */
+  imageAlt?: string;
+  /** reveal stagger index (`data-d`) */
+  delay?: number;
+}
+
+const { name, role, bio, image, imageAlt, delay } = Astro.props;
+---
+
+<article class="person reveal" data-d={delay ? delay : undefined}>
+  <div class="person__img"><img src={image} alt={imageAlt ?? name} /></div>
+  <div class="person__body">
+    <div class="person__name">{name}</div>
+    <div class="person__role">{role}</div>
+    <p class="person__bio">{bio}</p>
+  </div>
+</article>

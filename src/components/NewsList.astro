@@ -1,0 +1,45 @@
+---
+/**
+ * NewsList — V2 "Meridian Cine" news list wrapper (`.newslist`).
+ * Mirrors design_handoff_alsonex_v2/modern/news.html.
+ *
+ * Either pass `items` (an array of NewsItem props — reveal stagger applied
+ * automatically) or supply <NewsItem> elements via the default slot.
+ */
+import NewsItem from './NewsItem.astro';
+
+interface Item {
+  tag: string;
+  title: string;
+  excerpt: string;
+  href: string;
+  date?: string;
+  more?: string;
+}
+
+interface Props {
+  items?: Item[];
+}
+
+const { items } = Astro.props;
+---
+
+<div class="newslist">
+  {
+    items ? (
+      items.map((it, i) => (
+        <NewsItem
+          tag={it.tag}
+          title={it.title}
+          excerpt={it.excerpt}
+          href={it.href}
+          date={it.date}
+          more={it.more}
+          delay={i}
+        />
+      ))
+    ) : (
+      <slot />
+    )
+  }
+</div>

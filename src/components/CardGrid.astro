@@ -1,0 +1,36 @@
+---
+/**
+ * CardGrid — V2 "Meridian Cine" card grid (`.cardgrid`, 2-up `.cardgrid--2`).
+ * Mirrors design_handoff_alsonex_v2/modern/{about,science}.html.
+ *
+ * Either pass `cards` (an array of Card props — reveal stagger applied
+ * automatically) or supply <Card> elements via the default slot. `cols=2`
+ * switches to the two-column variant.
+ */
+import Card from './Card.astro';
+
+interface CardData {
+  k?: string;
+  title: string;
+  body: string;
+}
+
+interface Props {
+  cards?: CardData[];
+  /** 3 (default) or 2 columns */
+  cols?: 2 | 3;
+}
+
+const { cards, cols = 3 } = Astro.props;
+const cls = ['cardgrid', cols === 2 ? 'cardgrid--2' : ''].filter(Boolean).join(' ');
+---
+
+<div class={cls}>
+  {
+    cards ? (
+      cards.map((c, i) => <Card k={c.k} title={c.title} body={c.body} delay={i % 3} />)
+    ) : (
+      <slot />
+    )
+  }
+</div>

@@ -1,0 +1,75 @@
+---
+/**
+ * Pipe — V2 "Meridian Cine" development pipeline (`.pipe`).
+ * Mirrors design_handoff_alsonex_v2/modern/{meridian-cine,science}.html
+ * (`.pipe__row` / `.pipe__track` / `.pipe__stage` with `done`/`cur` states).
+ *
+ * Data-driven: pass an array of programmes. Each programme has a `program`
+ * label, an `indication`, the list of `stages`, and the 0-based index of the
+ * `current` stage. Stages before `current` render `.done`; the `current` stage
+ * renders `.cur`; later stages are plain.
+ *
+ * Default data = the approved V2 set (ALS-205 across MND / Alzheimer's /
+ * Huntington's). ⚠️ Exact clinical status is a Rob sign-off item before
+ * publish — Cora supplies the confirmed set; pass `rows` to override.
+ */
+export interface PipeRow {
+  program: string;
+  indication: string;
+  stages: string[];
+  /** 0-based index of the current stage (`.cur`); earlier stages = `.done` */
+  current: number;
+}
+
+interface Props {
+  rows?: PipeRow[];
+}
+
+const DEFAULT_STAGES = ['Discovery', 'Preclinical', 'Phase I', 'Phase Ib', 'Phase II'];
+
+const DEFAULT_ROWS: PipeRow[] = [
+  {
+    program: 'ALS-205',
+    indication: 'Motor Neuron Disease (MND / ALS)',
+    stages: DEFAULT_STAGES,
+    current: 3, // Phase Ib
+  },
+  {
+    program: 'ALS-205',
+    indication: "Alzheimer's Disease",
+    stages: DEFAULT_STAGES,
+    current: 2, // Phase I
+  },
+  {
+    program: 'ALS-205',
+    indication: "Huntington's Disease",
+    stages: DEFAULT_STAGES,
+    current: 2, // Phase I
+  },
+];
+
+const { rows = DEFAULT_ROWS } = Astro.props;
+
+const stageClass = (i: number, current: number) =>
+  ['pipe__stage', i < current ? 'done' : '', i === current ? 'cur' : ''].filter(Boolean).join(' ');
+---
+
+<div class="pipe">
+  {
+    rows.map((row, ri) => (
+      <div class="pipe__row reveal" data-d={ri > 0 ? ri : undefined}>
+        <div>
+          <div class="pipe__prog">{row.program}</div>
+          <div class="pipe__ind">{row.indication}</div>
+        </div>
+        <div class="pipe__track">
+          {row.stages.map((stage, si) => (
+            <div class={stageClass(si, row.current)}>
+              <span>{stage}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+    ))
+  }
+</div>

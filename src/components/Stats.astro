@@ -1,0 +1,38 @@
+---
+/**
+ * Stats — V2 "Meridian Cine" stats strip (`.stats` / `.stat`).
+ * Mirrors design_handoff_alsonex_v2/modern/{meridian-cine,science}.html.
+ *
+ * Data-driven: pass an array of `{ n, l }` (number + label). The reference
+ * wraps the strip in a bordered, rounded, clipped frame — that framing is on
+ * by default (`framed`), matching the home/science usage.
+ */
+interface Stat {
+  /** the large accent number/value */
+  n: string;
+  /** the small muted label */
+  l: string;
+}
+
+interface Props {
+  items: Stat[];
+  /** bordered + rounded + clipped frame (as used on home/science) */
+  framed?: boolean;
+}
+
+const { items, framed = true } = Astro.props;
+const frameStyle = framed
+  ? 'border:1px solid var(--line);border-radius:var(--r);overflow:hidden'
+  : undefined;
+---
+
+<div class="stats" style={frameStyle}>
+  {
+    items.map((s) => (
+      <div class="stat">
+        <div class="stat__n">{s.n}</div>
+        <div class="stat__l">{s.l}</div>
+      </div>
+    ))
+  }
+</div>

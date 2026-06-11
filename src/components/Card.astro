@@ -1,0 +1,26 @@
+---
+/**
+ * Card — V2 "Meridian Cine" simple card (`.card`).
+ * Mirrors design_handoff_alsonex_v2/modern/{about,science}.html.
+ *
+ * Optional index/eyebrow (`.card__k`, large italic accent — e.g. "01"), an
+ * h3 title and a body paragraph. Use inside <CardGrid>. `delay` sets the
+ * reveal stagger index (`data-d`).
+ */
+interface Props {
+  /** large italic index/eyebrow (`.card__k`) — e.g. "01"; omit for plain cards */
+  k?: string;
+  title: string;
+  body: string;
+  /** reveal stagger index (`data-d`) */
+  delay?: number;
+}
+
+const { k, title, body, delay } = Astro.props;
+---
+
+<div class="card reveal" data-d={delay ? delay : undefined}>
+  {k && <div class="card__k">{k}</div>}
+  <h3>{title}</h3>
+  <p>{body}</p>
+</div>

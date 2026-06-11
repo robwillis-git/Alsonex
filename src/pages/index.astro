@@ -13,6 +13,7 @@
  * objective copy etc. remain in git history (tag v1-live) for reuse.
  */
 import BaseLayout from '../layouts/BaseLayout.astro';
+import HeroCine from '../components/HeroCine.astro';
 ---
 
 <BaseLayout
@@ -20,39 +21,22 @@ import BaseLayout from '../layouts/BaseLayout.astro';
   description="Alsonex Pharmaceuticals is a Brisbane clinical-stage biopharmaceutical company developing ALS-205, a candidate treatment for Motor Neuron Disease and other neurodegenerative conditions."
   route="home"
 >
-  <!-- CINEMATIC HERO (video) — approved settings:
-       autoplay/muted/playsinline, NO loop, playbackRate 0.5 (re-asserted),
-       poster fallback, brightness ≈1.32 (via .hero-cine--center), light
-       centre scrim, dark #06182B base. -->
-  <section class="hero-cine hero-cine--center">
-    <div class="hero-cine__media">
-      <video autoplay muted playsinline poster="/assets/hero-riverdelta-sunrise-right-poster.jpg">
-        <source src="/assets/hero-riverdelta-sunrise-right.mp4" type="video/mp4" />
-        <img
-          src="/assets/hero-riverdelta-sunrise-right-poster.jpg"
-          alt="Aerial vista of a branching river delta at sunrise, echoing the form of neuron dendrites"
-        />
-      </video>
-    </div>
-    <div class="hero-cine__scrim hero-cine__scrim--center" aria-hidden="true"></div>
-    <div class="wrap hero-cine__in">
-      <h1 class="hero-cine__h reveal" data-d="1">
-        New treatments for <span class="accent">neurodegenerative</span> disease
-      </h1>
-      <p class="lead reveal" data-d="2">
-        Alsonex develops first-in-class therapies for the diseases medicine has struggled hardest to
-        treat — advancing its lead compound, ALS-205, toward a new option for people living with
-        Motor Neuron Disease.
-      </p>
-      <div class="hero-cine__cta reveal" data-d="3" style="display:flex;gap:14px;margin-top:30px">
-        <a class="btn btn--primary" href="/technology">Explore the Science</a>
-        <a class="btn btn--primary" href="/about">Meet the Team</a>
-      </div>
-    </div>
-    <div class="hero-cine__foot">
-      <div class="hero-cine__scrollline" aria-hidden="true"></div>
-    </div>
-  </section>
+  <!-- CINEMATIC HERO (video) — now via the reusable <HeroCine> component,
+       which carries the approved settings (no loop, 0.5× re-asserted, poster
+       fallback, brightness ≈1.32, light centre scrim, dark #06182B base) and
+       its own inline video-control script. -->
+  <HeroCine
+    headline="New treatments for "
+    accent="neurodegenerative"
+    headlineAfter=" disease"
+    lead="Alsonex develops first-in-class therapies for the diseases medicine has struggled hardest to treat — advancing its lead compound, ALS-205, toward a new option for people living with Motor Neuron Disease."
+    poster="/assets/hero-riverdelta-sunrise-right-poster.jpg"
+    posterAlt="Aerial vista of a branching river delta at sunrise, echoing the form of neuron dendrites"
+    buttons={[
+      { label: 'Explore the Science', href: '/technology' },
+      { label: 'Meet the Team', href: '/about' },
+    ]}
+  />
 
   <!-- Phase 0 placeholder below the hero. The full V2 home sections
        (objective split, pipeline, stats, leadership, investor CTA) with
@@ -71,26 +55,3 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     </div>
   </section>
 </BaseLayout>
-
-<!-- Hero video control — approved settings, ported from meridian-cine.html:
-     playbackRate 0.5 (half speed, re-asserted on each play attempt),
-     no loop (plays once, holds final sunrise frame), autoplay-retry on
-     first user interaction for autoplay-blocking browsers. -->
-<script is:inline>
-  (function () {
-    var v = document.querySelector('.hero-cine__media video');
-    if (!v) return;
-    v.playbackRate = 0.5;
-    v.removeAttribute('loop');
-    var tryPlay = function () {
-      v.playbackRate = 0.5;
-      var p = v.play();
-      if (p && p.catch) p.catch(function () {});
-    };
-    tryPlay();
-    v.addEventListener('canplay', tryPlay, { once: true });
-    ['click', 'touchstart', 'scroll', 'keydown'].forEach(function (ev) {
-      window.addEventListener(ev, tryPlay, { once: true, passive: true });
-    });
-  })();
-</script>

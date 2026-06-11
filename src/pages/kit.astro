@@ -1,173 +1,263 @@
 ---
 /**
- * /kit — component showcase / style guide.
+ * /kit — V2 "Meridian Cine" component showcase / style guide.
  *
- * Renders every component in the Alsonex kit in its variants, using
- * placeholder/lorem-style content for review. This is NOT a real page — it
- * exists so the kit can be design-QA'd (Quinn) before page assembly (Phase 3).
- * Header + Footer are supplied by BaseLayout, so they're demonstrated implicitly
- * (sticky white header with the "Home"/none current state, and the footer).
+ * Renders every V2 component in its variants with placeholder copy, so the kit
+ * can be design-QA'd (Quinn) before page assembly (Phase 3). This is NOT a real
+ * page — it is excluded from the sitemap.
+ *
+ * Header + Footer come from BaseLayout (demonstrated implicitly). The cinematic
+ * <HeroCine> is shown at the top; inner-page surfaces (PageHead, Split, Pipe,
+ * Stats, People, CardGrid, NewsList, Contact, CtaBand, MoleculeViewer, Button)
+ * follow below.
  */
 import BaseLayout from '../layouts/BaseLayout.astro';
-import Hero from '../components/Hero.astro';
-import SectionLabel from '../components/SectionLabel.astro';
+import HeroCine from '../components/HeroCine.astro';
+import PageHead from '../components/PageHead.astro';
 import Button from '../components/Button.astro';
-import ImageTextRow from '../components/ImageTextRow.astro';
-import PersonRow from '../components/PersonRow.astro';
-import PipelineRow from '../components/PipelineRow.astro';
+import Split from '../components/Split.astro';
+import Pipe from '../components/Pipe.astro';
+import Stats from '../components/Stats.astro';
+import People from '../components/People.astro';
+import CardGrid from '../components/CardGrid.astro';
+import NewsList from '../components/NewsList.astro';
+import Contact from '../components/Contact.astro';
+import CtaBand from '../components/CtaBand.astro';
+import MoleculeViewer from '../components/MoleculeViewer.tsx';
+
+const team = [
+  {
+    name: 'David Groth',
+    role: 'Non-Executive Chairman',
+    bio: 'Co-founder of Integra Advisory; 20+ years advising on IPOs, raisings and M&A.',
+    image: '/assets/team-groth.jpg',
+  },
+  {
+    name: 'Alan Robertson',
+    role: 'CEO & Managing Director',
+    bio: 'CEO of Pharmaxis for 14 years, raising $350M+; created PXS4728 and invented Zomig.',
+    image: '/assets/team-robertson.jpg',
+  },
+  {
+    name: 'Trent Woodruff',
+    role: 'Scientific Advisor',
+    bio: 'ARC Future Fellow at UQ researching the complement system across multiple CNS diseases.',
+    image: '/assets/team-woodruff.jpg',
+  },
+];
+
+const cards = [
+  {
+    k: '01',
+    title: 'Validated targets',
+    body: 'Early projects focus on validating the biochemical target.',
+  },
+  {
+    k: '02',
+    title: 'Proof of concept',
+    body: 'We advance the lead molecule to proof-of-concept in patients.',
+  },
+  {
+    k: '03',
+    title: 'Pipeline expansion',
+    body: 'We extend the lead compound into other CNS degenerative diseases.',
+  },
+];
+
+const stats = [
+  { n: '2014', l: 'Founded — out of UQ research' },
+  { n: 'ALS-205', l: 'Lead clinical compound' },
+  { n: 'Phase Ib', l: 'Completed in MND patients' },
+  { n: '4', l: 'CNS indications in view' },
+];
+
+const news = [
+  {
+    tag: 'Clinical',
+    title: 'Alsonex completes Phase Ib trial of ALS-205 in Motor Neuron Disease',
+    excerpt: 'The trial demonstrated safe target engagement in the intended patient population.',
+    href: '#',
+  },
+  {
+    tag: 'Corporate',
+    title: 'Alsonex strengthens board with new Non-Executive Director',
+    excerpt: 'The appointment brings deep biopharmaceutical leadership experience.',
+    href: '#',
+  },
+  {
+    tag: 'Research',
+    title: 'University of Queensland collaboration extends CNS programme',
+    excerpt: 'New preclinical work supports expansion into additional indications.',
+    href: '#',
+  },
+];
+
+const contactDetails = [
+  { term: 'Address', value: '210 Alice Street<br>Brisbane, QLD 4000' },
+  { term: 'Email', value: '<a href="mailto:info@alsonex.com.au">info@alsonex.com.au</a>' },
+  { term: 'Enquiries', value: 'Investor relations · Partnering · Media' },
+];
 ---
 
 <BaseLayout
   title="Component Kit — Alsonex"
   description="Internal component showcase for the Alsonex website build."
 >
-  <Hero watermark="Kit" title="Component Kit" wideTitle>
-    <p class="alx-lead alx-center">
-      A review surface for the reusable Alsonex component library. Every component is shown below in
-      its variants with placeholder copy. This is an internal style guide, not a live page.
-    </p>
-  </Hero>
+  <!-- HeroCine -->
+  <HeroCine
+    headline="A cinematic "
+    accent="video"
+    headlineAfter=" hero"
+    lead="The reusable HeroCine component — autoplay, no loop, 0.5× playback, poster fallback, light centre scrim. Props drive the headline (with an accent word), lead and buttons."
+    poster="/assets/hero-riverdelta-sunrise-right-poster.jpg"
+    posterAlt="Aerial vista of a branching river delta at sunrise"
+    buttons={[
+      { label: 'Primary button', href: '#' },
+      { label: 'Meet the Team', href: '#' },
+    ]}
+  />
 
-  <div class="alx-container">
-    <!-- Hero (short variant) -->
-    <SectionLabel>Hero — Short Variant</SectionLabel>
-  </div>
-  <Hero watermark="Lorem" title="Inner Page Hero" short>
-    <p class="alx-lead alx-center">
-      The short hero is used on inner pages. It carries a faint oversized watermark, a blue H1, and
-      optional lead copy in greyscale.
-    </p>
-  </Hero>
+  <!-- PageHead -->
+  <PageHead
+    eyebrow="Component Kit"
+    title="Every V2 component, in its variants"
+    lead="An internal review surface for the Meridian Cine component library. Placeholder copy throughout — not a live page."
+    watermark="Kit"
+  />
 
-  <div class="alx-container">
-    <!-- Buttons -->
-    <SectionLabel>Buttons</SectionLabel>
-    <p class="alx-p alx-center alx-prose-narrow">
-      Three variants. Small uppercase label, square-ish corners, optional ↗ icon, hover deepens the
-      fill (ghost fades to a pale wash).
-    </p>
-    <div style="display:flex;gap:16px;flex-wrap:wrap;justify-content:center;padding:18px 0 50px">
-      <Button href="#">Primary</Button>
-      <Button href="#" variant="teal">Teal</Button>
-      <Button href="#" variant="ghost">Ghost</Button>
-      <Button href="#" icon>Read More</Button>
-      <Button href="#" variant="teal" icon>Learn More</Button>
-      <Button type="button">As Button</Button>
+  <!-- Buttons -->
+  <section class="section section--tight">
+    <div class="wrap">
+      <div class="eyebrow">Button</div>
+      <h2 class="display h-md" style="margin:12px 0 24px">.btn variants</h2>
+      <div style="display:flex;gap:14px;flex-wrap:wrap;align-items:center">
+        <Button href="#" variant="primary">Primary</Button>
+        <Button href="#" variant="primary" arrow>Primary with arrow</Button>
+        <Button href="#" variant="ghost">Ghost</Button>
+        <Button href="#" variant="ghost" arrow>Ghost with arrow</Button>
+        <Button type="button" variant="primary">As button element</Button>
+      </div>
+      <div
+        style="display:flex;gap:14px;flex-wrap:wrap;align-items:center;margin-top:22px;padding:24px;background:var(--navy);border-radius:var(--r)"
+      >
+        <Button href="#" variant="on-dark" arrow>On-dark</Button>
+      </div>
     </div>
+  </section>
 
-    <!-- SectionLabel (divider only) -->
-    <SectionLabel>SectionLabel — Divider Only</SectionLabel>
-    <p class="alx-p alx-center alx-prose-narrow">
-      With no heading, SectionLabel renders as a pair of thin grey rules — a plain section break.
-      The rule below is exactly that.
-    </p>
-    <SectionLabel />
-
-    <!-- ImageTextRow -->
-    <SectionLabel>ImageTextRow</SectionLabel>
-  </div>
-
-  <div class="alx-container">
-    <ImageTextRow
-      heading="Image Right (reverse)"
+  <!-- Split (default + reversed) -->
+  <section class="section section--tight" style="padding-top:0">
+    <Split
+      eyebrow="Split — default"
+      heading="Image on the right, text on the left."
+      lead="The reversible image+text row. Eyebrow, heading, lead, an optional bullet list and an action button."
+      list={[
+        'Bullet items render as the styled <code>.split ul/li</code>.',
+        'A Phase Ib trial demonstrated safe target engagement.',
+      ]}
+      image="/assets/care-conversation.jpg"
+      imageAlt="A nurse in conversation with an older man at home"
+    >
+      <Button slot="action" href="#" variant="ghost" arrow>More on the Science</Button>
+    </Split>
+  </section>
+  <section class="section section--tight" style="padding-top:0">
+    <Split
+      rev
+      eyebrow="Split — reversed (--rev)"
+      heading="Image on the left this time."
+      lead="Passing rev flips the media column to the left."
       image="/assets/neuron-hero.jpg"
-      alt="Placeholder scientific imagery"
-      reverse
-    >
-      <p class="alx-p">
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur vitae nunc sed velit
-        dignissim sodales ut eu sem. Praesent elementum facilisis leo vel fringilla est ullamcorper.
-      </p>
-      <ul class="alx-list">
-        <li>Square markers in brand blue introduce each list item.</li>
-        <li>Generous whitespace and hard-cornered imagery throughout.</li>
-        <li>The block is fully reversible via the <code>reverse</code> prop.</li>
-      </ul>
-      <Button href="#" icon slot="action">Read More</Button>
-    </ImageTextRow>
+      imageAlt="Signals travelling through the nervous system"
+    />
+  </section>
 
-    <ImageTextRow
-      heading="Image Left (default)"
-      image="/assets/neuron-hero.jpg"
-      alt="Placeholder scientific imagery"
-    >
-      <p class="alx-p">
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut
-        labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation.
-      </p>
-      <p class="alx-p">
-        Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-        pariatur.
-      </p>
-    </ImageTextRow>
-
-    <!-- PersonRow -->
-    <SectionLabel>PersonRow</SectionLabel>
-    <PersonRow name="Ada Lovelace, " title="Placeholder Role" photo="/assets/team-groth.jpg">
-      <p class="alx-p">
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus luctus urna sed urna
-        ultricies ac tempor dui sagittis. In condimentum facilisis porta sed a lacinia.
-      </p>
-    </PersonRow>
-    <PersonRow
-      name="Grace Hopper, "
-      title="Placeholder Role (reverse)"
-      photo="/assets/team-robertson.jpg"
-      reverse
-    >
-      <p class="alx-p">
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam quis risus eget urna mollis
-        ornare vel eu leo. Maecenas faucibus mollis interdum.
-      </p>
-    </PersonRow>
-
-    <!-- PipelineRow -->
-    <SectionLabel>PipelineRow</SectionLabel>
-    <p class="alx-p alx-center alx-prose-narrow">
-      Five fixed stages (Discovery → Phase II). Stages up to the current one render as done (pale
-      blue); the current stage is solid blue.
-    </p>
-    <div class="alx-pipeline">
-      <PipelineRow program="LOR-001" indication="Placeholder Indication A" phase={3} />
-      <PipelineRow program="LOR-002" indication="Placeholder Indication B" phase={1} />
-      <PipelineRow program="LOR-003" indication="Placeholder Indication C" phase={0} />
-      <PipelineRow program="Discovery" indication="Placeholder target validation" phase={4} />
+  <!-- Pipe -->
+  <section class="section--tight" style="padding-top:0">
+    <div class="wrap">
+      <div class="slabel">
+        <div class="eyebrow center">Pipe</div>
+        <h2 class="display h-md" style="margin-top:14px">Development pipeline (default V2 set)</h2>
+      </div>
+      <Pipe />
     </div>
+  </section>
 
-    <!-- Cards (supporting pattern used by ImageTextRow-adjacent sections) -->
-    <SectionLabel>Cards</SectionLabel>
-    <div class="alx-cards">
-      <div class="alx-card">
-        <h3 class="alx-h3">Card One</h3>
-        <p class="alx-p">
-          Flat, square-cornered card with a hairline border. No shadow, no rounding.
-        </p>
+  <!-- Stats -->
+  <section class="section--tight" style="padding-top:0">
+    <div class="wrap">
+      <div class="eyebrow">Stats</div>
+      <h2 class="display h-md" style="margin:12px 0 24px">4-up stats strip</h2>
+      <Stats items={stats} />
+    </div>
+  </section>
+
+  <!-- People / Person -->
+  <section class="section">
+    <div class="wrap">
+      <div class="slabel">
+        <div class="eyebrow center">People / Person</div>
+        <h2 class="display h-md" style="margin-top:14px">Leadership cards</h2>
       </div>
-      <div class="alx-card">
-        <h3 class="alx-h3">Card Two</h3>
-        <p class="alx-p">Lorem ipsum dolor sit amet, consectetur adipiscing elit sed do eiusmod.</p>
-      </div>
-      <div class="alx-card">
-        <h3 class="alx-h3">Card Three</h3>
-        <p class="alx-p">Tempor incididunt ut labore et dolore magna aliqua ut enim ad minim.</p>
+      <People members={team} />
+    </div>
+  </section>
+
+  <!-- CardGrid / Card -->
+  <section class="section--tight" style="padding-top:0">
+    <div class="wrap">
+      <div class="eyebrow">CardGrid (3-up, with index)</div>
+      <h2 class="display h-md" style="margin:12px 0 24px">.cardgrid + .card</h2>
+      <CardGrid cards={cards} />
+      <div class="eyebrow" style="margin-top:40px">CardGrid (2-up, no index)</div>
+      <div style="margin-top:18px">
+        <CardGrid
+          cols={2}
+          cards={[
+            { title: 'Mechanistic focus', body: 'Acts on the complement system.' },
+            { title: 'Clinically validated', body: 'Phase I and Phase Ib complete.' },
+          ]}
+        />
       </div>
     </div>
+  </section>
 
-    <!-- Typography + links -->
-    <SectionLabel>Type &amp; Links</SectionLabel>
-    <div style="padding:8px 0 64px">
-      <h1 class="alx-h1">Heading 1 — brand blue, weight 400</h1>
-      <h2 class="alx-h2">Heading 2 — brand teal, weight 400</h2>
-      <h3 class="alx-h3">Heading 3 — ink, weight 400</h3>
-      <p class="alx-lead">
-        Lead paragraph — lighter weight, looser line height, soft ink. Lorem ipsum dolor sit amet,
-        consectetur adipiscing elit.
-      </p>
-      <p class="alx-p">
-        Body copy in default ink. This is an <a class="alx-link" href="#">inline link</a> that fades to
-        opacity .7 on hover. Australian/British spelling throughout (colour, organisation, programme).
-      </p>
-      <p class="alx-caption">Caption text — muted, italic, used for meta and footnotes.</p>
+  <!-- NewsList / NewsItem -->
+  <section class="section--tight" style="padding-top:0">
+    <div class="wrap">
+      <div class="eyebrow center" style="justify-content:center">NewsList / NewsItem (undated)</div>
+      <div style="margin-top:24px">
+        <NewsList items={news} />
+      </div>
     </div>
-  </div>
+  </section>
+
+  <!-- MoleculeViewer -->
+  <section class="section--tight" style="padding-top:0">
+    <div class="wrap wrap--narrow">
+      <div class="eyebrow">MoleculeViewer (V2 restyle)</div>
+      <h2 class="display h-md" style="margin:12px 0 24px">
+        Interactive 3D model — rounded V2 card
+      </h2>
+      <MoleculeViewer client:visible />
+    </div>
+  </section>
+
+  <!-- CtaBand -->
+  <section class="section--tight">
+    <div class="wrap">
+      <CtaBand
+        eyebrow="For investors & partners"
+        heading={'Partner with us to bring <span style="white-space:nowrap">ALS-205</span> to patients.'}
+        lead="We advance our programmes to proof-of-concept, then share later-stage development with the right pharmaceutical partner."
+        buttonLabel="Contact the team"
+        buttonHref="#"
+      />
+    </div>
+  </section>
+
+  <!-- Contact / Form (with thank-you state) -->
+  <section class="section">
+    <Contact details={contactDetails} />
+  </section>
 </BaseLayout>

@@ -1,0 +1,44 @@
+---
+/**
+ * Contact — V2 "Meridian Cine" contact layout (`.contact`).
+ * Mirrors design_handoff_alsonex_v2/modern/contact.html: a details column
+ * (eyebrow + heading + a `.contact__dl` definition list) alongside the <Form>.
+ *
+ * `details` is a list of `{ term, value }` rows (value may contain HTML, e.g.
+ * a line-break in the address or a mailto link). The form is rendered to the
+ * right and is wired to /contact-handler.php (see <Form>).
+ */
+import Form from './Form.astro';
+
+interface Detail {
+  term: string;
+  /** may contain HTML (e.g. <br>, <a href="mailto:…">) */
+  value: string;
+}
+
+interface Props {
+  eyebrow?: string;
+  heading?: string;
+  details: Detail[];
+}
+
+const { eyebrow = 'Get in touch', heading = "We'd love to hear from you", details } = Astro.props;
+---
+
+<div class="wrap contact">
+  <div class="reveal">
+    <div class="eyebrow">{eyebrow}</div>
+    <h2 class="display h-md" style="margin:16px 0 8px">{heading}</h2>
+    <dl class="contact__dl">
+      {
+        details.map((d) => (
+          <div>
+            <dt>{d.term}</dt>
+            <dd set:html={d.value} />
+          </div>
+        ))
+      }
+    </dl>
+  </div>
+  <Form />
+</div>

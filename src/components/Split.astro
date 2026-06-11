@@ -1,0 +1,78 @@
+---
+/**
+ * Split — V2 "Meridian Cine" image+text row (`.split`, reversible `.split--rev`).
+ * Mirrors design_handoff_alsonex_v2/modern/{meridian-cine,about,science}.html.
+ *
+ * The text column takes eyebrow / heading / lead via props, an optional bullet
+ * `list` (rendered as the styled `.split ul/li`), and an `action` slot for a
+ * trailing button. Extra free-form text can go in the default slot (rendered
+ * after the lead, before the list).
+ *
+ * `rev` flips the media to the left (`.split--rev`, media `order:-1`).
+ */
+interface Props {
+  /** flip the image to the left */
+  rev?: boolean;
+  /** micro-label */
+  eyebrow?: string;
+  /** section heading */
+  heading?: string;
+  /** lead paragraph */
+  lead?: string;
+  /** bullet items (rendered as `.split ul/li`) */
+  list?: string[];
+  /** image URL */
+  image: string;
+  /** image alt text */
+  imageAlt: string;
+  /** reveal stagger index for the media column */
+  mediaDelay?: number;
+}
+
+const {
+  rev = false,
+  eyebrow,
+  heading,
+  lead,
+  list = [],
+  image,
+  imageAlt,
+  mediaDelay = 1,
+} = Astro.props;
+const hasAction = Astro.slots.has('action');
+const cls = ['wrap', 'split', rev ? 'split--rev' : ''].filter(Boolean).join(' ');
+---
+
+<div class={cls}>
+  <div class="reveal" data-d={rev ? 1 : undefined}>
+    {eyebrow && <div class="eyebrow">{eyebrow}</div>}
+    {
+      heading && (
+        <h2 class="display h-lg" style="margin:18px 0 18px">
+          {heading}
+        </h2>
+      )
+    }
+    {
+      lead && (
+        <p class="lead" style="font-size:18px">
+          {lead}
+        </p>
+      )
+    }
+    <slot />
+    {
+      list.length > 0 && (
+        <ul>
+          {list.map((item) => (
+            <li set:html={item} />
+          ))}
+        </ul>
+      )
+    }
+    {hasAction && <slot name="action" />}
+  </div>
+  <div class="split__media reveal" data-d={rev ? undefined : mediaDelay}>
+    <img src={image} alt={imageAlt} />
+  </div>
+</div>

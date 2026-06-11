@@ -1,0 +1,44 @@
+---
+/**
+ * People — V2 "Meridian Cine" leadership grid (`.people`).
+ * Mirrors design_handoff_alsonex_v2/modern/{meridian-cine,about}.html.
+ *
+ * Either pass `members` (an array of Person props — the reveal stagger is
+ * applied automatically, cycling 0–2 to mirror the reference's per-row reset)
+ * or supply <Person> elements via the default slot.
+ */
+import Person from './Person.astro';
+
+interface Member {
+  name: string;
+  role: string;
+  bio: string;
+  image: string;
+  imageAlt?: string;
+}
+
+interface Props {
+  members?: Member[];
+}
+
+const { members } = Astro.props;
+---
+
+<div class="people">
+  {
+    members ? (
+      members.map((m, i) => (
+        <Person
+          name={m.name}
+          role={m.role}
+          bio={m.bio}
+          image={m.image}
+          imageAlt={m.imageAlt}
+          delay={i % 3}
+        />
+      ))
+    ) : (
+      <slot />
+    )
+  }
+</div>

@@ -1,0 +1,53 @@
+---
+/**
+ * CtaBand — V2 "Meridian Cine" navy CTA band (`.cta`).
+ * Mirrors design_handoff_alsonex_v2/modern/{about,science}.html.
+ *
+ * Navy panel with a large "A" watermark (`.cta__wm`), an eyebrow, heading,
+ * lead and a single button. The reference styles the eyebrow/heading/lead
+ * with inline on-dark colours, mirrored here so the existing CSS applies.
+ *
+ * Pass the button via props (`buttonLabel` + `buttonHref`, primary fill with
+ * an arrow) or supply your own via the `action` slot.
+ */
+import Button from './Button.astro';
+
+interface Props {
+  /** micro-label */
+  eyebrow: string;
+  /** heading; may contain HTML (e.g. a no-wrap span around "ALS-205") */
+  heading: string;
+  /** lead paragraph */
+  lead: string;
+  /** large corner watermark glyph */
+  watermark?: string;
+  /** button label (omit if using the `action` slot) */
+  buttonLabel?: string;
+  /** button destination */
+  buttonHref?: string;
+}
+
+const { eyebrow, heading, lead, watermark = 'A', buttonLabel, buttonHref } = Astro.props;
+const hasAction = Astro.slots.has('action');
+---
+
+<div class="cta">
+  <div class="cta__wm" aria-hidden="true">{watermark}</div>
+  <div style="position:relative;z-index:1">
+    <div class="eyebrow" style="color:#7FA8FF">{eyebrow}</div>
+    <h2 class="display h-lg" style="color:#fff;margin:16px 0 14px" set:html={heading} />
+    <p class="lead" style="color:#C7D5EA;margin-bottom:28px">{lead}</p>
+    {
+      hasAction ? (
+        <slot name="action" />
+      ) : (
+        buttonLabel &&
+        buttonHref && (
+          <Button href={buttonHref} variant="primary" arrow>
+            {buttonLabel}
+          </Button>
+        )
+      )
+    }
+  </div>
+</div>

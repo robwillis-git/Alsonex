@@ -1,0 +1,121 @@
+---
+/**
+ * HeroCine — V2 "Meridian Cine" cinematic VIDEO hero.
+ * Mirrors design_handoff_alsonex_v2/modern/meridian-cine.html (`.hero-cine
+ * .hero-cine--center`) and carries the approved home decisions
+ * (INTEGRATION-V1.md):
+ *   - <video> autoplay/muted/playsinline, NO loop, poster fallback
+ *   - playbackRate 0.5 (re-asserted on each play attempt) — plays once, holds
+ *     the final frame; autoplay-retry on first user interaction
+ *   - brightness ≈1.32 via `.hero-cine--center`, light centre scrim, dark
+ *     #06182B base
+ *
+ * Data-driven: headline (with an optional accent word), lead, and a list of
+ * buttons. The accent word is rendered inside the headline as `.accent`.
+ *
+ * The inline 0.5×/no-loop/retry script ships with the component so every
+ * HeroCine instance behaves identically (the script is idempotent — it guards
+ * on the presence of a `.hero-cine__media video`).
+ */
+import Button from './Button.astro';
+
+interface HeroButton {
+  label: string;
+  href: string;
+  variant?: 'primary' | 'ghost' | 'on-dark';
+  arrow?: boolean;
+}
+
+interface Props {
+  /** headline text BEFORE the accent word */
+  headline: string;
+  /** the highlighted word (rendered `#9FC0FF` via `.accent`) */
+  accent?: string;
+  /** headline text AFTER the accent word */
+  headlineAfter?: string;
+  /** sub-heading lead paragraph */
+  lead?: string;
+  /** CTA buttons (rendered in `.hero-cine__cta`) */
+  buttons?: HeroButton[];
+  /** background video URL (mp4) */
+  video?: string;
+  /** poster + fallback image */
+  poster: string;
+  /** alt text for the poster/fallback image */
+  posterAlt: string;
+}
+
+const {
+  headline,
+  accent,
+  headlineAfter = '',
+  lead,
+  buttons = [],
+  video = '/assets/hero-riverdelta-sunrise-right.mp4',
+  poster,
+  posterAlt,
+} = Astro.props;
+---
+
+<section class="hero-cine hero-cine--center">
+  <div class="hero-cine__media">
+    <video autoplay muted playsinline poster={poster}>
+      <source src={video} type="video/mp4" />
+      <img src={poster} alt={posterAlt} />
+    </video>
+  </div>
+  <div class="hero-cine__scrim hero-cine__scrim--center" aria-hidden="true"></div>
+  <div class="wrap hero-cine__in">
+    <h1 class="hero-cine__h reveal" data-d="1">
+      {headline}{accent && <span class="accent">{accent}</span>}{headlineAfter}
+    </h1>
+    {
+      lead && (
+        <p class="lead reveal" data-d="2">
+          {lead}
+        </p>
+      )
+    }
+    {
+      buttons.length > 0 && (
+        <div
+          class="hero-cine__cta reveal"
+          data-d="3"
+          style="display:flex;gap:14px;margin-top:30px;flex-wrap:wrap"
+        >
+          {buttons.map((b) => (
+            <Button href={b.href} variant={b.variant ?? 'primary'} arrow={b.arrow}>
+              {b.label}
+            </Button>
+          ))}
+        </div>
+      )
+    }
+  </div>
+  <div class="hero-cine__foot">
+    <div class="hero-cine__scrollline" aria-hidden="true"></div>
+  </div>
+</section>
+
+<!-- Hero video control — approved settings (playbackRate 0.5 re-asserted, no
+     loop, autoplay-retry on first interaction). Idempotent + scoped to the
+     first `.hero-cine__media video`. -->
+<script is:inline>
+  (function () {
+    var v = document.querySelector('.hero-cine__media video');
+    if (!v || v.dataset.cineWired) return;
+    v.dataset.cineWired = '1';
+    v.playbackRate = 0.5;
+    v.removeAttribute('loop');
+    var tryPlay = function () {
+      v.playbackRate = 0.5;
+      var p = v.play();
+      if (p && p.catch) p.catch(function () {});
+    };
+    tryPlay();
+    v.addEventListener('canplay', tryPlay, { once: true });
+    ['click', 'touchstart', 'scroll', 'keydown'].forEach(function (ev) {
+      window.addEventListener(ev, tryPlay, { once: true, passive: true });
+    });
+  })();
+</script>

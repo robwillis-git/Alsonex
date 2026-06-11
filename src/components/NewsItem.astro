@@ -1,0 +1,40 @@
+---
+/**
+ * NewsItem — V2 "Meridian Cine" news row (`.newsitem`).
+ * Mirrors design_handoff_alsonex_v2/modern/news.html.
+ *
+ * A linked row: tag + optional date, headline, excerpt and a "read" link.
+ * Posts are undated by default (V1 carried no publication dates — Rob's locked
+ * decision), so `date` is optional and omitted unless supplied.
+ *
+ * Use inside <NewsList>. `delay` sets the reveal stagger index (`data-d`).
+ */
+interface Props {
+  /** category tag (`.tag`) */
+  tag: string;
+  /** headline */
+  title: string;
+  /** excerpt / summary */
+  excerpt: string;
+  /** destination URL */
+  href: string;
+  /** optional date string (rendered in `<time>`); omit for undated posts */
+  date?: string;
+  /** call-to-action text */
+  more?: string;
+  /** reveal stagger index (`data-d`) */
+  delay?: number;
+}
+
+const { tag, title, excerpt, href, date, more = 'Read announcement ↗', delay } = Astro.props;
+---
+
+<a class="newsitem reveal" data-d={delay ? delay : undefined} href={href}>
+  <div class="newsitem__meta">
+    <span class="tag">{tag}</span>
+    {date && <time>{date}</time>}
+  </div>
+  <h3>{title}</h3>
+  <p>{excerpt}</p>
+  <span class="newsitem__more">{more}</span>
+</a>

@@ -1,0 +1,104 @@
+---
+/**
+ * Form — V2 "Meridian Cine" contact form (`.form`).
+ * Mirrors design_handoff_alsonex_v2/modern/contact.html (`.field` rows +
+ * `.btn--primary` submit), wired to V1's working backend:
+ *   - POSTs to /contact-handler.php (PHP ships in public/, deploys into
+ *     public_html — see CLAUDE.md). Native POST works without JS; the inline
+ *     script upgrades to an async submit and swaps in the V2 thank-you state.
+ *   - Honeypot field `alx_company` (live spam protection, carried from V1).
+ *   - Captcha placeholder (`data-sitekey`) scaffolded, disabled until a
+ *     provider + keys are added.
+ *
+ * Thank-you state: on success the form's innerHTML is replaced with the V2
+ * `.form__done` panel (matching the reference). On error a status message is
+ * shown in place so the user can retry.
+ *
+ * The field `name` attributes (name/email/message) match the PHP handler.
+ */
+import Button from './Button.astro';
+
+interface Props {
+  /** captcha sitekey placeholder (kept until a provider is provisioned) */
+  sitekey?: string;
+}
+
+const { sitekey = 'REPLACE_WITH_CAPTCHA_SITE_KEY' } = Astro.props;
+---
+
+<form class="form reveal" data-d="1" action="/contact-handler.php" method="POST" id="contact-form">
+  <div class="field">
+    <label for="cn">Name</label>
+    <input id="cn" name="name" type="text" placeholder="Your name" required autocomplete="name" />
+  </div>
+  <div class="field">
+    <label for="ce">Email</label>
+    <input
+      id="ce"
+      name="email"
+      type="email"
+      placeholder="you@example.com"
+      required
+      autocomplete="email"
+    />
+  </div>
+  <div class="field">
+    <label for="ct">Enquiry type</label>
+    <select id="ct" name="enquiry_type">
+      <option>Investor relations</option>
+      <option>Partnering / business development</option>
+      <option>Media</option>
+      <option>General</option>
+    </select>
+  </div>
+  <div class="field">
+    <label for="cm">Message</label>
+    <textarea id="cm" name="message" rows="4" placeholder="How can we help?" required></textarea>
+  </div>
+
+  <!-- Honeypot: hidden from humans; bots tend to fill it. (Carried from V1.) -->
+  <div
+    aria-hidden="true"
+    style="position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden"
+  >
+    <label>Company<input type="text" name="alx_company" tabindex="-1" autocomplete="off" /></label>
+  </div>
+
+  <!-- CAPTCHA placeholder — add the provider script + real sitekey before launch.
+       e.g. reCAPTCHA: <div class="g-recaptcha" data-sitekey="…"></div> -->
+  <div class="captcha-placeholder" data-sitekey={sitekey}></div>
+
+  <Button type="submit" variant="primary" arrow>Send enquiry</Button>
+
+  <p class="form__status" role="status" aria-live="polite" hidden></p>
+</form>
+
+<!-- Async submit + V2 thank-you state. Native POST is the no-JS fallback. -->
+<script is:inline>
+  (function () {
+    var form = document.getElementById('contact-form');
+    if (!form) return;
+    var DONE =
+      '<div class="form__done"><h3>Thank you</h3><p>Your enquiry has been received. A member of the Alsonex team will respond shortly.</p></div>';
+    var ERROR =
+      'Oops, something went wrong. Please re-submit, or email info@alsonex.com.au directly.';
+    form.addEventListener('submit', async function (e) {
+      e.preventDefault();
+      var status = form.querySelector('.form__status');
+      if (status) {
+        status.hidden = false;
+        status.textContent = 'Sending…';
+      }
+      try {
+        var res = await fetch(form.action, { method: 'POST', body: new FormData(form) });
+        if (res.ok) {
+          form.innerHTML = DONE;
+        } else if (status) {
+          status.textContent = ERROR;
+        }
+      } catch {
+        if (status) status.textContent = ERROR;
+      }
+    });
+  })();
+</script>

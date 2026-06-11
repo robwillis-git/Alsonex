@@ -1,0 +1,31 @@
+---
+/**
+ * PageHead — V2 "Meridian Cine" inner-page navy header band (`.pagehead`).
+ * Mirrors design_handoff_alsonex_v2/modern/{about,science,news,contact}.html.
+ *
+ * Sits behind the fixed nav (the white nav text reads over the navy band).
+ * Renders an eyebrow + h1 + optional lead, with a large italic corner
+ * watermark word (`.pagehead__wm`).
+ */
+interface Props {
+  /** micro-label above the heading (`.eyebrow`) */
+  eyebrow: string;
+  /** page heading (h1) */
+  title: string;
+  /** optional intro paragraph */
+  lead?: string;
+  /** large corner watermark word; defaults to the eyebrow text */
+  watermark?: string;
+}
+
+const { eyebrow, title, lead, watermark } = Astro.props;
+---
+
+<section class="pagehead">
+  <div class="pagehead__wm" aria-hidden="true">{watermark ?? eyebrow}</div>
+  <div class="wrap">
+    <div class="eyebrow">{eyebrow}</div>
+    <h1 class="display h-xl">{title}</h1>
+    {lead && <p class="lead">{lead}</p>}
+  </div>
+</section>

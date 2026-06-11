@@ -113,25 +113,20 @@ export default function MoleculeViewer({
   //    It is the only visible content until `ready`, then it is hidden.
   //  - The caption renders only when `ready` (interactive viewer running).
   return (
-    <div className="alx-molviewer">
-      <div className="alx-molviewer__box" role="img" aria-label={label}>
+    <div className="molviewer">
+      <div className="molviewer__box" role="img" aria-label={label}>
         <div
           ref={hostRef}
-          className="alx-molviewer__host"
+          className="molviewer__host"
           aria-hidden="true"
           // 3Dmol positions its canvas absolutely within this host.
           style={{ position: 'relative', width: '100%', height: '100%' }}
         />
         {!ready && (
-          <img
-            className="alx-molviewer__fallback"
-            src={fallbackSrc}
-            alt={label}
-            aria-hidden="true"
-          />
+          <img className="molviewer__fallback" src={fallbackSrc} alt={label} aria-hidden="true" />
         )}
       </div>
-      {ready && <p className="alx-molviewer__hint">{caption}</p>}
+      {ready && <p className="molviewer__hint">{caption}</p>}
     </div>
   );
 }
