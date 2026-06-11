@@ -1,9 +1,18 @@
 ---
+/**
+ * News — V2 "Meridian Cine" RE-SKIN of the existing V1 news collection.
+ *
+ * PageHead + the V2 NewsList rendering the existing content collection (3 real
+ * posts), kept UNDATED (Rob's locked decision — no publication dates). Order by
+ * the `order` field. Copy (titles/summaries/tags) is unchanged.
+ */
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import Hero from '../../components/Hero.astro';
+import PageHead from '../../components/PageHead.astro';
+import NewsList from '../../components/NewsList.astro';
+import NewsItem from '../../components/NewsItem.astro';
 import { getCollection } from 'astro:content';
 
-// Published undated (Rob's locked decision) — order by the `order` field, not date.
+// Published undated (Rob's locked decision) — order by the `order` field.
 const posts = (await getCollection('news', ({ data }) => !data.draft)).sort(
   (a, b) => a.data.order - b.data.order,
 );
@@ -14,74 +23,28 @@ const posts = (await getCollection('news', ({ data }) => !data.draft)).sort(
   description="Updates on Alsonex Pharmaceuticals' research into new treatments for neurodegenerative disease, including Motor Neuron Disease."
   route="news"
 >
-  <Hero
-    watermark="Alsonex"
+  <PageHead
+    eyebrow="News"
     title="News"
-    short
-    image="/assets/hero-banner.jpg"
-    imageAlt="Electric-blue neurons firing across a network of nerve cells"
-  >
-    <p class="alx-lead alx-center">
-      Updates on Alsonex's research into new treatments for neurodegenerative disease.
-    </p>
-  </Hero>
+    lead="Updates on Alsonex's research into new treatments for neurodegenerative disease."
+    watermark="News"
+  />
 
-  <div class="alx-container alx-news">
-    {
-      posts
-        .filter((post) => !post.data.image)
-        .map((post) => (
-          <article class="alx-news__item">
-            <div class="alx-news__meta">
-              <span class="alx-tag">{post.data.tag}</span>
-            </div>
-            <h2 class="alx-h2 alx-news__title">
-              <a href={`/news/${post.id}`} class="alx-news__link">
-                {post.data.title}
-              </a>
-            </h2>
-            <p class="alx-p">{post.data.summary}</p>
-            <a class="alx-link" href={`/news/${post.id}`}>
-              Read more &#8599;
-            </a>
-          </article>
-        ))
-    }
-  </div>
-
-  {/* Full-width blue neuron band mid-page, mirroring the live layout. */}
-  <div class="alx-band">
-    <img
-      src="/assets/hero-banner.jpg"
-      alt="Electric-blue neurons firing across a network of nerve cells"
-    />
-  </div>
-
-  <div class="alx-container alx-news">
-    {
-      posts
-        .filter((post) => post.data.image)
-        .map((post) => (
-          <article class="alx-news__item alx-news__item--media">
-            <div class="alx-news__body">
-              <div class="alx-news__meta">
-                <span class="alx-tag">{post.data.tag}</span>
-              </div>
-              <h2 class="alx-h2 alx-news__title">
-                <a href={`/news/${post.id}`} class="alx-news__link">
-                  {post.data.title}
-                </a>
-              </h2>
-              <p class="alx-p">{post.data.summary}</p>
-              <a class="alx-link" href={`/news/${post.id}`}>
-                Read more &#8599;
-              </a>
-            </div>
-            <div class="alx-news__media">
-              <img src={post.data.image} alt={post.data.imageAlt ?? ''} />
-            </div>
-          </article>
-        ))
-    }
-  </div>
+  <section class="section">
+    <div class="wrap">
+      <NewsList>
+        {
+          posts.map((post, i) => (
+            <NewsItem
+              tag={post.data.tag}
+              title={post.data.title}
+              excerpt={post.data.summary}
+              href={`/news/${post.id}`}
+              delay={i}
+            />
+          ))
+        }
+      </NewsList>
+    </div>
+  </section>
 </BaseLayout>

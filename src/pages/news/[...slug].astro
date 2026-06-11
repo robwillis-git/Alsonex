@@ -1,5 +1,13 @@
 ---
+/**
+ * News post — V2 "Meridian Cine" RE-SKIN of the V1 article template.
+ *
+ * PageHead (the post title becomes the page h1) + the rendered Markdown body in
+ * a V2 prose column, with a "back to News" link. Posts are undated. Content is
+ * unchanged from the collection.
+ */
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHead from '../../components/PageHead.astro';
 import { getCollection, render } from 'astro:content';
 
 export async function getStaticPaths() {
@@ -20,14 +28,16 @@ const { Content } = await render(post);
   ogType="article"
   route="news"
 >
-  <article class="alx-container alx-article">
-    <div class="alx-article__meta">
-      <span class="alx-tag">{post.data.tag}</span>
+  <PageHead eyebrow={post.data.tag} title={post.data.title} watermark="News" />
+
+  <section class="section">
+    <div class="wrap wrap--narrow">
+      <article class="prose reveal">
+        <Content />
+      </article>
+      <p style="margin-top:36px">
+        <a class="newsitem__more" href="/news">&larr; Back to News</a>
+      </p>
     </div>
-    <h1 class="alx-h1">{post.data.title}</h1>
-    <div class="alx-prose">
-      <Content />
-    </div>
-    <p class="alx-article__back"><a class="alx-link" href="/news">&larr; Back to News</a></p>
-  </article>
+  </section>
 </BaseLayout>

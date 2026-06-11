@@ -45,11 +45,15 @@ and land in Frankie's later phases** (component rewrite, then page assembly). Th
 System/
 ├─ src/
 │  ├─ layouts/BaseLayout.astro      # tokens + Header + Footer + SEO/OG/Twitter meta
-│  ├─ components/                   # 9-component kit:
+│  ├─ components/                   # V2 "Meridian Cine" kit:
 │  │  ├─ Header.astro · Footer.astro          # shared nav + footer
-│  │  ├─ Button.astro · Hero.astro · SectionLabel.astro
-│  │  ├─ ImageTextRow.astro · PersonRow.astro · PipelineRow.astro
-│  │  └─ PipelineBadge.tsx          # React island (proves @astrojs/react)
+│  │  ├─ Button.astro · HeroCine.astro · PageHead.astro
+│  │  ├─ Split.astro · Pipe.astro · Stats.astro · People.astro · Person.astro
+│  │  ├─ CardGrid.astro · Card.astro · NewsList.astro · NewsItem.astro
+│  │  ├─ Contact.astro · Form.astro · CtaBand.astro
+│  │  └─ MoleculeViewer.tsx         # React island (3Dmol, restyled V2 card)
+│  │  # (V1-only Hero/SectionLabel/ImageTextRow/PersonRow/PipelineRow/
+│  │  #  PipelineChart/PipelineBadge removed in Phase 3.)
 │  ├─ pages/
 │  │  ├─ index.astro                # Home
 │  │  ├─ about.astro · technology.astro · contact.astro

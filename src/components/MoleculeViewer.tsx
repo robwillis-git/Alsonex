@@ -107,7 +107,7 @@ export default function MoleculeViewer({
   }, [src]);
 
   // One slot, one thing at a time:
-  //  - `alx-molviewer__host` is the 3Dmol-owned canvas host (always mounted so
+  //  - `molviewer__host` is the 3Dmol-owned canvas host (always mounted so
   //    its ref is stable; empty until the viewer renders into it).
   //  - The fallback <img> is an absolutely-positioned overlay covering the box.
   //    It is the only visible content until `ready`, then it is hidden.

@@ -40,6 +40,34 @@ a {
   text-decoration: none;
 }
 
+/* ---------- focus-visible (a11y, Quinn QA: WCAG 2.4.7) ----------
+   The V2 reference ships no visible keyboard-focus indicator (and form fields
+   explicitly removed the outline). Add one site-wide: a 2px accent ring with a
+   small offset so it reads on light surfaces and the navy/dark hero bands.
+   :focus-visible keeps it keyboard-only (no ring on mouse click). */
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+  border-radius: 3px;
+}
+/* On the dark hero/nav over the cine video, a white ring reads against both
+   the navy base and the brand-blue accent. */
+.hero-cine :focus-visible,
+body.theme-meridian.cine .nav:not(.is-stuck) .nav__links a:focus-visible,
+body.theme-meridian.cine .nav:not(.is-stuck) .nav__logo:focus-visible,
+.pagehead :focus-visible,
+.cta :focus-visible,
+.foot :focus-visible {
+  outline-color: #fff;
+}
+/* Form fields: the focus border-shift stays; add the ring for keyboard users. */
+.field input:focus-visible,
+.field select:focus-visible,
+.field textarea:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
 /* ---------- layout wrap ---------- */
 .wrap {
   max-width: var(--maxw);
@@ -737,7 +765,11 @@ body.cine .hero-cine__media img {
   width: 1px;
   height: 34px;
   background: linear-gradient(rgba(255, 255, 255, 0.6), transparent);
-  animation: scrollpulse 2s var(--ease) infinite;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .hero-cine__scroll::after {
+    animation: scrollpulse 2s var(--ease) infinite;
+  }
 }
 @keyframes scrollpulse {
   0% {
@@ -856,7 +888,13 @@ body.theme-meridian.cine .nav.is-stuck .nav__logo {
   width: 1px;
   height: 32px;
   background: linear-gradient(rgba(255, 255, 255, 0.6), transparent);
-  animation: scrollpulse 2s var(--ease) infinite;
+}
+/* A11y (Quinn QA): gate the hero scroll-line pulse behind reduced-motion,
+   matching the kenburns/.reveal treatment. */
+@media (prefers-reduced-motion: no-preference) {
+  .hero-cine__scrollline {
+    animation: scrollpulse 2s var(--ease) infinite;
+  }
 }
 
 /* ---------- responsive: collapse grids ≤900px ---------- */
@@ -1194,7 +1232,6 @@ body.cine .nav.menu-open .nav__burger i:nth-child(3) {
 .field input:focus,
 .field select:focus,
 .field textarea:focus {
-  outline: none;
   border-color: var(--accent);
 }
 .form__done {
@@ -1221,6 +1258,172 @@ body.cine .nav.menu-open .nav__burger i:nth-child(3) {
   .cardgrid--2,
   .contact {
     grid-template-columns: 1fr;
+  }
+}
+
+/* =====================================================================
+   INNER-PAGE CONTENT (re-skinned V1 prose / figures / logos / map)
+   Long-form V1 copy restyled with the V2 system — used on About + Science.
+   ===================================================================== */
+/* rendered Markdown / article body */
+.prose {
+  color: var(--ink-soft);
+  font-size: 16.5px;
+  line-height: 1.75;
+}
+.prose > * + * {
+  margin-top: 16px;
+}
+.prose h2,
+.prose h3 {
+  font-family: var(--font-display);
+  font-weight: var(--display-weight);
+  color: var(--ink);
+  letter-spacing: -0.01em;
+  margin-top: 30px;
+}
+.prose h2 {
+  font-size: clamp(24px, 2.6vw, 32px);
+}
+.prose h3 {
+  font-size: 22px;
+}
+.prose a {
+  color: var(--accent);
+}
+.prose a:hover {
+  text-decoration: underline;
+}
+
+/* in-flow bullet list inside a re-skinned prose block */
+.prose-list {
+  list-style: none;
+  margin: 18px 0 0;
+  padding: 0;
+}
+.prose-list li {
+  position: relative;
+  padding-left: 26px;
+  margin-bottom: 13px;
+  font-size: 15.5px;
+  line-height: 1.6;
+  color: var(--ink-soft);
+}
+.prose-list li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 9px;
+  width: 9px;
+  height: 9px;
+  border-radius: 99px;
+  background: var(--accent);
+  box-shadow: 0 0 0 4px var(--accent-ring);
+}
+
+/* small source/citation caption */
+.prose-caption {
+  margin-top: 18px;
+  font-size: 13px;
+  font-style: italic;
+  color: var(--ink-muted);
+}
+
+/* figure with a framed image + caption */
+.figure {
+  margin: 0;
+}
+.figure__box {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--r);
+  overflow: hidden;
+  padding: clamp(16px, 3vw, 32px);
+}
+.figure__box img {
+  margin: 0 auto;
+  max-height: 520px;
+  width: auto;
+}
+.figure__cap {
+  margin-top: 14px;
+  text-align: center;
+  font-size: 13.5px;
+  color: var(--ink-muted);
+}
+
+/* additional-reading reference list */
+.refs {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.refs li {
+  position: relative;
+  padding: 16px 0 16px 22px;
+  border-bottom: 1px solid var(--line);
+  font-size: 14.5px;
+  line-height: 1.55;
+  color: var(--ink-soft);
+}
+.refs li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 24px;
+  width: 7px;
+  height: 7px;
+  border-radius: 99px;
+  background: var(--accent);
+}
+
+/* affiliations logo row */
+.logos {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(24px, 5vw, 56px);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.logos__item {
+  margin: 0;
+}
+.logos__link {
+  display: block;
+  filter: grayscale(1);
+  opacity: 0.75;
+  transition:
+    filter 0.3s var(--ease),
+    opacity 0.3s var(--ease);
+}
+.logos__link:hover {
+  filter: grayscale(0);
+  opacity: 1;
+}
+.logos__link img {
+  max-height: 64px;
+  width: auto;
+}
+
+/* contact map — V2 rounded frame */
+.map {
+  border: 1px solid var(--line);
+  border-radius: var(--r);
+  overflow: hidden;
+  aspect-ratio: 16 / 7;
+}
+.map iframe {
+  width: 100%;
+  height: 100%;
+  display: block;
+  border: 0;
+}
+@media (max-width: 700px) {
+  .map {
+    aspect-ratio: 4 / 3;
   }
 }
 

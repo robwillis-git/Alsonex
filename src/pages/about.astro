@@ -1,7 +1,17 @@
 ---
+/**
+ * About — V2 "Meridian Cine" RE-SKIN of the existing V1 About content.
+ *
+ * Fidelity rule: re-skin only. V1's real copy (mission intro + the
+ * inflammation / neurodegeneration / complement science sections + the
+ * complement-cascade figure + affiliations) is kept VERBATIM and restyled with
+ * the V2 system (PageHead navy header w/ "About" watermark, Split for the lead
+ * sections that carry a side image, V2 prose/figure styling). No content was
+ * reorganised or rewritten.
+ */
 import BaseLayout from '../layouts/BaseLayout.astro';
-import Hero from '../components/Hero.astro';
-import SectionLabel from '../components/SectionLabel.astro';
+import PageHead from '../components/PageHead.astro';
+import Split from '../components/Split.astro';
 ---
 
 <BaseLayout
@@ -9,35 +19,22 @@ import SectionLabel from '../components/SectionLabel.astro';
   description="Alsonex was founded in 2014 on research from the University of Queensland into neuroinflammation and the complement cascade. Meet the leadership team behind its work in neurodegenerative disease."
   route="about"
 >
-  <Hero
-    watermark="Alsonex"
+  <PageHead
+    eyebrow="About Alsonex"
     title="Alsonex – Developing a New Treatment for Motor Neuron Disease"
-    short
-    image="/assets/hero-banner.jpg"
-    imageAlt="Electric-blue neurons firing across a network of nerve cells"
-  >
-    <p class="alx-lead alx-center">
-      The mission of Alsonex is to discover and develop new pharmaceutical products and technology
-      through to proof-of-concept studies in areas where the clinical need is acute and to partner
-      those products and technologies for further development and marketing. Alsonex has an
-      expanding interest in neurodegenerative disease built on modulation of the innate immune
-      system.
-    </p>
-  </Hero>
+    lead="The mission of Alsonex is to discover and develop new pharmaceutical products and technology through to proof-of-concept studies in areas where the clinical need is acute and to partner those products and technologies for further development and marketing. Alsonex has an expanding interest in neurodegenerative disease built on modulation of the innate immune system."
+    watermark="About"
+  />
 
-  <div class="alx-container">
-    <SectionLabel>The Science</SectionLabel>
-
-    <section class="alx-prose alx-prose-wide alx-textblock">
-      <h2 class="alx-h2">Inflammation</h2>
-      <img
-        class="alx-sideimg alx-sideimg--right"
-        src="/assets/inflammation-neurons.jpg"
-        alt="Blue-lit network of neurons signalling across their synaptic connections"
-        width="343"
-        height="332"
-      />
-      <p class="alx-p">
+  <!-- Inflammation — V1 copy verbatim, restyled as a V2 split (side image). -->
+  <section class="section section--tight">
+    <Split
+      eyebrow="The Science"
+      image="/assets/inflammation-neurons.jpg"
+      imageAlt="Blue-lit network of neurons signalling across their synaptic connections"
+    >
+      <h2 class="display h-lg" style="margin:0 0 18px">Inflammation</h2>
+      <p style="color:var(--ink-soft)">
         Inflammation is the immune response to injury to one of the organs of the body. It is most
         obvious and most immediately apparent when the injury is to the skin. Acute inflammation
         presents as pain, heat, swelling, and redness at the site of the injury and it may involve
@@ -59,11 +56,14 @@ import SectionLabel from '../components/SectionLabel.astro';
         should dampen down inflammation, return the brain to a more normal homeostatic condition and
         prevent further damage. ALS-205 is such an inhibitor of the complement system.
       </p>
-    </section>
+    </Split>
+  </section>
 
-    <section class="alx-prose alx-prose-wide alx-textblock">
-      <h2 class="alx-h2">Neurodegenerative Disease</h2>
-      <p class="alx-p">
+  <!-- Neurodegenerative Disease — V1 copy verbatim. -->
+  <section class="section--tight" style="padding-top:0">
+    <div class="wrap wrap--narrow">
+      <h2 class="display h-md reveal">Neurodegenerative Disease</h2>
+      <p class="reveal" style="color:var(--ink-soft);margin-top:14px">
         Neurodegenerative diseases occur when nervous system cells (neurons) in the brain and spinal
         cord begin to deteriorate. Changes in these cells cause them to function abnormally and
         eventually result in the death of the cell. Neurons normally don't reproduce or replace
@@ -73,22 +73,22 @@ import SectionLabel from '../components/SectionLabel.astro';
         progressively worse. In some cases, patients lose the ability to walk independently, think
         clearly, or generally function in the world. Ultimately, many of these diseases are fatal.
       </p>
-    </section>
+    </div>
+  </section>
 
-    <section class="alx-prose alx-prose-wide alx-textblock">
-      <h2 class="alx-h2">Examples of Neurodegenerative Diseases</h2>
-      <img
-        class="alx-sideimg alx-sideimg--right"
-        src="/assets/complement-activation-diagram.jpg"
-        alt="Diagram of the three complement activation pathways — classical, MB-lectin and alternative — converging on complement activation, which drives recruitment of inflammatory cells, opsonisation of pathogens and killing of pathogens."
-        width="500"
-        height="274"
-      />
-      <p class="alx-p">
+  <!-- Examples of Neurodegenerative Diseases — V1 copy verbatim, side image. -->
+  <section class="section--tight" style="padding-top:0">
+    <Split
+      rev
+      image="/assets/complement-activation-diagram.jpg"
+      imageAlt="Diagram of the three complement activation pathways — classical, MB-lectin and alternative — converging on complement activation, which drives recruitment of inflammatory cells, opsonisation of pathogens and killing of pathogens."
+    >
+      <h2 class="display h-lg" style="margin:0 0 18px">Examples of Neurodegenerative Diseases</h2>
+      <p style="color:var(--ink-soft)">
         Examples of neurodegenerative diseases include Amyotrophic Lateral Sclerosis (ALS),
         Parkinson's, Alzheimer's, and Huntington's disease.
       </p>
-      <p class="alx-p">
+      <p style="color:var(--ink-soft)">
         There are three main pathways of complement activation: the classical pathway, which is
         triggered by antibody or by direct binding of complement component C1q to the pathogen
         surface; the MB-lectin pathway, which is triggered by mannan-binding lectin, a normal serum
@@ -96,21 +96,24 @@ import SectionLabel from '../components/SectionLabel.astro';
         triggered directly on pathogen surfaces. All of these pathways generate a crucial enzymatic
         activity that, in turn, generates the effector molecules of complement.
       </p>
-      <p class="alx-p">
+      <p style="color:var(--ink-soft)">
         The three main consequences of complement activation are opsonisation of pathogens (making
         them susceptible to destruction), the recruitment of inflammatory cells, and direct killing
         of pathogen.
       </p>
-      <p class="alx-p">
+      <p style="color:var(--ink-soft)">
         Complement is mostly activated by three distinct pathways as shown in the Figure. However, a
         fourth extrinsic pathway exists that helps amplify the cascade using cellular proteases to
         cleave C3 and C5.
       </p>
-    </section>
+    </Split>
+  </section>
 
-    <section class="alx-prose alx-prose-wide alx-textblock">
-      <h2 class="alx-h2">Complement</h2>
-      <p class="alx-p">
+  <!-- Complement — V1 copy verbatim. -->
+  <section class="section--tight" style="padding-top:0">
+    <div class="wrap wrap--narrow">
+      <h2 class="display h-md reveal">Complement</h2>
+      <p class="reveal" style="color:var(--ink-soft);margin-top:14px">
         The complement system is made up of a number of distinct plasma proteins that react with one
         another to adhere to pathogens and induce a series of inflammatory responses that help fight
         infection. A number of complement proteins are proteases that are themselves activated by
@@ -126,12 +129,12 @@ import SectionLabel from '../components/SectionLabel.astro';
         large complement response. As might be expected, there are many regulatory mechanisms to
         prevent uncontrolled complement activation.
       </p>
-      <p class="alx-p">
+      <p class="reveal" style="color:var(--ink-soft);margin-top:14px">
         The three distinct pathways through which complement can be activated depend on different
         molecules for their initiation, but they converge to generate the same set of effector
         molecules. There are three ways in which the complement system protects against infection:
       </p>
-      <ul class="alx-list">
+      <ul class="prose-list reveal">
         <li>
           Generating large numbers of activated complement proteins that bind to pathogens, making
           bacteria or other cells susceptible to the action of phagocytes bearing complement
@@ -146,35 +149,39 @@ import SectionLabel from '../components/SectionLabel.astro';
           bacterial membrane.
         </li>
       </ul>
-    </section>
+    </div>
+  </section>
 
-    <SectionLabel>The Complement Cascade</SectionLabel>
-
-    <figure class="alx-figure">
-      <div class="alx-figure__box">
-        <img
-          src="/assets/complement-cascade.png"
-          alt="Diagram of the complement cascade showing the classical, lectin and alternative pathways converging on a pathway-specific C3 convertase, the cleavage of C3 and C5, the C3aR and C5aR receptors driving inflammation and chemotaxis, and the terminal pathway forming the membrane-attack complex (MAC, C5b-9) leading to lysis of bacteria."
-        />
+  <!-- The Complement Cascade — figure (V1 verbatim caption/alt). -->
+  <section class="section--tight" style="padding-top:0">
+    <div class="wrap wrap--narrow">
+      <div class="slabel reveal">
+        <div class="eyebrow center">The Complement Cascade</div>
       </div>
-      <figcaption class="alx-figure__caption">
-        Figure: The main pathways for complement activation.
-      </figcaption>
-    </figure>
+      <figure class="figure reveal">
+        <div class="figure__box">
+          <img
+            src="/assets/complement-cascade.png"
+            alt="Diagram of the complement cascade showing the classical, lectin and alternative pathways converging on a pathway-specific C3 convertase, the cleavage of C3 and C5, the C3aR and C5aR receptors driving inflammation and chemotaxis, and the terminal pathway forming the membrane-attack complex (MAC, C5b-9) leading to lysis of bacteria."
+          />
+        </div>
+        <figcaption class="figure__cap">
+          Figure: The main pathways for complement activation.
+        </figcaption>
+      </figure>
 
-    <section class="alx-prose alx-prose-wide alx-textblock">
-      <p class="alx-p">
+      <p class="reveal" style="color:var(--ink-soft);margin-top:26px">
         The classical pathway is triggered by activation of the subunits of C1 after contact with
         immunoglobulin-G (IgG)- and IgM-containing immune complexes and by C-reactive protein (CRP).
       </p>
-      <p class="alx-p">
+      <p class="reveal" style="color:var(--ink-soft);margin-top:14px">
         The lectin pathway involves the interaction of a serum protein, mannose-binding lectin
         (MBL), with mannose residues on bacterial surfaces, resulting in the activation of
         MBL-associated serine protease 1 in the serum. At this point, the classical and lectin
         pathways converge, the outcome being limited cleavage of C4 and C2, generating C4bC2a, a C3
         convertase.
       </p>
-      <p class="alx-p">
+      <p class="reveal" style="color:var(--ink-soft);margin-top:14px">
         The alternative pathway is typically triggered by lipopolysaccharide (LPS) derived from
         Gram-negative bacteria. C3b is formed and interacts with factor B, followed by activation of
         factor D, resulting in the generation of a C3 convertase. C3 convertase is where the three
@@ -187,7 +194,7 @@ import SectionLabel from '../components/SectionLabel.astro';
         cascade. The other fragment from C5 cleavage, C5b, interacts sequentially with C6, C7, C8
         and C9 to form C5b–C9, the membrane-attack complex (MAC).
       </p>
-      <p class="alx-p">
+      <p class="reveal" style="color:var(--ink-soft);margin-top:14px">
         The small complement fragments C3a and C5a act on specific receptors to produce local
         inflammatory responses. When produced in large amounts or injected systemically, they induce
         a generalised circulatory collapse, producing a shock-like syndrome similar to that seen in
@@ -197,7 +204,7 @@ import SectionLabel from '../components/SectionLabel.astro';
         Both C5a and C3a can induce smooth-muscle contraction and increase vascular permeability and
         act on the endothelial cells lining blood vessels to induce adhesion molecules.
       </p>
-      <p class="alx-p">
+      <p class="reveal" style="color:var(--ink-soft);margin-top:14px">
         In addition, C3a and C5a can activate the mast cells that populate submucosal tissues to
         release mediators such as histamine and TNF-α that cause similar effects. The changes
         induced by C5a and C3a recruit antibody, complement, and phagocytic cells to the site of an
@@ -205,12 +212,16 @@ import SectionLabel from '../components/SectionLabel.astro';
         antigen-presenting cells to the local lymph nodes, contributing to the prompt initiation of
         the adaptive immune response.
       </p>
-    </section>
+    </div>
+  </section>
 
-    <SectionLabel>Complement Plays a Central Role In Innate Immunity</SectionLabel>
-
-    <section class="alx-prose alx-prose-wide alx-textblock">
-      <p class="alx-p">
+  <!-- Complement Plays a Central Role In Innate Immunity — V1 copy verbatim. -->
+  <section class="section--tight" style="padding-top:0">
+    <div class="wrap wrap--narrow">
+      <div class="slabel reveal">
+        <div class="eyebrow center">Complement Plays a Central Role In Innate Immunity</div>
+      </div>
+      <p class="reveal" style="color:var(--ink-soft)">
         Complement plays a central role being involved in innate immunity, driving local and central
         inflammation and in the destruction of neurons. Neuroinflammation, including microglial
         activation, reactive gliosis, and early activation of the classical complement cascade, is a
@@ -220,7 +231,7 @@ import SectionLabel from '../components/SectionLabel.astro';
         of synapses early in neurodegenerative disease, leading to loss of neurons and accelerating
         disease progression.
       </p>
-      <p class="alx-p">
+      <p class="reveal" style="color:var(--ink-soft);margin-top:14px">
         The complement component C5a is also produced locally in the CNS and the C5a receptor is
         present on neurones and glia. In the case of MND, there is a significant contribution of
         immune and inflammatory components to the pathology of the disease. Activation fragments of
@@ -231,41 +242,37 @@ import SectionLabel from '../components/SectionLabel.astro';
         peripheral immune complement terminal pathway activation in MND, which likely plays an
         important role in the disease process.
       </p>
-    </section>
+    </div>
+  </section>
 
-    <SectionLabel>Our Affiliations</SectionLabel>
-
-    <ul class="alx-logos">
-      <li class="alx-logos__item">
-        <a
-          class="alx-logos__link"
-          href="https://www.alsa.org/about-als/"
-          target="_blank"
-          rel="noopener"
-        >
-          <img src="/assets/logo-als-association.jpg" alt="The ALS Association" />
-        </a>
-      </li>
-      <li class="alx-logos__item">
-        <a
-          class="alx-logos__link"
-          href="https://www.mndaust.asn.au/"
-          target="_blank"
-          rel="noopener"
-        >
-          <img src="/assets/logo-mnd-australia.jpg" alt="MND Australia" />
-        </a>
-      </li>
-      <li class="alx-logos__item">
-        <a
-          class="alx-logos__link"
-          href="https://www.mndandme.com.au/"
-          target="_blank"
-          rel="noopener"
-        >
-          <img src="/assets/logo-mnd-and-me.jpg" alt="MND and Me Foundation" />
-        </a>
-      </li>
-    </ul>
-  </div>
+  <!-- Our Affiliations — V1 verbatim logos/links. -->
+  <section class="section--tight" style="padding-top:0;padding-bottom:clamp(72px,9vw,120px)">
+    <div class="wrap wrap--narrow">
+      <div class="slabel reveal">
+        <div class="eyebrow center">Our Affiliations</div>
+      </div>
+      <ul class="logos reveal">
+        <li class="logos__item">
+          <a
+            class="logos__link"
+            href="https://www.alsa.org/about-als/"
+            target="_blank"
+            rel="noopener"
+          >
+            <img src="/assets/logo-als-association.jpg" alt="The ALS Association" />
+          </a>
+        </li>
+        <li class="logos__item">
+          <a class="logos__link" href="https://www.mndaust.asn.au/" target="_blank" rel="noopener">
+            <img src="/assets/logo-mnd-australia.jpg" alt="MND Australia" />
+          </a>
+        </li>
+        <li class="logos__item">
+          <a class="logos__link" href="https://www.mndandme.com.au/" target="_blank" rel="noopener">
+            <img src="/assets/logo-mnd-and-me.jpg" alt="MND and Me Foundation" />
+          </a>
+        </li>
+      </ul>
+    </div>
+  </section>
 </BaseLayout>

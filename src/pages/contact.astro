@@ -1,7 +1,23 @@
 ---
+/**
+ * Contact — V2 "Meridian Cine" RE-SKIN of the existing V1 contact page.
+ *
+ * PageHead + the V2 Contact/Form layout, wired to V1's working backend
+ * (/contact-handler.php, honeypot + async thank-you state). Fields are
+ * name / email / message only — the "Enquiry type" dropdown was DROPPED
+ * (Rob's decision). Contact details keep the existing address + email; the
+ * phone number is removed (per approved decisions). The existing V1 Google
+ * Map and hours-of-operation are retained and restyled.
+ */
 import BaseLayout from '../layouts/BaseLayout.astro';
-import Hero from '../components/Hero.astro';
-import Button from '../components/Button.astro';
+import PageHead from '../components/PageHead.astro';
+import Contact from '../components/Contact.astro';
+
+const details = [
+  { term: 'Address', value: '210 Alice Street<br>Brisbane, QLD 4000' },
+  { term: 'Email', value: '<a href="mailto:info@alsonex.com.au">info@alsonex.com.au</a>' },
+  { term: 'Hours', value: '9:00am – 5:00pm<br>Monday to Friday' },
+];
 ---
 
 <BaseLayout
@@ -9,158 +25,32 @@ import Button from '../components/Button.astro';
   description="Contact Alsonex Pharmaceuticals in Brisbane, Queensland. Enquiries about the company's research into Motor Neuron Disease and other neurodegenerative diseases are welcome."
   route="contact"
 >
-  <Hero
-    watermark="Alsonex"
-    title="Developing a New Treatment for Motor Neuron Disease"
-    short
-    image="/assets/hero-banner.jpg"
-    imageAlt="Electric-blue neurons firing across a network of nerve cells"
-  >
-    <!-- Intro rewritten to third person per the brand voice rule (Rob's locked
-         decision). Source copy was second person ("you"); facts unchanged. -->
-    <p class="alx-lead alx-center">
-      Alsonex is focused on developing new treatments for neurodegenerative disease such as Motor
-      Neuron Disease. The company was founded in 2014 from research being undertaken at the
-      University of Queensland and elsewhere into the cause of neuroinflammation and its role in
-      causing neurodegenerative disease.
-    </p>
-    <p class="alx-p alx-center alx-prose-narrow">
-      Alsonex is committed to being a part of the solution to slowing or reversing neurodegenerative
-      diseases such as Parkinson's Disease, Alzheimer's Disease, Huntington's Disease and Motor
-      Neuron Disease. Enquiries regarding the status of the company's research are welcome — the
-      Alsonex team is glad to answer questions about MND or any of the products currently in
-      development. Through quality research and development, the company's overarching goal is to
-      make a positive impact on the significant challenges faced by people with neurodegenerative
-      disease.
-    </p>
-  </Hero>
+  <PageHead
+    eyebrow="Contact"
+    title="Get in touch"
+    lead="Alsonex is focused on developing new treatments for neurodegenerative disease such as Motor Neuron Disease. The company was founded in 2014 from research being undertaken at the University of Queensland and elsewhere into the cause of neuroinflammation and its role in causing neurodegenerative disease."
+    watermark="Contact"
+  />
 
-  <div class="alx-container">
-    <!-- Embedded Google Map of the Brisbane office (210 Alice Street). Standard
-         Maps place-embed — needs no API key. Hard-cornered per brand. -->
-    <div class="alx-map">
-      <iframe
-        title="Map showing Alsonex at 210 Alice Street, Brisbane QLD 4000"
-        src="https://www.google.com/maps?q=210+Alice+Street,+Brisbane+QLD+4000,+Australia&output=embed"
-        width="600"
-        height="450"
-        style="border:0;"
-        loading="lazy"
-        referrerpolicy="no-referrer-when-downgrade"
-        allowfullscreen></iframe>
-    </div>
+  <section class="section">
+    <Contact eyebrow="Get in touch" heading="We'd love to hear from you" details={details} />
+  </section>
 
-    <div class="alx-contact">
-      <div class="alx-contact__details">
-        <h2 class="alx-h2">Contact Information</h2>
-        <dl class="alx-dl">
-          <div>
-            <dt>Address</dt>
-            <dd>210 Alice Street<br />Brisbane, QLD 4000</dd>
-          </div>
-          <div>
-            <dt>Phone</dt>
-            <dd><a class="alx-link" href="tel:+61417115582">+61 417 115 582</a></dd>
-          </div>
-          <div>
-            <dt>Further Information</dt>
-            <dd>
-              <a class="alx-link" href="mailto:info@alsonex.com.au">info@alsonex.com.au</a>
-            </dd>
-          </div>
-        </dl>
-
-        <h2 class="alx-h2 alx-contact__hours-h">Hours of Operation</h2>
-        <dl class="alx-dl">
-          <div>
-            <dt>Open</dt>
-            <dd>9:00am – 5:00pm<br />Monday to Friday</dd>
-          </div>
-        </dl>
-      </div>
-
-      <div class="alx-contact__formwrap">
-        <h2 class="alx-h2">Send Us a Message</h2>
-
-        <!--
-          The form posts to /contact-handler.php — a PHP script that ships in
-          public/ and deploys alongside the built static site into public_html.
-          Native POST works without JS; the inline script below upgrades it to
-          an async submit so a status message can be shown in place.
-          Spam protection: honeypot field (alx_company) + a captcha placeholder
-          (data-sitekey to be filled when reCAPTCHA/hCaptcha is provisioned).
-          See System/CLAUDE.md and public/contact-handler.php for config.
-        -->
-        <form class="alx-form" action="/contact-handler.php" method="POST" id="alx-contact-form">
-          <label class="alx-field">
-            <span>Name</span>
-            <input type="text" name="name" required autocomplete="name" />
-          </label>
-          <label class="alx-field">
-            <span>Email</span>
-            <input type="email" name="email" required autocomplete="email" />
-          </label>
-          <label class="alx-field">
-            <span>Queries</span>
-            <textarea name="message" rows="6" required></textarea>
-          </label>
-
-          <!-- Honeypot: hidden from humans; bots tend to fill it. -->
-          <div class="alx-hp" aria-hidden="true">
-            <label
-              >Company<input
-                type="text"
-                name="alx_company"
-                tabindex="-1"
-                autocomplete="off"
-              /></label
-            >
-          </div>
-
-          <!-- CAPTCHA placeholder — add the provider script + real sitekey before launch.
-               e.g. reCAPTCHA: <div class="g-recaptcha" data-sitekey="YOUR_SITE_KEY"></div>
-                    hCaptcha:   <div class="h-captcha" data-sitekey="YOUR_SITE_KEY"></div> -->
-          <div class="alx-captcha-placeholder" data-sitekey="REPLACE_WITH_CAPTCHA_SITE_KEY"></div>
-
-          <div>
-            <Button type="submit">Send</Button>
-          </div>
-
-          <p class="alx-form__status" role="status" aria-live="polite" hidden></p>
-        </form>
+  <!-- Existing V1 Google Map of the Brisbane office (210 Alice Street),
+       restyled into a V2 rounded frame. Standard Maps place-embed (no API key). -->
+  <section class="section--tight" style="padding-top:0;padding-bottom:clamp(72px,9vw,120px)">
+    <div class="wrap">
+      <div class="map reveal">
+        <iframe
+          title="Map showing Alsonex at 210 Alice Street, Brisbane QLD 4000"
+          src="https://www.google.com/maps?q=210+Alice+Street,+Brisbane+QLD+4000,+Australia&output=embed"
+          width="600"
+          height="450"
+          style="border:0;"
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"
+          allowfullscreen></iframe>
       </div>
     </div>
-  </div>
+  </section>
 </BaseLayout>
-
-<script is:inline>
-  (function () {
-    const form = document.getElementById('alx-contact-form');
-    if (!form) return;
-    const status = form.querySelector('.alx-form__status');
-    const SUCCESS = 'Thank you for submitting a form, someone will be in touch shortly.';
-    const ERROR =
-      'Oops, looks like something has gone wrong, please re-submit or call us directly if you are still experiencing issues.';
-
-    form.addEventListener('submit', async function (e) {
-      e.preventDefault();
-      status.hidden = false;
-      status.className = 'alx-form__status';
-      status.textContent = 'Sending…';
-      try {
-        const res = await fetch(form.action, { method: 'POST', body: new FormData(form) });
-        if (res.ok) {
-          status.classList.add('is-success');
-          status.textContent = SUCCESS;
-          form.reset();
-        } else {
-          status.classList.add('is-error');
-          status.textContent = ERROR;
-        }
-      } catch {
-        status.classList.add('is-error');
-        status.textContent = ERROR;
-      }
-    });
-  })();
-</script>

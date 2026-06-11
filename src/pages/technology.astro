@@ -1,10 +1,32 @@
 ---
+/**
+ * The Science — V2 "Meridian Cine" RE-SKIN of the existing V1 Technology page.
+ * Route stays /technology; nav label is "The Science".
+ *
+ * Fidelity rule: re-skin only. V1's real copy (the ALS-205 lead-candidate
+ * section, the SOD1 animal-model section, orphan-drug commercial protection,
+ * the US/Europe orphan-drug cards and the additional-reading references) is
+ * kept VERBATIM and restyled with the V2 system. The interactive 3D
+ * MoleculeViewer is retained (already restyled to the V2 rounded card). The
+ * development pipeline aligns to the SAME V2 set as the home (Pipe defaults).
+ */
 import BaseLayout from '../layouts/BaseLayout.astro';
-import Hero from '../components/Hero.astro';
-import SectionLabel from '../components/SectionLabel.astro';
-import ImageTextRow from '../components/ImageTextRow.astro';
+import PageHead from '../components/PageHead.astro';
+import Split from '../components/Split.astro';
+import CardGrid from '../components/CardGrid.astro';
+import Pipe from '../components/Pipe.astro';
 import MoleculeViewer from '../components/MoleculeViewer.tsx';
-import PipelineChart from '../components/PipelineChart.astro';
+
+const orphanCards = [
+  {
+    title: 'United States',
+    body: 'ALS-205 has been granted orphan drug status by the U.S. FDA, which means that Alsonex may obtain the following advantages for the development of ALS-205 for ALS/MND: a 50% tax credit on the cost of clinical trials undertaken in the USA; a seven-year period of marketing exclusivity following the marketing approval; some written recommendations provided by the FDA concerning clinical and preclinical studies to be completed in order to register the new drug; and a fast-track procedure for the FDA to evaluate registration files.',
+  },
+  {
+    title: 'Europe',
+    body: 'The main characteristics of the orphan drug legislation in Europe are: a 10-year period of market exclusivity; accelerated market approval via the centralised procedure which provides simultaneous approval in all member states; protocol assistance, a type of scientific advice specific for orphan medicines; regulatory fee reductions; and technical assistance for elaboration of the marketing application file.',
+  },
+];
 ---
 
 <BaseLayout
@@ -12,37 +34,21 @@ import PipelineChart from '../components/PipelineChart.astro';
   description="ALS-205 is Alsonex's lead compound — a clinically validated candidate targeting Motor Neuron Disease, with potential across the broader central nervous system. Explore the development pipeline."
   route="technology"
 >
-  <Hero
-    watermark="Alsonex"
+  <PageHead
+    eyebrow="The Science"
     title="Drug Development Pipeline for Alsonex"
-    short
-    image="/assets/hero-banner.jpg"
-    imageAlt="Electric-blue neurons firing across a network of nerve cells"
-  >
-    <p class="alx-lead alx-center">
-      ALS-205 is Alsonex's lead compound — a clinically validated candidate targeting Motor Neuron
-      Disease, with potential across the broader central nervous system.
-    </p>
-  </Hero>
+    lead="ALS-205 is Alsonex's lead compound — a clinically validated candidate targeting Motor Neuron Disease, with potential across the broader central nervous system."
+    watermark="ALS-205"
+  />
 
-  <div class="alx-container">
-    <!-- Native, animated pipeline chart (replaces the former static image). -->
-    <PipelineChart />
-  </div>
-
-  <div class="alx-band">
-    <img
-      src="/assets/tech-band.jpg"
-      alt="Glossy translucent molecular spheres linked together against a soft blue background"
-    />
-  </div>
-
-  <div class="alx-container">
-    <ImageTextRow heading="The Lead Drug Candidate – ALS-205">
-      <Fragment slot="media">
-        <MoleculeViewer client:visible />
-      </Fragment>
-      <p class="alx-p">
+  <!-- Lead drug candidate — V1 copy verbatim, with the interactive 3D viewer. -->
+  <section class="section section--tight">
+    <Split
+      image="/assets/tech-band.jpg"
+      imageAlt="Glossy translucent molecular spheres linked together against a soft blue background"
+    >
+      <h2 class="display h-lg" style="margin:0 0 18px">The Lead Drug Candidate – ALS-205</h2>
+      <p style="color:var(--ink-soft)">
         ALS-205 is a potent antagonist of the human C5a1 receptor with no activity at the C5a2
         receptor. It binds to the human C5a1 receptor on white blood cells and is a functional
         insurmountable antagonist. ALS-205 has shown similar effects on other cell types including
@@ -53,19 +59,28 @@ import PipelineChart from '../components/PipelineChart.astro';
         is both small enough and sufficiently lipophilic to be orally active at ≤1 mg/kg/day in vivo
         and readily accesses the brain.
       </p>
-    </ImageTextRow>
+      <Fragment slot="action">
+        <div style="width:100%;margin-top:8px"><MoleculeViewer client:visible /></div>
+      </Fragment>
+    </Split>
+  </section>
 
-    <SectionLabel>ALS-205 Activity in Animal Model of Motor Neuron Disease (Rats)</SectionLabel>
-
-    <section class="alx-prose alx-prose-wide alx-textblock">
-      <p class="alx-p">
+  <!-- Animal model — V1 copy verbatim. -->
+  <section class="section--tight" style="padding-top:0">
+    <div class="wrap wrap--narrow">
+      <div class="slabel reveal">
+        <div class="eyebrow center">
+          ALS-205 Activity in Animal Model of Motor Neuron Disease (Rats)
+        </div>
+      </div>
+      <p class="reveal" style="color:var(--ink-soft)">
         Although the majority of ALS cases are sporadic, approximately 10% are of genetic origin due
         to missense mutations in the copper-zinc superoxide dismutase 1 (SOD1) enzyme. This has led
         to the development of transgenic animal models (transgenic SOD1G93A rats) of ALS expressing
         multiple copies of this mutant human SOD1 gene. The classical complement component C1q is
         elevated in spinal cord tissue or isolated motor neurons in transgenic mouse models of ALS.
       </p>
-      <p class="alx-p">
+      <p class="reveal" style="color:var(--ink-soft);margin-top:14px">
         The complement factor C5a is a major effector of all complement activation pathways and
         recruits and activates inflammatory cells. C5a is also produced locally in the CNS and the
         C5a1 receptor is present on neurons and glia. In addition, in transgenic SOD1G93A rats,
@@ -77,20 +92,24 @@ import PipelineChart from '../components/PipelineChart.astro';
         activation of complement and C5a1 receptors are involved in the progression of disease
         pathology in transgenic SOD1G93A rats.
       </p>
-      <p class="alx-p">
+      <p class="reveal" style="color:var(--ink-soft);margin-top:14px">
         Similar findings have been repeated in transgenic mice models of ALS/MND, where survival is
         improved and the classic deterioration of muscle function is slowed.
       </p>
-      <p class="alx-caption">
+      <p class="reveal prose-caption">
         From: Woodruff et al. The complement factor C5a contributes to pathology in a rat model of
         amyotrophic lateral sclerosis. J. Immunol., 2008, 181(12), 8727.
       </p>
-    </section>
+    </div>
+  </section>
 
-    <SectionLabel>Commercial Protection for ALS-205</SectionLabel>
-
-    <section class="alx-prose alx-prose-wide alx-textblock">
-      <p class="alx-p">
+  <!-- Commercial protection — V1 copy verbatim. -->
+  <section class="section--tight" style="padding-top:0">
+    <div class="wrap wrap--narrow">
+      <div class="slabel reveal">
+        <div class="eyebrow center">Commercial Protection for ALS-205</div>
+      </div>
+      <p class="reveal" style="color:var(--ink-soft)">
         ALS-205 has been granted orphan drug designation by the FDA for the U.S. and by the EMA for
         Europe. The Orphan Designation is a legal procedure that endows drugs with a special status
         for medicinal substances with therapeutic potential for a rare disease, before its first
@@ -98,47 +117,39 @@ import PipelineChart from '../components/PipelineChart.astro';
         indication is then defined at the time of marketing authorisation. This procedure has been
         established in Europe, the US, Australia, Japan and Singapore.
       </p>
-    </section>
-
-    <SectionLabel>Orphan Drugs Labelling and Legal Status</SectionLabel>
-
-    <div class="alx-cards alx-cards--2">
-      <div class="alx-card">
-        <h3 class="alx-h3">United States</h3>
-        <p class="alx-p">
-          ALS-205 has been granted orphan drug status by the U.S. FDA, which means that Alsonex may
-          obtain the following advantages for the development of ALS-205 for ALS/MND:
-        </p>
-        <ul class="alx-list">
-          <li>A 50% tax credit on the cost of clinical trials undertaken in the USA.</li>
-          <li>A seven-year period of marketing exclusivity following the marketing approval.</li>
-          <li>
-            Some written recommendations provided by the FDA concerning clinical and preclinical
-            studies to be completed in order to register the new drug.
-          </li>
-          <li>A fast-track procedure for the FDA to evaluate registration files.</li>
-        </ul>
-      </div>
-      <div class="alx-card">
-        <h3 class="alx-h3">Europe</h3>
-        <p class="alx-p">The main characteristics of the orphan drug legislation in Europe are:</p>
-        <ul class="alx-list">
-          <li>10-year period of market exclusivity.</li>
-          <li>
-            Accelerated market approval via the centralised procedure which provides simultaneous
-            approval in all member states.
-          </li>
-          <li>Protocol assistance: a type of scientific advice specific for orphan medicines.</li>
-          <li>Regulatory fee reductions.</li>
-          <li>Technical assistance for elaboration of the marketing application file.</li>
-        </ul>
-      </div>
     </div>
+  </section>
 
-    <SectionLabel>Additional Reading</SectionLabel>
+  <!-- Orphan-drug cards — V1 copy verbatim, restyled as a 2-up V2 card grid. -->
+  <section class="section--tight" style="padding-top:0">
+    <div class="wrap">
+      <div class="slabel reveal">
+        <div class="eyebrow center">Orphan Drugs Labelling and Legal Status</div>
+      </div>
+      <CardGrid cols={2} cards={orphanCards} />
+    </div>
+  </section>
 
-    <section class="alx-prose alx-prose-wide alx-textblock alx-refs">
-      <ul class="alx-list">
+  <!-- Development pipeline — SAME V2 set as the home (Pipe defaults). -->
+  <section class="section--tight" style="padding-top:0">
+    <div class="wrap">
+      <div class="slabel reveal">
+        <div class="eyebrow center">Development pipeline</div>
+        <h2 class="display h-md" style="margin-top:14px">
+          One molecule, a widening clinical frontier
+        </h2>
+      </div>
+      <Pipe />
+    </div>
+  </section>
+
+  <!-- Additional reading — V1 reference list verbatim. -->
+  <section class="section--tight" style="padding-top:0;padding-bottom:clamp(72px,9vw,120px)">
+    <div class="wrap wrap--narrow">
+      <div class="slabel reveal">
+        <div class="eyebrow center">Additional Reading</div>
+      </div>
+      <ul class="refs reveal">
         <li>
           The Complement Factor C5a Contributes to Pathology in a Rat Model of Amyotrophic Lateral
           Sclerosis: J Immunol. 2008; 181(12):8727-34.
@@ -169,6 +180,6 @@ import PipelineChart from '../components/PipelineChart.astro';
           Neuroinflammation 2016; 13:72.
         </li>
       </ul>
-    </section>
-  </div>
+    </div>
+  </section>
 </BaseLayout>

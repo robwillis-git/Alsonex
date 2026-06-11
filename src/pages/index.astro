@@ -1,19 +1,47 @@
 ---
 /**
- * Home — V2 "Meridian Cine" PROOF (Phase 0).
+ * Home — V2 "Meridian Cine" (Phase 3, exact reproduction).
  *
- * Scope: a production-faithful cinematic VIDEO HERO + the V2 sticky nav
- * (in BaseLayout's Header) + footer, to validate the V2 look on staging.
- * Ported from design_handoff_alsonex_v2/modern/meridian-cine.html with the
- * approved home decisions (INTEGRATION-V1.md).
+ * Reproduces design_handoff_alsonex_v2/modern/meridian-cine.html + the approved
+ * home decisions, populated with Alsonex's REAL content (objective copy, bios):
+ *   video HeroCine → "Our Principal Commercial Objective" Split (real V1 copy,
+ *   "More on the Science" ghost button) → Pipe (V2 set) → Stats → leadership
+ *   People → investor CtaBand.
  *
- * Below the hero is intentionally a light placeholder for now — the full
- * home sections (objective split, pipeline, stats, leadership, investor CTA)
- * with V1's real content land in Frankie's Phase 3. V1's leadership bios,
- * objective copy etc. remain in git history (tag v1-live) for reuse.
+ * Leadership: the real featured leaders are shown in the V2 grid with V1's
+ * verbatim bios. Per the brief, the "Meet the full board" button is DROPPED
+ * (there is no separate board page — About carries the full set).
  */
 import BaseLayout from '../layouts/BaseLayout.astro';
 import HeroCine from '../components/HeroCine.astro';
+import Split from '../components/Split.astro';
+import Button from '../components/Button.astro';
+import Pipe from '../components/Pipe.astro';
+import Stats from '../components/Stats.astro';
+import People from '../components/People.astro';
+import CtaBand from '../components/CtaBand.astro';
+
+// Real leadership (V1 bios, verbatim). Photos already in /assets/.
+const leaders = [
+  {
+    name: 'David Groth',
+    role: 'Non-Executive Chairman',
+    bio: 'David is a co-founder and director of Integra Advisory. David has over 20 years of experience in advising companies and in senior management positions. David has managed a significant number of initial public offers, secondary capital raisings, mergers and acquisition transactions as part of developing and maintaining long term relationships with clients.',
+    image: '/assets/team-groth.jpg',
+  },
+  {
+    name: 'Alan Robertson',
+    role: 'Chief Executive Officer and Managing Director',
+    bio: 'Alan was the CEO and MD of Pharmaxis Ltd for 14 years. He was responsible for raising more than $350 million in the U.S., Europe and Australia. In that role, he oversaw the development to Marketing Authorisation a new inhaled dry powder treatment for cystic fibrosis (Bronchitol) and a bronchial challenge test for hyperactive airway disease (Aridol). He also built a drug discovery capability within Pharmaxis and participated in the creation of PXS4728 – now licensed to Boehringer Ingelheim for the treatment of NASH.',
+    image: '/assets/team-robertson.jpg',
+  },
+  {
+    name: 'Trent Woodruff',
+    role: 'Scientific Advisor',
+    bio: "A/Prof Woodruff is an ARC Future Fellow conducting research into the innate immune system in the brain. Specific research revolves around the Complement System. A focus of his work has been the chronic neurodegenerative diseases amyotrophic lateral sclerosis, Huntington's disease, and Parkinson's disease as well as maintaining an active interest in Alzheimer's disease. In 2010, A/Prof Woodruff started his own group and independent laboratory at the University of Queensland.",
+    image: '/assets/team-woodruff.jpg',
+  },
+];
 ---
 
 <BaseLayout
@@ -21,10 +49,7 @@ import HeroCine from '../components/HeroCine.astro';
   description="Alsonex Pharmaceuticals is a Brisbane clinical-stage biopharmaceutical company developing ALS-205, a candidate treatment for Motor Neuron Disease and other neurodegenerative conditions."
   route="home"
 >
-  <!-- CINEMATIC HERO (video) — now via the reusable <HeroCine> component,
-       which carries the approved settings (no loop, 0.5× re-asserted, poster
-       fallback, brightness ≈1.32, light centre scrim, dark #06182B base) and
-       its own inline video-control script. -->
+  <!-- CINEMATIC VIDEO HERO — approved settings carried by <HeroCine>. -->
   <HeroCine
     headline="New treatments for "
     accent="neurodegenerative"
@@ -38,20 +63,91 @@ import HeroCine from '../components/HeroCine.astro';
     ]}
   />
 
-  <!-- Phase 0 placeholder below the hero. The full V2 home sections
-       (objective split, pipeline, stats, leadership, investor CTA) with
-       V1's real content come in Frankie's Phase 3. -->
+  <!-- OUR PRINCIPAL COMMERCIAL OBJECTIVE — real V1 copy (verbatim). -->
   <section class="section section--tight">
-    <div class="wrap wrap--narrow" style="text-align:center">
-      <div class="eyebrow center" style="justify-content:center">Phase 0 proof</div>
-      <h2 class="display h-md" style="margin-top:14px">
-        Below-the-hero home sections arrive in Phase 3
+    <Split
+      eyebrow="Our Principal Commercial Objective"
+      image="/assets/neuron-hero.jpg"
+      imageAlt="Signals travelling through the nervous system"
+      list={[
+        'The leading compound, ALS-205, has completed a Single Ascending and Multiple Ascending Dose Phase I clinical trial in healthy volunteers, establishing a suitable dose for future clinical studies.',
+        'A Phase Ib clinical trial in subjects with MND has been completed demonstrating safe target engagement in the intended patient population and properties suitable for further development.',
+      ]}
+    >
+      <h2 class="display h-lg" style="margin:0 0 18px">
+        A focused path from the laboratory to the patient.
       </h2>
-      <p class="lead" style="margin-top:14px">
-        This page validates the V2 cinematic hero and sticky navigation on staging. The objective
-        split, development pipeline, stats strip, leadership grid and investor CTA — populated with
-        Alsonex's real content — are built in the next phase.
+      <p class="lead" style="font-size:18px">
+        The principal objective of the company is to develop a new treatment option for people with
+        neurodegenerative diseases and this aligns with our commercial objective, which is to
+        enhance shareholder value through clinical development of ALS-205.
       </p>
+      <p style="color:var(--ink-soft)">
+        The furthest advanced project is for treating Motor Neuron Disease (MND) or Amyotrophic
+        Lateral Sclerosis (ALS). Additional projects involve expanding the clinical utility of the
+        leading molecule into other degenerative diseases of the CNS and benefit from the
+        preclinical work undertaken for the first indication. Additional indications include
+        Alzheimer's Disease and Huntington's Disease.
+      </p>
+      <p style="color:var(--ink-soft)">
+        Earlier projects are focused on validation of the biochemical target and may lead to
+        additional commercialisation opportunities as the studies progress.
+      </p>
+      <Button slot="action" href="/technology" variant="ghost" arrow>More on the Science</Button>
+    </Split>
+  </section>
+
+  <!-- DEVELOPMENT PIPELINE — V2 set (Pipe defaults). ⚠ Rob clinical sign-off. -->
+  <section class="section--tight" style="padding-top:0">
+    <div class="wrap">
+      <div class="slabel reveal">
+        <div class="eyebrow center">Development pipeline</div>
+        <h2 class="display h-md" style="margin-top:14px">
+          One molecule, a widening clinical frontier
+        </h2>
+      </div>
+      <Pipe />
+    </div>
+  </section>
+
+  <!-- STATS STRIP (4-up). ⚠ Phase Ib status + "4" count are Rob sign-off items. -->
+  <section class="section--tight">
+    <div class="wrap reveal">
+      <Stats
+        items={[
+          { n: '2014', l: 'Founded — out of UQ research' },
+          { n: 'ALS-205', l: 'Lead clinical compound' },
+          { n: 'Phase Ib', l: 'Completed in MND patients' },
+          { n: '4', l: 'CNS indications in view' },
+        ]}
+      />
+    </div>
+  </section>
+
+  <!-- LEADERSHIP — real featured leaders, V1 bios verbatim. No "full board"
+       button (no separate board page; About carries the full set). -->
+  <section class="section">
+    <div class="wrap">
+      <div class="slabel reveal">
+        <div class="eyebrow center">Our Leadership Team</div>
+        <h2 class="display h-lg" style="margin-top:16px">
+          Experienced drug developers and proven operators
+        </h2>
+      </div>
+      <People members={leaders} />
+    </div>
+  </section>
+
+  <!-- INVESTOR / PARTNER CTA. -->
+  <section class="section--tight" style="padding-top:0">
+    <div class="wrap reveal">
+      <CtaBand
+        eyebrow="For investors & partners"
+        heading={'Partner with us to bring <span style="white-space:nowrap">ALS-205</span> to patients.'}
+        lead="We advance our programmes to proof-of-concept, then share later-stage development with the right pharmaceutical partner. Let's talk."
+        buttonLabel="Contact the team"
+        buttonHref="/contact"
+      />
     </div>
   </section>
 </BaseLayout>

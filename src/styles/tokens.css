@@ -32,7 +32,10 @@ body.theme-meridian {
   --bg-2: #ffffff;
   --ink: #13243a;
   --ink-soft: #475569;
-  --ink-muted: #8593a6;
+  /* A11y (Quinn QA): darkened from the verbatim V2 #8593a6 (2.84:1 on bg —
+     fails WCAG AA) to the smallest darkening that clears ~4.5:1 on both the
+     bg (#F6F4EF → 4.62:1) and white surface (#FFFFFF → 5.08:1). */
+  --ink-muted: #626f85;
   --navy: #0b2440;
   --accent: #2f5fe0;
   --accent-2: #2f5fe0;
@@ -52,7 +55,10 @@ body.theme-meridian {
   --foot-ink: #aebed4;
   --foot-brand: #fff;
   --foot-line: rgba(255, 255, 255, 0.12);
-  --foot-muted: #6e83a0;
+  /* A11y (Quinn QA): lightened from the verbatim V2 #6e83a0 (4.04:1 on navy —
+     AA-large only) to #8398b5 (5.31:1 on navy) so the 12.5px fine print
+     clears WCAG AA for normal text. */
+  --foot-muted: #8398b5;
 
   /* V2 logo wordmark — the extended-X leg colour (brand blue). */
   --alx-logo-x: #2f5fe0;

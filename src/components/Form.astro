@@ -15,6 +15,9 @@
  * shown in place so the user can retry.
  *
  * The field `name` attributes (name/email/message) match the PHP handler.
+ *
+ * Fields are name / email / message only — the V2 reference's "Enquiry type"
+ * select was DROPPED (Rob's decision; the PHP handler doesn't read it).
  */
 import Button from './Button.astro';
 
@@ -41,15 +44,6 @@ const { sitekey = 'REPLACE_WITH_CAPTCHA_SITE_KEY' } = Astro.props;
       required
       autocomplete="email"
     />
-  </div>
-  <div class="field">
-    <label for="ct">Enquiry type</label>
-    <select id="ct" name="enquiry_type">
-      <option>Investor relations</option>
-      <option>Partnering / business development</option>
-      <option>Media</option>
-      <option>General</option>
-    </select>
   </div>
   <div class="field">
     <label for="cm">Message</label>
