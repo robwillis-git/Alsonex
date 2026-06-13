@@ -25,6 +25,8 @@ interface Props {
   image?: string;
   /** image alt text */
   imageAlt?: string;
+  /** optional caption rendered below the image (ignored for the `media` slot) */
+  caption?: string;
   /** reveal stagger index for the media column */
   mediaDelay?: number;
 }
@@ -37,6 +39,7 @@ const {
   list = [],
   image,
   imageAlt,
+  caption,
   mediaDelay = 1,
 } = Astro.props;
 const hasAction = Astro.slots.has('action');
@@ -74,6 +77,15 @@ const cls = ['wrap', 'split', rev ? 'split--rev' : ''].filter(Boolean).join(' ')
     {hasAction && <slot name="action" />}
   </div>
   <div class="split__media reveal" data-d={rev ? undefined : mediaDelay}>
-    {hasMedia ? <slot name="media" /> : <img src={image} alt={imageAlt} />}
+    {
+      hasMedia ? (
+        <slot name="media" />
+      ) : (
+        <figure class="split__fig">
+          <img src={image} alt={imageAlt} />
+          {caption && <figcaption class="split__caption">{caption}</figcaption>}
+        </figure>
+      )
+    }
   </div>
 </div>

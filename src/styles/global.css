@@ -477,16 +477,30 @@ body.theme-meridian.cine .nav:not(.is-stuck) .nav__logo:focus-visible,
   order: -1;
 }
 .split__media {
-  border-radius: var(--r);
-  overflow: hidden;
   position: relative;
 }
+/* Wrapper for the `image` prop. The radius + clip live on the image itself (not
+   the figure) so the image stays rounded while the figcaption below sits OUTSIDE
+   the clipped box. The `media` slot (e.g. MoleculeViewer) provides its own
+   rounding and is unaffected. */
+.split__fig {
+  margin: 0;
+}
 .split__media img {
+  display: block;
   width: 100%;
   height: 100%;
   max-height: 520px;
   object-fit: cover;
   filter: var(--img-filter);
+  border-radius: var(--r);
+  overflow: hidden;
+}
+.split__caption {
+  margin-top: 10px;
+  font-size: 13px;
+  line-height: 1.45;
+  color: var(--ink-muted, #626f85);
 }
 .split ul {
   list-style: none;
