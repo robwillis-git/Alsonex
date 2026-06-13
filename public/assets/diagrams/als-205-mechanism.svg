@@ -13,8 +13,8 @@
   <!-- ===== C5a — blocked ===== -->
   <g id="am-c5a">
     <circle cx="84" cy="150" r="38" fill="none" stroke="#9aa6b8" stroke-width="2" stroke-dasharray="5 5"/>
-    <text x="84" y="156" font-family="'Newsreader', Georgia, serif" font-size="22" font-weight="500" fill="#8593a6" text-anchor="middle">C5a</text>
-    <text x="84" y="208" font-size="12.5" font-weight="600" fill="#8593a6" text-anchor="middle">cannot signal</text>
+    <text x="84" y="156" font-family="'Newsreader', Georgia, serif" font-size="22" font-weight="500" fill="#626f85" text-anchor="middle">C5a</text>
+    <text x="84" y="208" font-size="12.5" font-weight="600" fill="#626f85" text-anchor="middle">cannot signal</text>
   </g>
 
   <!-- blocked binding: dashed line stops short, with a no-entry cross -->

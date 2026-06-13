@@ -56,6 +56,6 @@
       <path d="M604 168 L604 220"/>
     </g>
     <circle cx="604" cy="168" r="14" fill="none" stroke="#c7ccd4" stroke-width="2" stroke-dasharray="3 5"/>
-    <text x="604" y="256" font-size="11.5" fill="#8593a6" text-anchor="middle">not replaced</text>
+    <text x="604" y="256" font-size="11.5" fill="#626f85" text-anchor="middle">not replaced</text>
   </g>
 </svg>
