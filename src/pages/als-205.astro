@@ -36,7 +36,7 @@ const orphanCards = [
   <PageHead
     eyebrow="Lead Compound"
     title="ALS-205 — The Evidence"
-    lead="ALS-205 is Alsonex's lead compound: a small-molecule, orally active, brain-penetrant C5a1-receptor antagonist — selective for the receptor that drives the damage. It has improved survival in animal models of MND and shown safe target engagement in patients, and it carries orphan-drug protection in both the United States and Europe."
+    lead="ALS-205 is a small-molecule, orally active, brain-penetrant C5a1-receptor antagonist — the receptor that drives much of the neurodegenerative damage. It has demonstrated improved survival and quality of life in animal models of Alzheimer's and MND and in human subjects safely and functionally engages with its target receptor. It has been granted orphan drug status in both the United States and Europe."
     watermark="ALS-205"
   />
 
@@ -45,15 +45,11 @@ const orphanCards = [
     <Split eyebrow="The molecule">
       <h2 class="display h-lg" style="margin:0 0 18px">A Selective C5a1-Receptor Antagonist</h2>
       <p style="color:var(--ink-soft)">
-        ALS-205 is a potent antagonist of the human C5a1 receptor with no activity at the C5a2
-        receptor. It binds to the human C5a1 receptor on white blood cells and is a functional
-        insurmountable antagonist. ALS-205 has shown similar effects on other cell types including
-        lymphocytes, monocytes and monocyte-derived macrophages. It is also highly receptor
-        selective, failing even at 100 μM concentrations to antagonise myeloperoxidase release from
-        leukocytes stimulated with fMet-Leu-Phe, leukotriene B4, platelet-activating factor, C3a, or
-        IL-8. ALS-205 is chemically stable to peptidase degradation in blood and gastric fluids and
-        is both small enough and sufficiently lipophilic to be orally active at ≤1 mg/kg/day in vivo
-        and readily accesses the brain.
+        ALS-205 is a potent and selective antagonist of the human C5a1 receptor with no significant
+        activity at any other receptors, including other complement receptors. It is an
+        insurmountable antagonist, causing a conformational change to the receptor preventing C5a
+        binding and activation. ALS-205 is chemically stable to peptidase degradation in blood and
+        gastric fluids and is orally active at ≤1 mg/kg/day in vivo — readily accessing the brain.
       </p>
       <MoleculeViewer client:visible slot="media" />
     </Split>
@@ -70,10 +66,11 @@ const orphanCards = [
         they struggle to reach the very neuroinflammation that takes hold inside the central nervous
         system; and being proteins, they cannot survive the gut and must be delivered by injection
         or infusion — a considerable burden when treatment is lifelong, as it is in
-        neurodegenerative disease. ALS-205 is not an antibody. It is a small molecule, and that
-        difference is deliberate: small enough and sufficiently lipophilic to be taken by mouth and
-        to reach the brain, it can get to where the damage is being done and be dosed for the long
-        term without the demands of regular infusion.
+        neurodegenerative disease. ALS-205 is not an antibody. It is a small molecule that readily
+        accesses the brain with a long receptor residence time making it suitable for once-a-day
+        dosing. Critically, it can get to where the damage is being done, as inhibiting peripheral
+        circulating complement with a C5 antibody or similar is not going to impact complement
+        produced by brain cells.
       </p>
       <p class="reveal prose-caption" style="font-size:15px">
         Three properties, one small molecule: oral, brain-penetrant, and selective for the receptor
@@ -91,15 +88,15 @@ const orphanCards = [
       </div>
       <p class="reveal" style="color:var(--ink-soft)">
         ALS-205 has completed a Single Ascending and Multiple Ascending Dose (SAD/MAD) Phase I
-        clinical trial in healthy volunteers, establishing a suitable dose for future clinical
-        studies. A Phase Ib clinical trial in subjects with MND has since been completed,
-        demonstrating safe target engagement in the intended patient population and properties
-        suitable for further development.
+        clinical trial in healthy volunteers, establishing a safe suitable dose with demonstrable
+        effective binding to the C5a receptor. A Phase Ib clinical trial in subjects with MND has
+        also been completed, demonstrating safe target engagement in the intended patient population
+        and properties suitable for ongoing development.
       </p>
       <p class="reveal" style="color:var(--ink-soft);margin-top:14px">
         Together these trials establish what every drug-development programme needs before it can go
         further: a dose, a safety profile, and evidence that the molecule reaches and engages its
-        target in the people it is meant to help.
+        biochemical target effectively in people it is designed to help.
       </p>
     </div>
   </section>
@@ -116,21 +113,20 @@ const orphanCards = [
       <p class="reveal" style="color:var(--ink-soft)">
         Although the majority of ALS cases are sporadic, approximately 10% are of genetic origin due
         to missense mutations in the copper-zinc superoxide dismutase 1 (SOD1) enzyme. This has led
-        to the development of transgenic animal models (transgenic SOD1G93A rats) of ALS expressing
-        multiple copies of this mutant human SOD1 gene. The classical complement component C1q is
-        elevated in spinal cord tissue or isolated motor neurons in transgenic mouse models of ALS.
+        to the development of transgenic animal models (transgenic SOD1G93A rats) of MND expressing
+        multiple copies of this mutant human SOD1 gene and is a common model of human disease.
       </p>
       <p class="reveal" style="color:var(--ink-soft);margin-top:14px">
         The complement factor C5a is a major effector of all complement activation pathways and
         recruits and activates inflammatory cells. C5a is also produced locally in the CNS and the
         C5a1 receptor is present on neurons and glia. In addition, in transgenic SOD1G93A rats,
         significant deposition of complement factor C3/C3b and an up-regulation of the C5a1 receptor
-        and C5a2 receptor in the diseased spinal cord has been shown. Chronic oral administration of
-        ALS-205 to SOD1G93A transgenic rats significantly reduced end-stage (ES) motor-deficit
-        scores and enhanced survival times. This was also associated with reduced astroglial
-        proliferation in the regions of motor neuron degeneration. These studies demonstrated that
-        activation of complement and C5a1 receptors are involved in the progression of disease
-        pathology in transgenic SOD1G93A rats.
+        and C5a2 receptor in the diseased spinal cord has been shown. Oral administration of ALS-205
+        to SOD1G93A transgenic rats significantly reduced end-stage (ES) motor-deficit scores and
+        enhanced survival times. This was also associated with reduced astroglial proliferation in
+        the regions of motor neuron degeneration. These studies demonstrated that activation of
+        complement and C5a1 receptors are involved in the progression of disease pathology in
+        transgenic SOD1G93A rats.
       </p>
       <p class="reveal" style="color:var(--ink-soft);margin-top:14px">
         Similar findings have been repeated in transgenic mice models of ALS/MND, where survival is
@@ -196,18 +192,26 @@ const orphanCards = [
       </div>
       <ul class="refs reveal">
         <li>
-          The Complement Factor C5a Contributes to Pathology in a Rat Model of Amyotrophic Lateral
-          Sclerosis: J Immunol. 2008; 181(12):8727-34.
+          Targeting the C5-C5aR1 axis: A promising therapeutic strategy for Alzheimer's disease and
+          amyotrophic lateral sclerosis by unlocking neuroprotection: Biochem Pharmacol. 2026
+          Jan;243(Pt 1):117518.
         </li>
         <li>
-          Versatility of the complement system in neuroinflammation, neurodegeneration and brain
-          homeostasis: Front Cell Neurosci. 2014 Nov 7;8:380.
+          Knowing the enemy: strategic targeting of complement to treat Alzheimer disease: Nat Rev
+          Neurol 21, 250–264 (2025).
+        </li>
+        <li>
+          The complement system in neurodegenerative diseases: Clin Sci (Lond). 2024 Mar
+          20;138(6):387-412.
+        </li>
+        <li>
+          Modulation of C5a-C5aR1 signaling alters the dynamics of AD progression: J
+          Neuroinflammation. 2022 Jul 11;19(1):178.
         </li>
         <li>
           The elevation of the terminal complement activation product C5a and C5b-9 in ALS patient
           blood: J Neuroimmunol. 2014; 276(1-2):213-8.
         </li>
-        <li>The role of the innate immune system in ALS: Front Pharmacol. 2012; 3:150.</li>
         <li>
           Neuroinflammation in amyotrophic lateral sclerosis: role of glial activation in motor
           neuron disease: Lancet Neurol 2011; 10: 253–63.
