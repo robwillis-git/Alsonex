@@ -2,7 +2,7 @@
 title: Company Update
 summary: Through its research, Alsonex aspires to make a meaningful impact on neurodegenerative disease — with a first interest in MND/ALS and a growing interest in Parkinson's and Alzheimer's Disease.
 tag: Company Update
-order: 2
+order: 3
 draft: false
 image: /assets/news-plant.jpg
 imageAlt: A single monstera leaf in a clear glass vase against a pale wall

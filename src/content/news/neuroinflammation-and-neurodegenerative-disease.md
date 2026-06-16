@@ -2,7 +2,7 @@
 title: Neuroinflammation and Neurodegenerative Disease
 summary: New treatments are urgently required to slow the progression of neurodegenerative disease, an area of intensive research within the pharmaceutical industry.
 tag: Research
-order: 1
+order: 2
 draft: false
 ---
 
